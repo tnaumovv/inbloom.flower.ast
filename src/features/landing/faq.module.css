@@ -2,9 +2,6 @@
 .layout { display: grid; grid-template-columns: .85fr 1.35fr; align-items: start; gap: clamp(48px, 7vw, 112px); }
 .eyebrow { display: block; margin-bottom: 28px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .16em; color: #686b44; }
 .intro h2 { margin: 0; font-family: var(--font-display), Georgia, serif; font-size: clamp(40px, 4.3vw, 65px); font-weight: 400; line-height: 1.2; letter-spacing: -.045em; }
-.intro p { margin: 24px 0 28px; color: #686b44; font-size: 17px; line-height: 1.6; }
-.contact { font-size: 14px; padding-inline: 23px; min-height: 54px; }
-.contact svg { width: 20px; height: 20px; }
 .list { width: 100%; min-width: 0; border-top: 1px solid #30350f40; }
 .item, .nativeItem { border-bottom: 1px solid #30350f40; }
 .trigger { width: 100%; min-height: 80px; padding: 24px 4px; color: var(--color-deep-olive); font-size: 18px; line-height: 1.45; font-weight: 500; letter-spacing: -.015em; }
@@ -21,7 +18,6 @@
   .layout { grid-template-columns: 1fr; gap: 40px; }
   .eyebrow { margin-bottom: 20px; }
   .intro h2 { font-size: clamp(38px, 10vw, 48px); }
-  .intro p { margin-block: 20px 24px; font-size: 16px; }
   .trigger { min-height: 76px; padding-block: 22px; gap: 18px; font-size: 16px; }
   .answer { padding-right: 24px; font-size: 14px; }
 }

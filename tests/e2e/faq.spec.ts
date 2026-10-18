@@ -34,7 +34,7 @@ test('FAQ supports single disclosure, collapse and keyboard navigation', async (
   await page.screenshot({ path: '.frontend-workbench/inbloom-runtime/faq-desktop.png' });
 });
 
-test('FAQ source links and WhatsApp enquiry have the expected destinations', async ({ page }) => {
+test('FAQ keeps its source links and omits the removed introduction and CTA', async ({ page }) => {
   await page.goto('/#faq');
   const faq = page.locator('#faq');
   for (const [question, label, href] of [
@@ -45,9 +45,8 @@ test('FAQ source links and WhatsApp enquiry have the expected destinations', asy
     await faq.getByRole('button', { name: question, exact: true }).click();
     await expect(faq.getByRole('link', { name: label, exact: true })).toHaveAttribute('href', href);
   }
-  const enquiry = new URL((await faq.getByRole('link', { name: 'Задать свой вопрос', exact: false }).getAttribute('href'))!);
-  expect(enquiry.origin + enquiry.pathname).toBe('https://wa.me/77082204675');
-  expect(enquiry.searchParams.get('text')).toContain('по заказу букета');
+  await expect(faq.getByRole('link', { name: 'Задать свой вопрос', exact: false })).toHaveCount(0);
+  await expect(faq.getByText('Чтобы выбрать букет', { exact: false })).toHaveCount(0);
 });
 
 test('FAQ works on mobile with reduced motion and remains within the viewport', async ({ page }) => {
