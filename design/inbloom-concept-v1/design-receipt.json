@@ -1,0 +1,108 @@
+{
+  "renderer": "built-in image_gen",
+  "status": "first visual concept reviewed; pending user feedback",
+  "calls": 5,
+  "designOnly": true,
+  "dimensionsNote": "Desktop sources are 1536x1024. Complete page returned 887x1774 rather than preferred 1536x3072; native text remains readable and full-resolution bands are delivered separately. Mobile size is measured below. No scaling or local compositing used.",
+  "outputs": [
+    {
+      "id": "desktop-hero",
+      "path": "/Users/timurabishev/Downloads/bulvarflowers_astana /design/inbloom-concept-v1/01-hero.png",
+      "sha256": "57b400e570f74f363949c2a9ea7920ebb8a115647325ce219bdba70861431dbf",
+      "actualDimensions": [
+        1536,
+        1024
+      ],
+      "providerSource": "/Users/timurabishev/.codex/generated_images/01a14b78-3cf3-7f60-8ec0-1e560093690f/exec-e4be84d9-9dd1-431f-9e63-ebd34b309153.png",
+      "review": {
+        "verdict": "PASS",
+        "copy": "All hero and navigation labels match supplied content.",
+        "visibleClaimLedger": [
+          "Flower headline is creative copy, not service promise.",
+          "Bouquets in Astana matches business location.",
+          "No unsupported rating, timing, stock or discount claim."
+        ],
+        "sharedCritique": "Authentic logo and olive/coral flower identity, strong bouquet/choice hierarchy, readable Cyrillic and controls, feasible standard frontend composition.",
+        "limitations": "Conceptual photographic treatment of catalogue bouquet, not an actual new product photo."
+      }
+    },
+    {
+      "id": "desktop-showcase",
+      "path": "/Users/timurabishev/Downloads/bulvarflowers_astana /design/inbloom-concept-v1/02-showcase.png",
+      "sha256": "4c0f897853af82eb5df9f16424ff06ae0a395f7b1ca0cd7f3881643b8eb39d76",
+      "actualDimensions": [
+        1536,
+        1024
+      ],
+      "providerSource": "/Users/timurabishev/.codex/generated_images/01a14b78-3cf3-7f60-8ec0-1e560093690f/exec-5df35858-f09d-4a67-b3c6-55ba2a0bbc2f.png",
+      "review": {
+        "verdict": "PASS",
+        "copy": "Four correct name/price pairs and WhatsApp labels; catalogue exit correct.",
+        "visibleClaimLedger": [
+          "No rating, deadline, discount, availability or review claim.",
+          "Prices: Cloud 18700, White bloom 13200, Soft s 10700, Sophie basket S 12100 from current source catalogue."
+        ],
+        "continuity": "Distinct calm cream comparative selection, inherited olive/coral type and action system; root header not repeated.",
+        "limitation": "Generated isolation/relighting approximates source photos; not a lossless reproduction."
+      }
+    },
+    {
+      "id": "desktop-studio-contact",
+      "path": "/Users/timurabishev/Downloads/bulvarflowers_astana /design/inbloom-concept-v1/03-studio-contact.png",
+      "sha256": "c1d40b7f8cd66de89892e94e55afebd4232227c08aa0566e8354982c058de863",
+      "actualDimensions": [
+        1536,
+        1024
+      ],
+      "providerSource": "/Users/timurabishev/.codex/generated_images/01a14b78-3cf3-7f60-8ec0-1e560093690f/exec-6789b44c-a3a6-4592-ad82-69d5f888a405.png",
+      "review": {
+        "verdict": "PASS",
+        "copy": "Studio character, custom enquiry, three steps and all contacts legible and correctly transcribed.",
+        "visibleClaimLedger": [
+          "Rare exotic/dopamine/classic positioning from public Instagram bio.",
+          "Address and phone from public 2GIS/Wolt.",
+          "Delivery by Astana from public Instagram.",
+          "No hours, discounts, guarantees, invented staff or reviews."
+        ],
+        "continuity": "Olive/coral typographic close, no root navigation, no repeated bouquet product image. Decorative floral illustration is not presented as catalogue item."
+      }
+    },
+    {
+      "id": "desktop-complete",
+      "path": "/Users/timurabishev/Downloads/bulvarflowers_astana /design/inbloom-concept-v1/04-complete-landing.png",
+      "sha256": "b88cf30f5ade6d8fbdcaf234aa4f6971fb3160f2ffd485891e10fd144d2c3a87",
+      "actualDimensions": [
+        887,
+        1774
+      ],
+      "providerSource": "/Users/timurabishev/.codex/generated_images/01a14b78-3cf3-7f60-8ec0-1e560093690f/exec-67bb54bf-8343-45a0-8e01-160ede2a51b6.png",
+      "review": {
+        "verdict": "PASS",
+        "sourceOrder": "hero, showcase, studio-contact",
+        "fidelity": "All sections, four exact prices/names, CTA labels and contacts retained; source images and botanical details have small generative drift.",
+        "seamChecks": "Intentional olive/cream/olive boundaries retained; no second root header, missing sections or repeated hero.",
+        "rhythmChecks": "Large photo-led introduction, four-item comparative cream selection, typographic personal close with compact logistics.",
+        "limitation": "ImageGen assembly is not lossless stitching and is not a runtime screenshot."
+      }
+    },
+    {
+      "id": "mobile-hero",
+      "path": "/Users/timurabishev/Downloads/bulvarflowers_astana /design/inbloom-concept-v1/05-mobile-hero.png",
+      "sha256": "0c5a696a1f0b40a5c42feeae395af39a1b27722167d920bf8707f7f4d5e7cbe5",
+      "actualDimensions": [
+        948,
+        1659
+      ],
+      "providerSource": "/Users/timurabishev/.codex/generated_images/01a14b78-3cf3-7f60-8ec0-1e560093690f/exec-757852d4-1a97-4b98-8dae-73dcc20ca29c.png",
+      "review": {
+        "verdict": "PASS",
+        "copy": "All hero labels preserved, one brand mark and compact navigation.",
+        "claimLedger": [
+          "Astana bouquet copy matches intended surface, no unsupported metric or service guarantee."
+        ],
+        "continuity": "Same logo, exact shared bouquet identity, serif/sans/olive/coral system; mobile allocation differs from desktop.",
+        "limitation": "Mobile hero bitmap only; no runtime or full mobile-page claim."
+      }
+    }
+  ]
+}

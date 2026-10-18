@@ -1,0 +1,80 @@
+{
+  "workflowProfile": "standard",
+  "authority": "Non-promotable static visual proposal",
+  "verdict": "PASS as preview set",
+  "mode": "Built-in ImageGen",
+  "usedRenderCalls": 3,
+  "preflightValidationErrors": 1,
+  "directionPath": "/Users/timurabishev/Downloads/bulvarflowers_astana /.frontend-workbench/inbloom-landing-v3-continuation/direction.json",
+  "directionSha256": "a455309700de531fb64e8bb1581b52df99945d16353afa2de34b9d17bc27f6cb",
+  "promptsPath": "/Users/timurabishev/Downloads/bulvarflowers_astana /design/inbloom-landing-v3/prompts.json",
+  "sourceBands": [
+    {
+      "path": "/Users/timurabishev/Downloads/bulvarflowers_astana /design/inbloom-landing-v3/01-hero.png",
+      "sha256": "3e5853ecb5ba39e0323452d40acd40d0d0a4e9b66eb1015b4eb63e42bd3fe61a",
+      "dimensions": [
+        1536,
+        1024
+      ]
+    },
+    {
+      "path": "/Users/timurabishev/Downloads/bulvarflowers_astana /design/inbloom-landing-v3/02-showcase.png",
+      "sha256": "5fb1296abb67a1ff94d0d49fdc057e832ca04a8133fe9af8896577b9ed568e2d",
+      "dimensions": [
+        1536,
+        1024
+      ]
+    },
+    {
+      "path": "/Users/timurabishev/Downloads/bulvarflowers_astana /design/inbloom-landing-v3/03-order-contact.png",
+      "sha256": "48f677736330e024ce3562bbc011a2336a9befd2ad6535d3ab51faa54fc8312d",
+      "dimensions": [
+        1536,
+        1024
+      ]
+    }
+  ],
+  "assembly": {
+    "id": "complete-landing",
+    "verdict": "PASS as static assembled overview",
+    "providerSource": "/Users/timurabishev/.codex/generated_images/01a14b78-3cf3-7f60-8ec0-1e560093690f/exec-b7344c12-25af-46fe-982a-f9cd63418c2e.png",
+    "path": "/Users/timurabishev/Downloads/bulvarflowers_astana /design/inbloom-landing-v3/04-complete-landing.png",
+    "sha256": "d88604e8f618c30246edb08ecdf4cd290fab43920d52ef3048614135944b1bc7",
+    "actualDimensions": [
+      887,
+      1774
+    ],
+    "preferredDimensions": [
+      1536,
+      3072
+    ],
+    "dimensionNote": "Provider returned 887×1774 native, aspect 1:2. Not upscaled. Separate viewport sources retain 1536×1024 detail.",
+    "bitmapChecks": {
+      "topology": "One continuous page from three reviewed sources.",
+      "shell": "One navigation header, contact footer once.",
+      "joins": "Cream leaf silhouette across hero/showcase boundary and olive leaf silhouette across showcase/close boundary. Matching remnants merged; no raw horizontal tonal cut.",
+      "copy": "Source product names, prices, address, phone and actions remain legible and unchanged.",
+      "imagery": "Original sculptural hero retained; four unique product identities; unique floral closing detail.",
+      "rhythm": "Large opening scene -> light comparative selection -> compact conversation and location; no repeated hero layout.",
+      "claimLedger": [
+        "Cloud — 18 700 ₸",
+        "White bloom — 13 200 ₸",
+        "Soft s — 10 700 ₸",
+        "Sophie basket S — 12 100 ₸",
+        "Астана, проспект Женис, 8/1",
+        "Доставка по Астане",
+        "Стоимость и время уточняйте в WhatsApp.",
+        "+7 708 220 46 75",
+        "inbloom.flower.ast"
+      ],
+      "claimAuthority": "Same-task source facts frozen in direction.json. No new claim introduced."
+    },
+    "limitations": [
+      "Static raster design, no 3D mesh or functioning links.",
+      "Overview native width is lower than preferred target; source bands are full width.",
+      "Source closing handle row uses a paper-plane icon; replace with Instagram icon or plain handle during implementation."
+    ]
+  },
+  "scope": "Continue existing v3 hero with showcase and enquiry/order/contact blocks; user-requested botanical section boundaries. No code generated.",
+  "research": "Same-task verified 2026-10-18 public source evidence reused; no new market research needed for this presentation continuation."
+}

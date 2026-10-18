@@ -1,0 +1,26 @@
+{
+  "status": "Sampled from public identity; proposed web roles, not an official brand guide",
+  "source": "https://www.instagram.com/inbloom.flower.ast/",
+  "colors": [
+    {
+      "role": "brand olive",
+      "hex": "#787937",
+      "source": "dominant logo background pixel cluster"
+    },
+    {
+      "role": "coral pink",
+      "hex": "#E89F94",
+      "source": "dominant logo mark pixel cluster"
+    },
+    {
+      "role": "warm cream",
+      "hex": "#FAF4DF",
+      "source": "proposed web surface based on public highlight covers"
+    },
+    {
+      "role": "deep olive",
+      "hex": "#30350F",
+      "source": "proposed accessible text shade"
+    }
+  ]
+}
