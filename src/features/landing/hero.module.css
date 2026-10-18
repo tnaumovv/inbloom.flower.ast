@@ -1,0 +1,29 @@
+.hero { position: relative; isolation: isolate; min-height: clamp(760px, 66.6667vw, 1100px); background: #353b19; }
+.art { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
+.image { object-fit: cover; object-position: center; }
+.content { padding-top: clamp(240px, 17.7vw, 310px); padding-bottom: 190px; }
+.content h1 { margin: 0; max-width: 740px; font-family: var(--font-display), Georgia, serif; font-size: clamp(110px, 10.85vw, 180px); font-weight: 400; letter-spacing: -.055em; line-height: .83; }
+.content h1 span { display: block; }
+.content p { margin: 32px 0 0; max-width: 600px; font-size: clamp(17px, 1.55vw, 25px); line-height: 1.55; letter-spacing: -.025em; }
+.actions { display: flex; gap: 18px; margin-top: 50px; }
+.actions a { min-width: 222px; }
+@media (min-width: 1800px) { .hero { min-height: 1080px; } .content { padding-top: 310px; } }
+@media (max-width: 1023px) and (min-width: 601px) {
+  .hero { min-height: 800px; }
+  .art::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, #30350f66, transparent 90%); }
+  .content { padding-top: 230px; }
+  .content h1 { font-size: 108px; }
+  .content p { max-width: 420px; }
+  .actions { flex-wrap: wrap; max-width: 500px; }
+}
+@media (max-width: 600px) {
+  .hero { min-height: 870px; background: #353b19; }
+  .art { top: 385px; bottom: 0; }
+  .image { object-position: 72% center; }
+  .art::after { content: ''; position: absolute; inset: 0; background: linear-gradient(#353b19 0%, #353b1900 20%); }
+  .content { position: relative; padding-top: 153px; padding-bottom: 450px; }
+  .content h1 { font-size: clamp(72px, 20vw, 106px); line-height: .88; letter-spacing: -.05em; }
+  .content p { max-width: 330px; font-size: 15px; line-height: 1.6; margin-top: 24px; }
+  .actions { gap: 10px; margin-top: 25px; }
+  .actions a { min-width: 0; padding: 13px 15px; min-height: 48px; font-size: 12px; }
+}

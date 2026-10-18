@@ -5,8 +5,63 @@
   --color-olive: #787937;
   --color-deep-olive: #30350f;
   --color-coral: #e89f94;
+  --font-sans: var(--font-body);
+  --font-serif: var(--font-display);
 }
 
 :root { color-scheme: light; }
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--color-deep-olive); color: var(--color-cream); font-family: Arial, Helvetica, sans-serif; }
+html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+body { margin: 0; background: var(--color-deep-olive); color: var(--color-cream); font-family: var(--font-body), Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+button, a { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+button { font: inherit; cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+button:focus-visible, a:focus-visible, summary:focus-visible, [tabindex="0"]:focus-visible { outline: 3px solid currentColor; outline-offset: 5px; }
+::selection { background: var(--color-coral); color: var(--color-deep-olive); }
+.site-container { width: 100%; max-width: 1680px; margin-inline: auto; padding-inline: clamp(24px, 5.5vw, 88px); }
+.icon { flex: 0 0 auto; width: 24px; height: 24px; }
+.link-button { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 58px; border: 1px solid transparent; padding: 16px 29px; border-radius: 999px; font-size: 15px; font-weight: 500; line-height: 1.35; transition: background 180ms, border-color 180ms, transform 180ms; }
+.link-button--primary { background: #f1a29b; color: var(--color-deep-olive); }
+.link-button--primary:hover { background: #ffc0b3; transform: translateY(-2px); }
+.link-button--outline { border-color: #faf4dfaa; color: var(--color-cream); }
+.link-button--outline:hover { background: #faf4df16; border-color: var(--color-cream); }
+.site-header { position: absolute; z-index: 30; inset: 0 0 auto; }
+.header-content { display: flex; align-items: center; justify-content: space-between; gap: 30px; padding-block: 36px; }
+.brand-link { display: block; flex-shrink: 0; }
+.brand-image { display: block; object-fit: contain; width: 136px; height: 90px; }
+.desktop-nav { display: flex; align-items: center; gap: 42px; margin-left: -60px; font-size: 15px; }
+.desktop-nav a { padding-block: 12px; transition: color 150ms; }
+.desktop-nav a:hover { color: #f1a29b; }
+.header-actions { display: flex; align-items: center; gap: 14px; }
+.header-whatsapp { min-height: 54px; padding: 13px 25px; }
+.header-whatsapp .icon { width: 21px; height: 21px; }
+.mobile-nav { display: none; position: relative; }
+.mobile-nav summary { display: grid; place-items: center; width: 46px; height: 46px; border: 1px solid #faf4df88; border-radius: 50%; cursor: pointer; list-style: none; }
+.mobile-nav summary::-webkit-details-marker { display: none; }
+.mobile-nav-panel { position: absolute; right: 0; top: 62px; display: flex; flex-direction: column; min-width: 220px; border: 1px solid #faf4df44; padding: 12px; border-radius: 20px; background: #303914; box-shadow: 0 16px 40px #171d1970; }
+.mobile-nav-panel a { padding: 14px 18px; border-radius: 10px; }
+.mobile-nav-panel a:hover { background: #faf4df12; }
+.botanical-edge { position: absolute; inset-inline: 0; height: 80px; z-index: 2; pointer-events: none; mask: url('/leaf-edge.svg') repeat-x bottom / 580px 80px; }
+.botanical-edge--top { top: -77px; }
+.botanical-edge--bottom { bottom: -77px; transform: rotate(180deg); }
+.botanical-edge--cream { background: var(--color-cream); }
+.botanical-edge--olive { background: #505723; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.skip-link { position: fixed; top: 12px; left: 12px; transform: translateY(-180%); z-index: 100; border-radius: 8px; padding: 12px 18px; background: var(--color-cream); color: var(--color-deep-olive); }
+.skip-link:focus { transform: translateY(0); }
+@media (max-width: 767px) {
+  .header-content { padding-block: 22px; gap: 18px; }
+  .brand-image { width: 106px; height: 76px; }
+  .desktop-nav { display: none; }
+  .mobile-nav { display: block; }
+  .header-whatsapp { min-height: 46px; padding: 11px 15px; gap: 7px; font-size: 12px; }
+  .header-whatsapp .icon { width: 19px; height: 19px; }
+  .header-actions { gap: 10px; }
+  .botanical-edge { height: 56px; mask-size: 410px 56px; }
+  .botanical-edge--top { top: -53px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; }
+  .link-button:hover { transform: none; }
+}

@@ -1,3 +1,6 @@
+import { SiteHeader } from '@/components/layout/site-header';
+import { Hero } from '@/features/landing/hero';
+
 export default function Home() {
-  return <main><h1>Цветы в Астане</h1></main>;
+  return <><SiteHeader/><main id="main"><Hero/></main></>;
 }
