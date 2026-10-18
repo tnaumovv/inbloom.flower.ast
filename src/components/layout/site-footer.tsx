@@ -22,7 +22,7 @@ export function SiteFooter() {
         </div>
       </div>
       <figure className="footer-map">
-        <iframe title="Магазин In Bloom на карте 2ГИС" src={siteConfig.mapEmbedUrl} loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen/>
+        <iframe title="Магазин In Bloom на карте 2ГИС" src={siteConfig.mapEmbedUrl} loading="eager" referrerPolicy="no-referrer-when-downgrade" allowFullScreen/>
         <figcaption><span>In Bloom на карте</span><a href={siteConfig.mapUrl} target="_blank" rel="noopener noreferrer">Открыть в 2ГИС <Icon name="arrow-up-right"/></a></figcaption>
       </figure>
     </div>

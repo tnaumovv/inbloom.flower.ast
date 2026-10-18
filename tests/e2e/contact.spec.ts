@@ -24,7 +24,7 @@ test('footer presents the source contacts and correct external destinations', as
   expect(whatsapp.origin + whatsapp.pathname).toBe('https://wa.me/77082204675');
   expect(whatsapp.searchParams.get('text')).toContain('Хочу заказать букет');
   const map = footer.getByTitle('Магазин In Bloom на карте 2ГИС');
-  await expect(map).toHaveAttribute('loading', 'lazy');
+  await expect(map).toHaveAttribute('loading', 'eager');
   const embed = new URL((await map.getAttribute('src'))!);
   expect(embed.origin + embed.pathname).toBe('https://widgets.2gis.com/widget');
   const options = JSON.parse(embed.searchParams.get('options')!);
