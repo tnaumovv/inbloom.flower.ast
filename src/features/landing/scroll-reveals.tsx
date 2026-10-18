@@ -4,37 +4,32 @@ import { useEffect } from 'react';
 
 export function ScrollReveals() {
   useEffect(() => {
+    if (!('IntersectionObserver' in window)) return;
     const elements = document.querySelectorAll<HTMLElement>('[data-reveal]');
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (motion.matches || !('IntersectionObserver' in window)) return;
-
     const observer = new IntersectionObserver(entries => {
       for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        (entry.target as HTMLElement).dataset.reveal = 'visible';
-        observer.unobserve(entry.target);
+        const element = entry.target as HTMLElement;
+        if (motion.matches || entry.isIntersecting || entry.boundingClientRect.bottom <= 0) {
+          element.dataset.reveal = 'visible';
+        } else if (entry.boundingClientRect.top >= window.innerHeight - 64) {
+          element.dataset.reveal = 'pending';
+        }
       }
-    }, { rootMargin: '0px 0px -48px 0px' });
+    }, { rootMargin: '0px 0px -64px 0px' });
 
-    // Enhance only content below the viewport; server HTML stays readable without JS.
-    for (const element of elements) {
-      if (element.getBoundingClientRect().top < window.innerHeight - 48) {
-        element.dataset.reveal = 'visible';
-      } else {
-        element.dataset.reveal = 'pending';
+    const updatePreference = () => {
+      for (const element of elements) {
+        // Keep server HTML readable; only stage content below the viewport for entry.
+        element.dataset.reveal = !motion.matches && element.getBoundingClientRect().top >= window.innerHeight - 64 ? 'pending' : 'visible';
         observer.observe(element);
       }
-    }
-
-    const stopMotion = () => {
-      if (!motion.matches) return;
-      observer.disconnect();
-      elements.forEach(element => { element.dataset.reveal = 'visible'; });
     };
-    motion.addEventListener('change', stopMotion);
+    updatePreference();
+    motion.addEventListener('change', updatePreference);
     return () => {
       observer.disconnect();
-      motion.removeEventListener('change', stopMotion);
+      motion.removeEventListener('change', updatePreference);
       elements.forEach(element => { element.dataset.reveal = ''; });
     };
   }, []);

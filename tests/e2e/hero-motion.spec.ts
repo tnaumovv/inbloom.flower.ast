@@ -4,7 +4,7 @@ test('the transparent header leaves the hero actions available and the scene res
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.goto('/');
-  await expect(page.locator('.site-header').getByRole('link', { name: 'WhatsApp', exact: true })).toHaveCount(1);
+  await expect(page.locator('.site-header').getByRole('link', { name: 'WhatsApp', exact: true })).toHaveCount(0);
   await page.mouse.move(20, 700);
   const bouquet = page.locator('[data-hero-bouquet]');
   await page.mouse.move(1000, 300);

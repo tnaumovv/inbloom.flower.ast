@@ -9,13 +9,12 @@ export function useBouquetCarousel() {
   const [viewportRef, api] = useEmblaCarousel({ loop: true, align: 'start', breakpoints: { '(max-width: 600px)': { align: 'center' } } }, [autoScroll]);
   const [selected, setSelected] = useState(0);
   const [playing, setPlaying] = useState(false);
-  const [paused, setPaused] = useState(false);
-  const policy = useRef({ visible: false, hovered: false, focused: false, dragging: false, hidden: false, reduced: false, paused: false });
+  const policy = useRef({ visible: false, hovered: false, focused: false, dragging: false, hidden: false, reduced: false, resumeDelay: 500 });
 
   const syncPlayback = useCallback(() => {
     if (!api) return;
     const state = policy.current;
-    if (state.visible && !state.hovered && !state.focused && !state.dragging && !state.hidden && !state.reduced && !state.paused) autoScroll.play(500);
+    if (state.visible && !state.hovered && !state.focused && !state.dragging && !state.hidden && !state.reduced) autoScroll.play(state.resumeDelay);
     else autoScroll.stop();
   }, [api, autoScroll]);
 
@@ -54,19 +53,12 @@ export function useBouquetCarousel() {
     };
   }, [api, autoScroll, syncPlayback]);
 
-  const togglePause = () => {
-    policy.current.paused = !policy.current.paused;
-    setPaused(policy.current.paused);
-    syncPlayback();
-  };
   const onPointerDown = (event: PointerEvent<HTMLElement>) => {
-    if (event.pointerType === 'mouse' || (event.target as HTMLElement).closest('button')) return;
-    policy.current.paused = true;
-    setPaused(true);
-    syncPlayback();
+    policy.current.resumeDelay = event.pointerType === 'mouse' ? 500 : 1600;
   };
   const onPointerEnter = (event: PointerEvent<HTMLElement>) => {
     if (event.pointerType !== 'mouse') return;
+    policy.current.resumeDelay = 500;
     policy.current.hovered = true;
     syncPlayback();
   };
@@ -76,7 +68,7 @@ export function useBouquetCarousel() {
     syncPlayback();
   };
   const onFocus = (event: FocusEvent<HTMLElement>) => {
-    policy.current.focused = !(event.target as HTMLElement).closest('[data-motion-toggle]');
+    policy.current.focused = (event.target as HTMLElement).matches(':focus-visible');
     syncPlayback();
   };
   const onBlur = (event: FocusEvent<HTMLElement>) => {
@@ -86,6 +78,7 @@ export function useBouquetCarousel() {
   };
   const navigate = (target: 'next' | 'previous' | number) => {
     if (!api) return;
+    policy.current.focused = true;
     autoScroll.stop();
     api.rootNode().scrollLeft = 0;
     const jump = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -94,5 +87,5 @@ export function useBouquetCarousel() {
     else api.scrollTo(target, jump);
   };
 
-  return { viewportRef, ready: Boolean(api), selected, playing, paused, togglePause, navigate, onPointerDown, onPointerEnter, onPointerLeave, onFocus, onBlur };
+  return { viewportRef, ready: Boolean(api), selected, playing, navigate, onPointerDown, onPointerEnter, onPointerLeave, onFocus, onBlur };
 }

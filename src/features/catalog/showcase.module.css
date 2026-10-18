@@ -9,11 +9,6 @@
 .viewport[data-enhanced] .track { width: 100%; padding-inline: 0; touch-action: pan-y pinch-zoom; }
 .slide { flex: 0 0 var(--card-width); width: var(--card-width); min-width: 0; scroll-snap-align: start; perspective: 1100px; }
 .card { margin: 0; min-width: 0; }
-.controls { display: flex; align-items: center; justify-content: center; gap: 16px; margin: 4px 0 22px; }
-.controls button { display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid #30350f66; border-radius: 50%; background: transparent; color: inherit; transition: background 180ms, color 180ms; }
-.controls button:hover:not(:disabled) { background: var(--color-deep-olive); color: var(--color-cream); }
-.controls button:disabled { opacity: .3; cursor: default; }
-.controls svg { width: 20px; height: 20px; }
 .catalogueLink { display: flex; align-items: center; justify-content: center; gap: 8px; width: fit-content; min-height: 44px; margin: 14px auto 0; border-bottom: 1px solid currentColor; color: #a0442b; font-size: 16px; transition: color 180ms; }
 .catalogueLink svg { width: 18px; height: 18px; }
 .catalogueLink:hover { color: var(--color-deep-olive); }
@@ -28,4 +23,3 @@
   .track { padding-block: 34px; }
   .catalogueLink { font-size: 14px; }
 }
-@media (prefers-reduced-motion: reduce) { .motionToggle { display: none !important; } }

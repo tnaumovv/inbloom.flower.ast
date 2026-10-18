@@ -51,7 +51,11 @@ test('mobile header stays usable after scrolling and anchors clear the fixed hea
   await expect(header.getByRole('link', { name: 'In Bloom — на главную' })).toBeInViewport();
   await expect(toggle).toBeInViewport();
   expect((await header.boundingBox())!.y).toBe(0);
-  await expect(header.getByRole('link', { name: 'WhatsApp', exact: true })).toHaveCount(1);
+  await expect(header.getByRole('link', { name: 'WhatsApp', exact: true })).toHaveCount(0);
+  const whatsapp = page.getByRole('link', { name: 'Написать в WhatsApp', exact: true });
+  await expect(whatsapp).toBeInViewport();
+  await expect(whatsapp).toHaveAttribute('href', /^https:\/\/wa\.me\/77082204675\?text=/);
+  expect(await whatsapp.evaluate(el => getComputedStyle(el).position)).toBe('fixed');
   await toggle.click();
   const nav = page.getByRole('navigation', { name: 'Мобильная навигация' });
   await nav.getByRole('menuitem', { name: 'Букеты', exact: true }).click();

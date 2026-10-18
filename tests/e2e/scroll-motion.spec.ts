@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 for (const width of [390, 1440]) {
-  test(`sections reveal once on scroll at ${width}px`, async ({ page }) => {
+  test(`sections animate again when scrolling down at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 844 });
     await page.emulateMedia({ reducedMotion: 'no-preference' });
     await page.goto('/');
@@ -12,7 +12,10 @@ for (const width of [390, 1440]) {
     await expect(copy).toHaveCSS('opacity', '1');
     await expect(copy).toHaveCSS('transform', 'none');
     await page.evaluate(() => scrollTo({ top: 0, behavior: 'instant' }));
+    await expect(copy).toHaveAttribute('data-reveal', 'pending');
+    await copy.evaluate(el => el.scrollIntoView({ block: 'center', behavior: 'instant' }));
     await expect(copy).toHaveAttribute('data-reveal', 'visible');
+    await expect(copy).toHaveCSS('opacity', '1');
     await page.locator('#contacts').evaluate(el => el.scrollIntoView({ block: 'start', behavior: 'instant' }));
     const brand = page.locator('.site-header .brand-link');
     await expect(brand).toBeInViewport();
@@ -30,6 +33,8 @@ test('reduced motion keeps offscreen content visible and updates without a reloa
   await expect(copy).toHaveCSS('transform', 'none');
   await expect(page.locator('[data-reveal="pending"]')).toHaveCount(0);
   await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await expect(copy).toHaveAttribute('data-reveal', 'pending');
+  await copy.evaluate(el => el.scrollIntoView({ block: 'center', behavior: 'instant' }));
   await expect(copy).toHaveCSS('opacity', '1');
 });
 

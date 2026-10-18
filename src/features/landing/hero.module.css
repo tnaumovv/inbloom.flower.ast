@@ -47,10 +47,10 @@
   .groundShadow { width: 80%; right: -35%; bottom: 6%; }
   .petal { left: calc(var(--left) - 20%); }
   .content { position: relative; z-index: 1; display: grid; grid-template-rows: minmax(min-content, 1fr) auto; gap: 32px; min-height: 100svh; padding-top: 140px; padding-bottom: max(64px, calc(env(safe-area-inset-bottom) + 48px)); }
-  .copy { align-self: center; transform: translateY(32px); text-align: center; text-shadow: 0 2px 18px #17210faa; }
+  .copy { align-self: center; transform: translateY(32px); text-align: left; text-shadow: 0 2px 18px #17210faa; }
   .content h1 { font-size: clamp(50px, 14vw, 82px); line-height: 1.12; letter-spacing: -.045em; }
-  .content p { max-width: 280px; margin: 24px auto 0; font-size: 15px; line-height: 1.6; }
-  .actions { flex-direction: column; align-items: stretch; justify-self: center; width: min(100%, 320px); gap: 12px; margin-top: 0; }
+  .content p { max-width: 280px; margin: 24px 0 0; font-size: 15px; line-height: 1.6; }
+  .actions { flex-direction: column; align-items: stretch; justify-self: start; width: min(240px, calc(100% - 56px)); gap: 12px; margin-top: 0; }
   .actions a { min-width: 0; padding: 14px 18px; min-height: 48px; font-size: 13px; }
   .actions svg { display: none; }
 }

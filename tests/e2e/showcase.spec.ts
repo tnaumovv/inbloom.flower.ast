@@ -36,6 +36,7 @@ test('carousel wraps in both directions and preserves product links and keyboard
   await page.goto('/#bouquets');
   const viewport = page.getByRole('region', { name: 'Лента букетов', exact: true });
   const status = page.getByRole('status');
+  await expect(page.locator('#bouquets').getByRole('button')).toHaveCount(0);
   for (const [name, price] of [['Cloud', '18 700'], ['White bloom', '13 200'], ['Soft s', '10 700'], ['Sophie basket S', '12 100'], ['Green red', '20 300'], ['Autumn', '15 400']]) {
     const card = page.getByRole('article', { name, exact: true });
     await expect(card.getByRole('link')).toHaveCount(1);
@@ -46,9 +47,9 @@ test('carousel wraps in both directions and preserves product links and keyboard
   await viewport.focus();
   await viewport.press('Home');
   await expect(status).toContainText('1 из 6');
-  await page.getByRole('button', { name: 'Предыдущий букет' }).click();
+  await viewport.press('ArrowLeft');
   await expect(status).toContainText('6 из 6');
-  await page.getByRole('button', { name: 'Следующий букет' }).click();
+  await viewport.press('ArrowRight');
   await expect(status).toContainText('1 из 6');
   await viewport.focus();
   await viewport.press('End');
@@ -59,7 +60,7 @@ test('carousel wraps in both directions and preserves product links and keyboard
   expect(Math.abs(await movement(viewport.locator('> div')))).toBeLessThan(.5);
 });
 
-test('touch pauses the moving carousel until resume and resizing keeps it usable', async ({ browser }) => {
+test('touch pauses the carousel while held and resumes after release without buttons', async ({ browser }) => {
   const context = await browser.newContext({ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true, reducedMotion: 'no-preference' });
   const page = await context.newPage();
   await page.goto('/#bouquets');
@@ -67,11 +68,11 @@ test('touch pauses the moving carousel until resume and resizing keeps it usable
   const track = viewport.locator('> div');
   await expect.poll(() => movement(track)).toBeLessThan(-5);
   const box = (await viewport.boundingBox())!;
-  await page.touchscreen.tap(180, box.y + 160);
-  const resume = page.getByRole('button', { name: 'Продолжить движение букетов' });
-  await expect(resume).toBeVisible();
+  const touch = await context.newCDPSession(page);
+  await touch.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: 180, y: box.y + 160 }] });
+  await expect(page.locator('#bouquets').getByRole('button')).toHaveCount(0);
   await expect.poll(async () => Math.abs(await movement(track))).toBeLessThan(.5);
-  await resume.click();
+  await touch.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
   await expect.poll(() => movement(track)).toBeLessThan(-5);
   await viewport.focus();
   await viewport.press('End');

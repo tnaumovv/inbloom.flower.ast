@@ -10,7 +10,7 @@ export function Faq() {
         <span className={styles.eyebrow}>Частые вопросы</span>
         <h2 id="faq-title">О цветах<br/>и не только</h2>
       </div>
-      <div data-reveal><FaqAccordion items={faqItems}/></div>
+      <div data-reveal data-reveal-delay><FaqAccordion items={faqItems}/></div>
     </Container>
   </section>;
 }

@@ -7,8 +7,9 @@ import { OrderSteps } from '@/features/landing/order-steps';
 import { Faq } from '@/features/landing/faq';
 import { SiteFooter } from '@/components/layout/site-footer';
 import { ScrollReveals } from '@/features/landing/scroll-reveals';
+import { FloatingWhatsApp } from '@/features/contact/floating-whatsapp';
 
 export default async function Home() {
   const bouquets = await getFeaturedBouquets();
-  return <><SiteHeader/><main id="main"><Hero/><Showcase bouquets={bouquets}/><div className="studio-shell"><CustomBouquet/><OrderSteps/></div><Faq/></main><SiteFooter/><ScrollReveals/></>;
+  return <><SiteHeader/><FloatingWhatsApp/><main id="main"><Hero/><Showcase bouquets={bouquets}/><div className="studio-shell"><CustomBouquet/><OrderSteps/></div><Faq/></main><SiteFooter/><ScrollReveals/></>;
 }
