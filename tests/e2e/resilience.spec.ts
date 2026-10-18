@@ -32,9 +32,12 @@ for (const width of [360, 390, 601, 768, 1023, 1440]) {
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
     expect(errors).toEqual([]);
     if (width <= 600) {
-      const action = await page.getByRole('link', { name: 'Написать флористу', exact: true }).boundingBox();
+      const title = await page.getByRole('heading', { level: 1 }).boundingBox();
       const bouquet = await page.locator('[data-hero-scene] img').boundingBox();
-      expect(bouquet!.y).toBeGreaterThan(action!.y + action!.height);
+      const hero = await page.locator('[data-hero-scene]').boundingBox();
+      expect(bouquet!.y).toBeLessThan(title!.y + title!.height);
+      expect(bouquet!.x + bouquet!.width).toBeGreaterThan(width);
+      expect(hero!.height).toBeLessThan(800);
     }
     if ([390, 601, 768, 1023, 1440].includes(width)) {
       await mkdir('.frontend-workbench/inbloom-runtime', { recursive: true });

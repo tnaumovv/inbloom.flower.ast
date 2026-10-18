@@ -40,16 +40,16 @@
   .actions { flex-wrap: wrap; max-width: 500px; }
 }
 @media (max-width: 600px) {
-  .hero { display: flex; flex-direction: column; min-height: 870px; }
-  .art { position: relative; inset: auto; order: 1; flex: 1 0 460px; min-height: 460px; }
-  .bouquetParallax { width: 110%; height: 90%; right: -8%; top: 8%; }
-  .groundShadow { width: 72%; right: 9%; bottom: 4%; }
+  .hero { min-height: clamp(680px, 88svh, 800px); }
+  .art::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, #303719f5 0%, #303719c7 56%, #30371912 94%), linear-gradient(0deg, #30371999, transparent 35%); }
+  .bouquetParallax { width: 150%; height: 88%; right: -76%; top: 15%; }
+  .groundShadow { width: 80%; right: -35%; bottom: 6%; }
   .petal { left: calc(var(--left) - 20%); }
-  .content { position: relative; z-index: 1; padding-top: 153px; padding-bottom: 24px; }
+  .content { position: relative; z-index: 1; padding-top: 160px; padding-bottom: 100px; }
   .content h1 { font-size: clamp(50px, 14vw, 82px); line-height: 1.12; letter-spacing: -.045em; }
-  .content p { max-width: 330px; font-size: 15px; line-height: 1.6; margin-top: 24px; }
-  .actions { gap: 10px; margin-top: 25px; }
-  .actions a { min-width: 0; padding: 13px 15px; min-height: 48px; font-size: 12px; }
+  .content p { max-width: 235px; font-size: 15px; line-height: 1.6; margin-top: 24px; }
+  .actions { flex-direction: column; align-items: flex-start; gap: 12px; margin-top: 28px; }
+  .actions a { min-width: 190px; padding: 14px 18px; min-height: 48px; font-size: 13px; }
   .actions svg { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {

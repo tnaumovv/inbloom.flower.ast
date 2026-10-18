@@ -9,7 +9,7 @@ export function MobileNav({ items }: { items: typeof navItems }) {
   const toggleRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const desktop = window.matchMedia('(min-width: 768px)');
+    const desktop = window.matchMedia('(min-width: 1024px)');
     const closeOnDesktop = () => {
       if (desktop.matches && detailsRef.current) detailsRef.current.open = false;
     };

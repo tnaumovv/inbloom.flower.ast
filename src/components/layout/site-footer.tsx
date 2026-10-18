@@ -8,7 +8,7 @@ import { buildWhatsAppLink } from '@/features/contact/whatsapp';
 export function SiteFooter() {
   return <footer id="contacts" className="site-footer" aria-labelledby="contacts-title"><Container>
     <div className="footer-layout">
-      <div className="footer-copy">
+      <div className="footer-copy" data-reveal>
         <span className="footer-eyebrow">Будем рады встрече</span>
         <h2 id="contacts-title">Заходите<br/>за цветами</h2>
         <div className="footer-contact-data">
@@ -21,7 +21,7 @@ export function SiteFooter() {
           <LinkButton href={siteConfig.instagramUrl} external variant="outline" className="footer-social footer-social--instagram"><Icon name="instagram"/><span className="footer-social-copy"><span>Instagram</span><small>@{siteConfig.instagramHandle}</small></span><Icon name="arrow-up-right"/></LinkButton>
         </div>
       </div>
-      <figure className="footer-map">
+      <figure className="footer-map" data-reveal>
         <iframe title="Магазин In Bloom на карте 2ГИС" src={siteConfig.mapEmbedUrl} loading="eager" referrerPolicy="no-referrer-when-downgrade" allowFullScreen/>
         <figcaption><span>In Bloom на карте</span><a href={siteConfig.mapUrl} target="_blank" rel="noopener noreferrer">Открыть в 2ГИС <Icon name="arrow-up-right"/></a></figcaption>
       </figure>

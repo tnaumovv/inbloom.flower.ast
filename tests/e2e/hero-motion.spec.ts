@@ -1,13 +1,11 @@
 import { expect, test } from '@playwright/test';
 
-test('WhatsApp has its static outline and the hero still responds to the pointer', async ({ page }) => {
+test('the compact header leaves the hero actions available and the scene responds to the pointer', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.goto('/');
-  const whatsapp = page.getByRole('link', { name: 'WhatsApp', exact: true });
+  await expect(page.locator('.site-header').getByRole('link', { name: 'WhatsApp', exact: true })).toHaveCount(0);
   await page.mouse.move(20, 700);
-  expect(await whatsapp.evaluate(el => getComputedStyle(el, '::before').content)).toBe('none');
-  expect(await whatsapp.evaluate(el => getComputedStyle(el, '::before').animationName)).toBe('none');
   const bouquet = page.locator('[data-hero-bouquet]');
   await page.mouse.move(1000, 300);
   await expect.poll(() => bouquet.evaluate(el => (el as HTMLElement).style.getPropertyValue('--tilt-y'))).not.toBe('');
@@ -24,13 +22,11 @@ test('WhatsApp has its static outline and the hero still responds to the pointer
   await expect(page.locator('#bouquets')).toBeInViewport();
 });
 
-test('reduced motion stops the scene and border both initially and after changing the setting', async ({ page }) => {
+test('reduced motion stops the scene initially and after changing the setting', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/');
-  const whatsapp = page.getByRole('link', { name: 'WhatsApp', exact: true });
   const bouquet = page.locator('[data-hero-bouquet]');
-  expect(await whatsapp.evaluate(el => getComputedStyle(el, '::before').animationName)).toBe('none');
   expect(await bouquet.evaluate(el => getComputedStyle(el).transform)).toBe('none');
   expect(await bouquet.locator('div').evaluate(el => getComputedStyle(el).animationName)).toBe('none');
   await page.emulateMedia({ reducedMotion: 'no-preference' });
@@ -39,5 +35,4 @@ test('reduced motion stops the scene and border both initially and after changin
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await expect.poll(() => bouquet.evaluate(el => (el as HTMLElement).style.getPropertyValue('--tilt-y'))).toBe('');
   expect(await bouquet.evaluate(el => getComputedStyle(el).transform)).toBe('none');
-  expect(await whatsapp.evaluate(el => getComputedStyle(el, '::before').animationName)).toBe('none');
 });

@@ -99,8 +99,8 @@ export function Showcase({ bouquets }: { bouquets: readonly Bouquet[] }) {
 
   return <section id="bouquets" className={styles.showcase} aria-labelledby="showcase-title">
     <BotanicalEdge tone="cream" placement="top"/>
-    <Container className={styles.heading}><h2 id="showcase-title">Витрина букетов</h2><p>Выберите букет — детали обсудим в WhatsApp.</p></Container>
-    <div ref={viewportRef} className={styles.viewport} role="region" aria-roledescription="карусель" aria-label="Лента букетов" tabIndex={0} onKeyDown={event => {
+    <Container className={styles.heading}><div data-reveal><h2 id="showcase-title">Витрина букетов</h2><p>Выберите букет — детали обсудим в WhatsApp.</p></div></Container>
+    <div data-reveal ref={viewportRef} className={styles.viewport} role="region" aria-roledescription="карусель" aria-label="Лента букетов" tabIndex={0} onKeyDown={event => {
       if (event.target !== event.currentTarget) return;
       const targets: Record<string, number> = { ArrowLeft: targetRef.current - 1, ArrowRight: targetRef.current + 1, Home: 0, End: bouquets.length - 1 };
       if (event.key in targets) { event.preventDefault(); goTo(targets[event.key]); }
