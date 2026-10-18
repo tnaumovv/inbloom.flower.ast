@@ -92,17 +92,6 @@ button:focus-visible, a:focus-visible, summary:focus-visible, [tabindex="0"]:foc
 .order-steps-fieldset:has(#order-step-details:checked) .step-option:not(:last-child) .step-check { display: block; }
 .order-steps-fieldset:has(#order-step-chat:checked) .step-option:first-child::after,
 .order-steps-fieldset:has(#order-step-details:checked) .step-option:not(:last-child)::after { background: #faf4df99; }
-.step-panels { margin-top: 48px; min-height: 198px; text-align: center; }
-.order-steps-fieldset:has(#order-step-details:checked) .step-panels { display: none; }
-.step-panel { display: none; max-width: 660px; margin-inline: auto; }
-.order-steps-fieldset:has(#order-step-bouquet:checked) .step-panel--bouquet,
-.order-steps-fieldset:has(#order-step-chat:checked) .step-panel--chat { display: block; animation: step-reveal 220ms ease-out; }
-.step-panel h3 { margin: 0 0 16px; font-family: var(--font-display), Georgia, serif; font-size: 30px; line-height: 1.35; font-weight: 400; letter-spacing: -.03em; }
-.step-panel p { margin: 0; color: #faf4dfcc; font-size: 15px; line-height: 1.8; }
-.step-panel-link { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; margin-top: 14px; border-bottom: 1px solid #f1a29b88; color: #ffc0b3; font-size: 15px; }
-.step-panel-link:hover { border-color: #ffc0b3; }
-.step-panel-link .icon { width: 18px; height: 18px; }
-@keyframes step-reveal { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 /* Contacts share the landing palette; provider attribution stays inside the map. */
 .site-footer { padding-block: clamp(64px, 7vw, 100px) 28px; scroll-margin-top: 0; }
 .footer-layout { display: grid; grid-template-columns: .95fr 1.05fr; align-items: center; gap: clamp(40px, 5vw, 80px); }
@@ -182,9 +171,6 @@ button:focus-visible, a:focus-visible, summary:focus-visible, [tabindex="0"]:foc
   .step-option:not(:last-child)::after { position: absolute; left: 25px; top: calc(100% + 2px); width: 2px; min-width: 0; height: 16px; }
   .step-title { font-size: 17px; }
   .step-description { font-size: 13px; }
-  .step-panels { margin-top: 38px; min-height: 252px; text-align: left; }
-  .step-panel h3 { font-size: 25px; }
-  .step-panel p { font-size: 14px; }
   .site-footer { padding-block: 60px 24px; }
   .footer-copy h2 { font-size: 42px; }
   .footer-contact-data address, .footer-phone { font-size: 15px; }
