@@ -34,13 +34,21 @@
   },
   "fonts": {
     "families": [
-      "Cormorant Garamond",
-      "Manrope"
+      "Prata",
+      "Commissioner"
     ],
+    "roles": {
+      "headings": "Prata",
+      "body": "Commissioner"
+    },
     "loader": "next/font/google; self-hosted by Next.js at runtime",
     "licenses": [
-      "public/licenses/cormorant-garamond-OFL.txt",
-      "public/licenses/manrope-OFL.txt"
+      "public/licenses/prata-OFL.txt",
+      "public/licenses/commissioner-OFL.txt"
+    ],
+    "sources": [
+      "https://github.com/google/fonts/tree/main/ofl/prata",
+      "https://github.com/google/fonts/tree/main/ofl/commissioner"
     ]
   },
   "contact": {

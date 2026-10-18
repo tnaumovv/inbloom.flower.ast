@@ -1,13 +1,13 @@
 import { expect, test } from '@playwright/test';
 
-test('hero motion runs without hovering WhatsApp and responds to the pointer', async ({ page }) => {
+test('WhatsApp has its static outline and the hero still responds to the pointer', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.goto('/');
   const whatsapp = page.getByRole('link', { name: 'WhatsApp', exact: true });
   await page.mouse.move(20, 700);
-  const angle = await whatsapp.evaluate(el => getComputedStyle(el, '::before').getPropertyValue('--whatsapp-angle'));
-  await expect.poll(() => whatsapp.evaluate(el => getComputedStyle(el, '::before').getPropertyValue('--whatsapp-angle'))).not.toBe(angle);
+  expect(await whatsapp.evaluate(el => getComputedStyle(el, '::before').content)).toBe('none');
+  expect(await whatsapp.evaluate(el => getComputedStyle(el, '::before').animationName)).toBe('none');
   const bouquet = page.locator('[data-hero-bouquet]');
   await page.mouse.move(1000, 300);
   await expect.poll(() => bouquet.evaluate(el => (el as HTMLElement).style.getPropertyValue('--tilt-y'))).not.toBe('');

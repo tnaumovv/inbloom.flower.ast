@@ -15,7 +15,7 @@
 @keyframes petal-fall { 0% { transform: translate3d(0, -30px, -100px) rotateZ(-25deg); opacity: 0; } 12% { opacity: .65; } 85% { opacity: .55; } 100% { transform: translate3d(var(--drift), 1100px, -100px) rotateZ(190deg); opacity: 0; } }
 @keyframes petal-turn { from { transform: rotateY(-35deg) rotateX(15deg); } to { transform: rotateY(65deg) rotateX(-25deg); } }
 .content { padding-top: clamp(240px, 17.7vw, 310px); padding-bottom: 190px; }
-.content h1 { margin: 0; max-width: 740px; font-family: var(--font-display), Georgia, serif; font-size: clamp(110px, 10.85vw, 180px); font-weight: 400; letter-spacing: -.055em; line-height: .83; }
+.content h1 { margin: 0; max-width: 640px; font-family: var(--font-display), Georgia, serif; font-size: clamp(78px, 7.5vw, 126px); font-weight: 400; letter-spacing: -.045em; line-height: 1.12; }
 .content h1 span { display: block; }
 .content p { margin: 32px 0 0; max-width: 600px; font-size: clamp(17px, 1.55vw, 25px); line-height: 1.55; letter-spacing: -.025em; }
 .actions { display: flex; gap: 18px; margin-top: 50px; }
@@ -35,7 +35,7 @@
   .art::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, #30350fe6, #30350fbf); }
   .bouquetParallax { width: 78%; right: -18%; top: 9%; }
   .content { padding-top: 230px; }
-  .content h1 { font-size: 108px; }
+  .content h1 { font-size: 84px; }
   .content p { max-width: 420px; }
   .actions { flex-wrap: wrap; max-width: 500px; }
 }
@@ -46,7 +46,7 @@
   .groundShadow { width: 72%; right: 9%; bottom: 4%; }
   .petal { left: calc(var(--left) - 20%); }
   .content { position: relative; z-index: 1; padding-top: 153px; padding-bottom: 24px; }
-  .content h1 { font-size: clamp(72px, 20vw, 106px); line-height: .88; letter-spacing: -.05em; }
+  .content h1 { font-size: clamp(50px, 14vw, 82px); line-height: 1.12; letter-spacing: -.045em; }
   .content p { max-width: 330px; font-size: 15px; line-height: 1.6; margin-top: 24px; }
   .actions { gap: 10px; margin-top: 25px; }
   .actions a { min-width: 0; padding: 13px 15px; min-height: 48px; font-size: 12px; }

@@ -1,0 +1,49 @@
+{
+  "catalogue": "https://app.florax.kz/ru/in_bloom/bouquets",
+  "accessed": "2026-10-18",
+  "purpose": "Local demonstration of six bouquet cards. Prices are catalogue snapshots, not live availability.",
+  "method": "Five original public catalogue photos copied unchanged; Soft s reuses the existing generated transparent cutout.",
+  "photos": [
+    {
+      "name": "Cloud",
+      "priceKzt": 18700,
+      "source": "https://d350l8y0jbi3s6.cloudfront.net/default-bucket/imgs/1792332838727-gqju56zazfi.webp",
+      "output": "public/images/catalogue/cloud.webp",
+      "sha256": "ab8173a8e04eaf2837ef48c9f127938fca397fd02a2303f46ac032bd2ba900fd"
+    },
+    {
+      "name": "White bloom",
+      "priceKzt": 13200,
+      "source": "https://d350l8y0jbi3s6.cloudfront.net/default-bucket/imgs/1792229608363-r5c9q4s3ohs.webp",
+      "output": "public/images/catalogue/white-bloom.webp",
+      "sha256": "9fc4181ea3981de17071d822be2a039858749f4818f84e90cda6aa105aeec82a"
+    },
+    {
+      "name": "Sophie basket S",
+      "priceKzt": 12100,
+      "source": "https://d350l8y0jbi3s6.cloudfront.net/default-bucket/imgs/1792044463336-k2sif84a6wq.webp",
+      "output": "public/images/catalogue/sophie-basket-s.webp",
+      "sha256": "bce0e7e12d890a48a15e0ce88e44fca926e6924c0ab0c1e7258df0cf0ad3a171"
+    },
+    {
+      "name": "Green red",
+      "priceKzt": 20300,
+      "source": "https://d350l8y0jbi3s6.cloudfront.net/default-bucket/imgs/1792327270659-79tcjmju28x.webp",
+      "output": "public/images/catalogue/green-red.webp",
+      "sha256": "40ccd273fb7c49e488d31fafe18e579c7a6c2a878164f7e5c9561d1cf3038ea3"
+    },
+    {
+      "name": "Autumn",
+      "priceKzt": 15400,
+      "source": "https://d350l8y0jbi3s6.cloudfront.net/default-bucket/imgs/1792315035391-drrffiks588.webp",
+      "output": "public/images/catalogue/autumn.webp",
+      "sha256": "8d8f1dc24709ae96172233fe052e13b3bbd58ad58e7444d70b0c3ce92144cbd7"
+    }
+  ],
+  "additionalExistingAsset": {
+    "name": "Soft s",
+    "output": "public/images/bouquets/soft-s.png",
+    "source": "prototype/assets-receipt.json"
+  },
+  "publication": "Confirm data and material permissions with the business owner before commercial launch."
+}

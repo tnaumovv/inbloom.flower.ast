@@ -5,4 +5,5 @@ export type Bouquet = Readonly<{
   priceKzt: number;
   image: string;
   imageAlt: string;
+  imagePosition?: string;
 }>;

@@ -1,0 +1,33 @@
+{
+  "researchedOn": "2026-10-18",
+  "shop": "In Bloom, Astana, Zhenis 8/1",
+  "sources": [
+    {
+      "url": "https://2gis.kz/astana/firm/70000001105801781",
+      "facts": ["In Bloom flower shop", "Astana, Zhenis avenue 8/1", "WhatsApp 77082204675", "Links to inbloom.flower.ast Instagram and Florax catalogue", "Today 09:00–22:00; a complete weekly retail schedule was not retrieved"],
+      "usage": "FAQ address and source of current store hours; existing contacts reconfirmed"
+    },
+    {
+      "url": "https://2gis.kz/astana/firm/70000001105801781/tab/info",
+      "facts": ["Flower delivery", "Card, cash, bank payment, card transfer, QR payment", "Listed categories include houseplants, dried and preserved flowers"],
+      "usage": "FAQ delivery and in-store payment methods; delivery payment and deposit terms remain subject to florist confirmation"
+    },
+    {
+      "url": "https://wolt.com/kk/kaz/nur-sultan/venue/in-bloom-1",
+      "facts": ["Same Zhenis 8/1 address and +77082204675 phone", "Bouquets and flowers in planters", "Platform delivery hours Mon–Sat 09:00–23:00, Sun 09:00–22:00"],
+      "usage": "Identity cross-check only; platform delivery hours are not published as retail store hours"
+    },
+    {
+      "url": "https://app.florax.kz/ru/in_bloom/bouquets",
+      "facts": ["Public bouquet catalogue accessible", "Cloud 18700 KZT, White bloom 13200 KZT, Sophie basket S 12100 KZT, Green red 20300 KZT, Autumn 15400 KZT"],
+      "usage": "FAQ catalogue link; public rendered content read without retaining raw scripts or internal fields"
+    },
+    {
+      "url": "https://www.instagram.com/inbloom.flower.ast/",
+      "status": "Direct content access throttled; no posts or policies inferred from it"
+    }
+  ],
+  "unconfirmed": ["Delivery price, time guarantee and service boundaries", "Deposit, remote payment instructions, refunds and cancellations", "Exact weekly retail opening hours and holiday exceptions", "Complimentary card, photo before dispatch, anonymous delivery", "Current stock and exact custom bouquet composition"],
+  "productDecisions": ["Order buttons open WhatsApp; visitor sends the enquiry", "Individual bouquet enquiry is part of the approved site scope; assembly, composition and price require florist agreement", "No online payment or automatic order acceptance is claimed"],
+  "faqOwner": "src/features/landing/faq-data.ts"
+}

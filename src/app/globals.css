@@ -1,14 +1,21 @@
 @import "tailwindcss";
 
-@property --whatsapp-angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
-
 @theme inline {
   --color-cream: #faf4df;
   --color-olive: #787937;
   --color-deep-olive: #30350f;
   --color-coral: #e89f94;
+  --color-background: var(--color-cream);
+  --color-foreground: var(--color-deep-olive);
+  --color-card: #f0ead9;
+  --color-card-foreground: var(--color-deep-olive);
+  --color-border: #30350f;
   --font-sans: var(--font-body);
-  --font-serif: var(--font-display);
+  --font-heading: var(--font-display);
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  @keyframes accordion-down { from { height: 0; } to { height: var(--radix-accordion-content-height); } }
+  @keyframes accordion-up { from { height: var(--radix-accordion-content-height); } to { height: 0; } }
 }
 
 :root { color-scheme: light; }
@@ -35,10 +42,8 @@ button:focus-visible, a:focus-visible, summary:focus-visible, [tabindex="0"]:foc
 .desktop-nav a { padding-block: 12px; transition: color 150ms; }
 .desktop-nav a:hover { color: #f1a29b; }
 .header-actions { display: flex; align-items: center; gap: 14px; }
-.header-whatsapp { position: relative; isolation: isolate; min-height: 54px; padding: 13px 25px; border-color: #70efaa77; background: #123b23; box-shadow: 0 0 18px #25d36620, inset 0 0 12px #25d3660a; }
-.header-whatsapp::before { content: ''; position: absolute; inset: -2px; border-radius: inherit; padding: 2px; background: conic-gradient(from var(--whatsapp-angle), transparent 0deg, #25d366 65deg, #d4ffe5 95deg, #25d366 125deg, transparent 170deg); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: whatsapp-orbit 4s linear infinite; pointer-events: none; }
-.header-whatsapp:hover { background: #174c2c; border-color: #76f2ac; box-shadow: 0 0 24px #25d36640; }
-@keyframes whatsapp-orbit { to { --whatsapp-angle: 360deg; } }
+.header-whatsapp { min-height: 54px; padding: 13px 25px; background: #303719; }
+.header-whatsapp:hover { background: #424b28; }
 .header-whatsapp .icon { width: 21px; height: 21px; }
 .mobile-nav { display: none; position: relative; }
 .mobile-nav summary { display: grid; place-items: center; width: 46px; height: 46px; border: 1px solid #faf4df88; border-radius: 50%; cursor: pointer; list-style: none; }
@@ -58,23 +63,23 @@ button:focus-visible, a:focus-visible, summary:focus-visible, [tabindex="0"]:foc
 .custom-bouquet { position: relative; padding-top: 64px; scroll-margin-top: 60px; }
 .custom-layout { display: grid; grid-template-columns: 1.1fr 1fr; align-items: center; gap: 20px; }
 .custom-copy { position: relative; z-index: 3; }
-.custom-copy h2 { margin: 0; font-family: var(--font-display), Georgia, serif; font-size: clamp(66px, 7.6vw, 124px); font-weight: 400; line-height: .9; letter-spacing: -.045em; }
+.custom-copy h2 { margin: 0; font-family: var(--font-display), Georgia, serif; font-size: clamp(52px, 5.2vw, 88px); font-weight: 400; line-height: 1.14; letter-spacing: -.045em; }
 .custom-copy p { max-width: 600px; margin: 27px 0 24px; font-size: clamp(16px, 1.7vw, 25px); line-height: 1.5; letter-spacing: -.02em; }
 .custom-copy .link-button { min-width: 260px; }
 .custom-art { position: relative; width: 100%; aspect-ratio: 1.45; }
 .custom-art img { object-fit: contain; }
 .order-steps { padding-block: 48px 72px; }
-.order-steps h2 { margin: 0 0 20px; font-family: var(--font-display), Georgia, serif; font-size: 46px; font-weight: 400; letter-spacing: -.025em; }
+.order-steps h2 { margin: 0 0 24px; font-family: var(--font-display), Georgia, serif; font-size: 34px; font-weight: 400; letter-spacing: -.04em; }
 .order-steps ol { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px; }
-.order-steps li { display: flex; align-items: center; gap: 23px; position: relative; font-size: 18px; line-height: 1.4; }
+.order-steps li { display: flex; align-items: center; gap: 16px; position: relative; font-size: 16px; line-height: 1.45; }
 .order-steps li:not(:last-child)::after { content: ''; flex: 1 0 28px; height: 1px; margin-left: 12px; background: #faf4df55; }
-.step-number { font-family: var(--font-display), Georgia, serif; color: #f1a29b; font-size: 78px; font-weight: 500; letter-spacing: -.05em; line-height: 1; }
+.step-dot { flex: 0 0 10px; width: 10px; height: 10px; border-radius: 50%; background: #f1a29b; }
 .site-footer { padding-bottom: 64px; scroll-margin-top: 24px; }
 .footer-layout { border-top: 1px solid #faf4df55; padding-top: 46px; display: grid; grid-template-columns: .82fr 1.5fr 1.1fr; align-items: center; gap: 42px; }
 .footer-brand { display: block; max-width: 230px; padding-right: 20px; }
 .footer-brand img { display: block; object-fit: contain; max-width: 100%; height: auto; }
 .footer-location { border-inline: 1px solid #faf4df55; padding-inline: 42px; }
-.footer-location h2 { margin: 0 0 18px; font-family: var(--font-display), Georgia, serif; font-size: clamp(30px, 2.65vw, 44px); font-weight: 400; white-space: nowrap; letter-spacing: -.025em; line-height: 1; }
+.footer-location h2 { margin: 0 0 18px; font-family: var(--font-display), Georgia, serif; font-size: clamp(22px, 1.8vw, 30px); font-weight: 400; letter-spacing: -.045em; line-height: 1.15; }
 .footer-location > p, .delivery-note { display: flex; align-items: flex-start; gap: 16px; margin: 0 0 16px; font-size: 15px; line-height: 1.55; }
 .footer-location .icon, .footer-links .icon { color: #f1a29b; width: 23px; height: 23px; }
 .delivery-note { margin-bottom: 0; }
@@ -84,6 +89,10 @@ button:focus-visible, a:focus-visible, summary:focus-visible, [tabindex="0"]:foc
 .footer-links a { display: flex; align-items: center; gap: 16px; width: fit-content; min-height: 30px; font-size: 15px; }
 .footer-links a:hover { color: #ffc0b3; }
 .footer-links .instagram-handle { padding-left: 39px; font-size: 13px; }
+@media (min-width: 768px) and (max-width: 1023px) {
+  .desktop-nav { display: none; }
+  .mobile-nav { display: block; }
+}
 @media (max-width: 1100px) and (min-width: 768px) {
   .footer-layout { grid-template-columns: .65fr 1.3fr 1fr; gap: 24px; }
   .footer-location { padding-inline: 24px; }
@@ -105,21 +114,20 @@ button:focus-visible, a:focus-visible, summary:focus-visible, [tabindex="0"]:foc
   .botanical-edge--top { top: -53px; }
   .custom-bouquet { padding-top: 50px; }
   .custom-layout { grid-template-columns: 1fr; gap: 8px; }
-  .custom-copy h2 { font-size: clamp(58px, 15vw, 90px); line-height: .92; }
+  .custom-copy h2 { font-size: clamp(40px, 10vw, 62px); line-height: 1.16; }
   .custom-copy p { max-width: 410px; font-size: 16px; margin-top: 24px; }
   .custom-copy .link-button { min-width: 240px; font-size: 15px; min-height: 52px; }
   .custom-art { max-width: 430px; margin-inline: auto; aspect-ratio: 1.4; margin-top: 6px; }
   .order-steps { padding-block: 14px 48px; }
-  .order-steps h2 { font-size: 38px; margin-bottom: 24px; }
+  .order-steps h2 { font-size: 30px; margin-bottom: 24px; }
   .order-steps ol { grid-template-columns: 1fr; gap: 20px; }
   .order-steps li { gap: 24px; font-size: 17px; }
   .order-steps li:not(:last-child)::after { display: none; }
-  .step-number { min-width: 63px; font-size: 62px; }
   .site-footer { padding-bottom: 38px; }
   .footer-layout { grid-template-columns: 1fr; gap: 32px; padding-top: 36px; }
   .footer-brand { max-width: 140px; padding-right: 0; }
   .footer-location { padding-inline: 0; border: 0; }
-  .footer-location h2 { font-size: 38px; margin-bottom: 24px; white-space: normal; }
+  .footer-location h2 { font-size: 30px; margin-bottom: 24px; white-space: normal; }
   .footer-location > p, .delivery-note { font-size: 15px; }
   .delivery-detail { font-size: 13px; }
   .footer-links { gap: 10px; }
@@ -130,4 +138,5 @@ button:focus-visible, a:focus-visible, summary:focus-visible, [tabindex="0"]:foc
   html { scroll-behavior: auto; }
   *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; }
   .link-button:hover { transform: none; }
+  [data-tilt-card] { transform: none !important; }
 }

@@ -9,6 +9,8 @@ test('page supplies Russian metadata and a visible keyboard skip link', async ({
   await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', 'In Bloom — цветы в Астане');
   await expect(page.locator('meta[property="og:type"]')).toHaveAttribute('content', 'website');
   await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1);
+  expect(await page.locator('body').evaluate(el => getComputedStyle(el).fontFamily)).toContain('Commissioner');
+  expect(await page.getByRole('heading', { level: 1 }).evaluate(el => getComputedStyle(el).fontFamily)).toContain('Prata');
   await page.keyboard.press('Tab');
   const skip = page.getByRole('link', { name: 'Перейти к содержимому' });
   await expect(skip).toBeFocused();
@@ -40,14 +42,14 @@ for (const width of [360, 390, 601, 768, 1023, 1440]) {
         const carousel = page.getByRole('region', { name: 'Лента букетов', exact: true });
         await carousel.focus();
         await carousel.press('Home');
-        await expect(page.getByRole('status')).toContainText('1 из 4');
+        await expect(page.getByRole('status')).toContainText('1 из 6');
         await expect.poll(() => carousel.evaluate(el => Math.round(el.scrollLeft))).toBe(0);
       }
       await page.evaluate(() => scrollTo({ top: 0, behavior: 'instant' }));
       const capture = width === 1440 ? 'desktop' : width === 390 ? 'mobile' : `tablet-${width}`;
       await page.screenshot({ path: `.frontend-workbench/inbloom-runtime/${capture}.png`, fullPage: true });
       if ([601, 768, 1023].includes(width)) await page.screenshot({ path: `.frontend-workbench/inbloom-runtime/hero-${width}.png` });
-      if (width === 390) await expect(page.getByRole('status')).toContainText('1 из 4');
+      if (width === 390) await expect(page.getByRole('status')).toContainText('1 из 6');
       if (width === 1440) await page.screenshot({ path: '.frontend-workbench/inbloom-runtime/preview.png' });
     }
   });
@@ -58,8 +60,8 @@ test('server HTML preserves the catalogue and native mobile navigation without J
   const page = await context.newPage();
   await page.goto('/');
   await expect(page.getByRole('heading', { name: 'Цветы в Астане', exact: true })).toBeVisible();
-  await expect(page.getByRole('article')).toHaveCount(4);
-  for (const name of ['Cloud', 'White bloom', 'Soft s', 'Sophie basket S']) {
+  await expect(page.getByRole('article')).toHaveCount(6);
+  for (const name of ['Cloud', 'White bloom', 'Soft s', 'Sophie basket S', 'Green red', 'Autumn']) {
     await expect(page.getByRole('link', { name: `Заказать ${name} в WhatsApp` })).toHaveAttribute('href', /^https:\/\/wa\.me\/77082204675\?text=/);
   }
   await page.getByLabel('Меню', { exact: true }).click();

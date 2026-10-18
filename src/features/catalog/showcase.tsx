@@ -14,24 +14,29 @@ export function Showcase({ bouquets }: { bouquets: readonly Bouquet[] }) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const activeRef = useRef(0);
   const targetRef = useRef(0);
-  const scrollableRef = useRef(false);
   const [active, setActive] = useState(0);
+  const [visibleCount, setVisibleCount] = useState(1);
   const [canScroll, setCanScroll] = useState(false);
   const [announcement, setAnnouncement] = useState('');
 
+  const getLayout = useCallback((viewport: HTMLDivElement) => {
+    const visible = Math.min(bouquets.length, Number(getComputedStyle(viewport).getPropertyValue('--visible-cards')) || 1);
+    const track = viewport.firstElementChild;
+    const padding = track ? parseFloat(getComputedStyle(track).paddingLeft) : 0;
+    return { visible, padding, maxIndex: Math.max(0, bouquets.length - visible) };
+  }, [bouquets.length]);
+
   const goTo = useCallback((index: number, animate = true) => {
     const viewport = viewportRef.current;
-    if (!viewport || viewport.scrollWidth <= viewport.clientWidth + 2 || !bouquets.length) return;
-    scrollableRef.current = true;
-    const bounded = Math.max(0, Math.min(bouquets.length - 1, index));
+    if (!viewport || !bouquets.length) return;
+    const { maxIndex, padding } = getLayout(viewport);
+    const bounded = Math.max(0, Math.min(maxIndex, index));
     targetRef.current = bounded;
     const card = viewport.querySelectorAll<HTMLElement>('[data-bouquet-card]')[bounded];
     if (!card) return;
-    const box = card.getBoundingClientRect();
-    const bounds = viewport.getBoundingClientRect();
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    viewport.scrollTo({ left: viewport.scrollLeft + box.left + box.width / 2 - bounds.left - bounds.width / 2, behavior: animate && !reduced ? 'smooth' : 'instant' });
-  }, [bouquets.length]);
+    viewport.scrollTo({ left: viewport.scrollLeft + card.getBoundingClientRect().left - viewport.getBoundingClientRect().left - padding, behavior: animate && !reduced ? 'smooth' : 'instant' });
+  }, [bouquets.length, getLayout]);
 
   useEffect(() => {
     const viewport = viewportRef.current;
@@ -39,25 +44,26 @@ export function Showcase({ bouquets }: { bouquets: readonly Bouquet[] }) {
     let frame = 0;
     let resizeFrame = 0;
     let announceTimer: ReturnType<typeof setTimeout>;
-
     const updateActive = () => {
-      if (!scrollableRef.current) return;
-      const center = viewport.getBoundingClientRect().left + viewport.clientWidth / 2;
+      const { padding, maxIndex } = getLayout(viewport);
+      const anchor = viewport.getBoundingClientRect().left + padding;
       let nearest = 0;
       let distance = Infinity;
       viewport.querySelectorAll<HTMLElement>('[data-bouquet-card]').forEach((card, index) => {
-        const box = card.getBoundingClientRect();
-        const delta = Math.abs(box.left + box.width / 2 - center);
+        const delta = Math.abs(card.getBoundingClientRect().left - anchor);
         if (delta < distance) { distance = delta; nearest = index; }
       });
-      activeRef.current = nearest;
-      setActive(nearest);
+      activeRef.current = Math.min(nearest, maxIndex);
+      setActive(activeRef.current);
     };
     const announce = () => {
       updateActive();
       targetRef.current = activeRef.current;
-      const b = bouquets[activeRef.current];
-      if (b) setAnnouncement(`${activeRef.current + 1} из ${bouquets.length}. ${b.name}, ${formatPriceKzt(b.priceKzt)}.`);
+      const { visible } = getLayout(viewport);
+      const bouquet = bouquets[activeRef.current];
+      setAnnouncement(visible === 1 && bouquet
+        ? `${activeRef.current + 1} из ${bouquets.length}. ${bouquet.name}, ${formatPriceKzt(bouquet.priceKzt)}.`
+        : `Букеты ${activeRef.current + 1}–${Math.min(activeRef.current + visible, bouquets.length)} из ${bouquets.length}.`);
     };
     const onScroll = () => {
       cancelAnimationFrame(frame);
@@ -68,10 +74,10 @@ export function Showcase({ bouquets }: { bouquets: readonly Bouquet[] }) {
     const resize = new ResizeObserver(() => {
       cancelAnimationFrame(resizeFrame);
       resizeFrame = requestAnimationFrame(() => {
-        const scrollable = viewport.scrollWidth > viewport.clientWidth + 2;
-        scrollableRef.current = scrollable;
-        setCanScroll(scrollable);
-        if (scrollable) { goTo(targetRef.current, false); announce(); }
+        setVisibleCount(getLayout(viewport).visible);
+        setCanScroll(viewport.scrollWidth > viewport.clientWidth + 2);
+        goTo(targetRef.current, false);
+        announce();
       });
     });
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -87,26 +93,30 @@ export function Showcase({ bouquets }: { bouquets: readonly Bouquet[] }) {
       cancelAnimationFrame(resizeFrame);
       clearTimeout(announceTimer);
     };
-  }, [bouquets, goTo]);
+  }, [bouquets, getLayout, goTo]);
+
+  const maxIndex = Math.max(0, bouquets.length - visibleCount);
 
   return <section id="bouquets" className={styles.showcase} aria-labelledby="showcase-title">
     <BotanicalEdge tone="cream" placement="top"/>
     <Container className={styles.heading}><h2 id="showcase-title">Витрина букетов</h2><p>Выберите букет — детали обсудим в WhatsApp.</p></Container>
-    <div ref={viewportRef} className={styles.viewport} role="region" aria-label="Лента букетов" tabIndex={0} onKeyDown={event => {
-      if (event.target !== event.currentTarget || event.currentTarget.scrollWidth <= event.currentTarget.clientWidth + 2) return;
+    <div ref={viewportRef} className={styles.viewport} role="region" aria-roledescription="карусель" aria-label="Лента букетов" tabIndex={0} onKeyDown={event => {
+      if (event.target !== event.currentTarget) return;
       const targets: Record<string, number> = { ArrowLeft: targetRef.current - 1, ArrowRight: targetRef.current + 1, Home: 0, End: bouquets.length - 1 };
       if (event.key in targets) { event.preventDefault(); goTo(targets[event.key]); }
     }} onFocusCapture={event => {
-      const target = event.target as HTMLElement;
-      const card = target.closest<HTMLElement>('[data-bouquet-index]');
-      if (card) goTo(Number(card.dataset.bouquetIndex));
+      const card = (event.target as HTMLElement).closest<HTMLElement>('[data-bouquet-index]');
+      const viewport = viewportRef.current;
+      if (!card || !viewport) return;
+      const bounds = viewport.getBoundingClientRect();
+      const box = card.getBoundingClientRect();
+      if (box.left < bounds.left || box.right > bounds.right) goTo(Number(card.dataset.bouquetIndex));
     }}>
-      <div className={styles.track}>{bouquets.map((bouquet, index) => <div key={bouquet.id} className={styles.slide} data-bouquet-card data-bouquet-index={index} data-active={active === index}><BouquetCard bouquet={bouquet}/></div>)}</div>
+      <div className={styles.track}>{bouquets.map((bouquet, index) => <div key={bouquet.id} className={styles.slide} data-bouquet-card data-bouquet-index={index}><BouquetCard bouquet={bouquet}/></div>)}</div>
     </div>
     {canScroll && <div className={styles.controls}>
-      <button type="button" aria-label="Предыдущий букет" onClick={() => goTo(activeRef.current - 1)} disabled={active === 0}><Icon name="arrow-left"/></button>
-      <span aria-hidden="true">{String(active + 1).padStart(2, '0')} <span className={styles.divider}>/</span> {String(bouquets.length).padStart(2, '0')}</span>
-      <button type="button" aria-label="Следующий букет" onClick={() => goTo(activeRef.current + 1)} disabled={active === bouquets.length - 1}><Icon name="arrow-right"/></button>
+      <button type="button" aria-label="Предыдущий букет" onClick={() => goTo(targetRef.current - 1)} disabled={active === 0}><Icon name="arrow-left"/></button>
+      <button type="button" aria-label="Следующий букет" onClick={() => goTo(targetRef.current + 1)} disabled={active >= maxIndex}><Icon name="arrow-right"/></button>
     </div>}
     <p className="sr-only" role="status" aria-live="polite" aria-atomic="true">{announcement}</p>
     <a className={styles.catalogueLink} href={siteConfig.catalogueUrl} target="_blank" rel="noopener noreferrer">Больше букетов <Icon name="arrow-up-right"/></a>

@@ -5,6 +5,6 @@ const steps = ['Выберите букет', 'Напишите в WhatsApp', '�
 export function OrderSteps() {
   return <section className="order-steps" aria-labelledby="steps-title"><Container>
     <h2 id="steps-title">Как заказать</h2>
-    <ol aria-label="Как заказать">{steps.map((text, index) => <li key={text}><span className="step-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><span>{text}</span></li>)}</ol>
+    <ol aria-label="Как заказать">{steps.map(text => <li key={text}><span className="step-dot" aria-hidden="true"/><span>{text}</span></li>)}</ol>
   </Container></section>;
 }
