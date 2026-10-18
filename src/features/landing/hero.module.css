@@ -1,29 +1,59 @@
-.hero { position: relative; isolation: isolate; min-height: clamp(760px, 66.6667vw, 1100px); background: #353b19; }
-.art { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
-.image { object-fit: cover; object-position: center; }
+.hero { position: relative; isolation: isolate; min-height: clamp(760px, 66.6667vw, 1100px); background: radial-gradient(ellipse at 85% 30%, #747b3b 0%, #444d22 37%, #303719 72%); }
+.art { position: absolute; inset: 0; z-index: -2; overflow: hidden; pointer-events: none; perspective: 1400px; }
+.art::before { content: ''; position: absolute; inset: 65% -20% -35%; background: radial-gradient(ellipse, #96965266, #222c1400 65%); transform: rotate(-12deg); }
+.bouquetParallax { position: absolute; width: 65%; height: 90%; right: -6%; top: 7%; transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateX(var(--shift-x, 0px)); transition: transform 650ms cubic-bezier(.2,.7,.2,1); transform-style: preserve-3d; }
+.bouquetFloat { position: absolute; inset: 0; animation: bouquet-float 8s ease-in-out infinite; }
+.image { object-fit: contain; filter: drop-shadow(-22px 35px 26px #17210f66); }
+.groundShadow { position: absolute; right: 3%; bottom: 7%; width: 46%; height: 9%; border-radius: 50%; background: #111b0c77; filter: blur(22px); transform: rotate(-8deg); }
+.petals { position: absolute; inset: 0; overflow: hidden; }
+.petal { position: absolute; top: -12%; left: var(--left); width: var(--size); height: calc(var(--size) * .72); animation: petal-fall var(--duration) var(--delay) linear infinite; opacity: 0; }
+.petal i { display: block; width: 100%; height: 100%; border-radius: 12% 85% 28% 85%; background: radial-gradient(ellipse at 28% 20%, #ffd2ce, #e99d9e 55%, #b85e74); box-shadow: inset 1px 1px 2px #ffe5dc88, 1px 3px 7px #14200d22; animation: petal-turn 6s var(--delay) ease-in-out infinite alternate; }
+.petal:nth-child(3n) { filter: blur(1px); }
+.petal:nth-child(4n) i { border-radius: 75% 15% 80% 25%; }
+.art[data-paused="true"] * { animation-play-state: paused; }
+@keyframes bouquet-float { 0%, 100% { transform: translate3d(0, 0, 30px) rotateZ(-5deg); } 50% { transform: translate3d(0, -15px, 42px) rotateZ(-3deg); } }
+@keyframes petal-fall { 0% { transform: translate3d(0, -30px, -100px) rotateZ(-25deg); opacity: 0; } 12% { opacity: .65; } 85% { opacity: .55; } 100% { transform: translate3d(var(--drift), 1100px, -100px) rotateZ(190deg); opacity: 0; } }
+@keyframes petal-turn { from { transform: rotateY(-35deg) rotateX(15deg); } to { transform: rotateY(65deg) rotateX(-25deg); } }
 .content { padding-top: clamp(240px, 17.7vw, 310px); padding-bottom: 190px; }
 .content h1 { margin: 0; max-width: 740px; font-family: var(--font-display), Georgia, serif; font-size: clamp(110px, 10.85vw, 180px); font-weight: 400; letter-spacing: -.055em; line-height: .83; }
 .content h1 span { display: block; }
 .content p { margin: 32px 0 0; max-width: 600px; font-size: clamp(17px, 1.55vw, 25px); line-height: 1.55; letter-spacing: -.025em; }
 .actions { display: flex; gap: 18px; margin-top: 50px; }
-.actions a { min-width: 222px; }
+.actions a { position: relative; overflow: hidden; min-width: 222px; transition: transform 350ms cubic-bezier(.2,.8,.2,1), box-shadow 350ms, background 350ms, color 350ms, border-color 350ms; }
+.actions a::before { content: ''; position: absolute; inset: -70% -45%; background: linear-gradient(105deg, transparent 35%, #fff6 50%, transparent 65%); transform: translateX(-130%) rotate(10deg); transition: transform 750ms ease; pointer-events: none; }
+.actions a:is(:hover, :focus-visible)::before { transform: translateX(130%) rotate(10deg); }
+.actions a:is(:hover, :focus-visible) { transform: translateY(-4px); }
+.actions a:active { transform: translateY(-1px) scale(.97); }
+.actions svg { width: 20px; height: 20px; transition: transform 350ms cubic-bezier(.2,.8,.2,1); }
+.chooseButton:is(:hover, :focus-visible) { box-shadow: 0 12px 30px #ef9f9555; }
+.chooseButton:is(:hover, :focus-visible) svg { transform: translateX(5px); }
+.floristButton:is(:hover, :focus-visible) { background: var(--color-cream); color: var(--color-deep-olive); box-shadow: 0 10px 24px #10190d33; }
+.floristButton:is(:hover, :focus-visible) svg { transform: rotate(-12deg) scale(1.1); }
 @media (min-width: 1800px) { .hero { min-height: 1080px; } .content { padding-top: 310px; } }
 @media (max-width: 1023px) and (min-width: 601px) {
   .hero { min-height: 800px; }
   .art::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, #30350fe6, #30350fbf); }
+  .bouquetParallax { width: 78%; right: -18%; top: 9%; }
   .content { padding-top: 230px; }
   .content h1 { font-size: 108px; }
   .content p { max-width: 420px; }
   .actions { flex-wrap: wrap; max-width: 500px; }
 }
 @media (max-width: 600px) {
-  .hero { min-height: 870px; background: #353b19; }
-  .art { top: 385px; bottom: 0; }
-  .image { object-position: 72% center; }
-  .art::after { content: ''; position: absolute; inset: 0; background: linear-gradient(#353b19 0%, #353b1900 20%); }
-  .content { position: relative; padding-top: 153px; padding-bottom: 450px; }
+  .hero { display: flex; flex-direction: column; min-height: 870px; }
+  .art { position: relative; inset: auto; order: 1; flex: 1 0 460px; min-height: 460px; }
+  .bouquetParallax { width: 110%; height: 90%; right: -8%; top: 8%; }
+  .groundShadow { width: 72%; right: 9%; bottom: 4%; }
+  .petal { left: calc(var(--left) - 20%); }
+  .content { position: relative; z-index: 1; padding-top: 153px; padding-bottom: 24px; }
   .content h1 { font-size: clamp(72px, 20vw, 106px); line-height: .88; letter-spacing: -.05em; }
   .content p { max-width: 330px; font-size: 15px; line-height: 1.6; margin-top: 24px; }
   .actions { gap: 10px; margin-top: 25px; }
   .actions a { min-width: 0; padding: 13px 15px; min-height: 48px; font-size: 12px; }
+  .actions svg { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bouquetParallax, .bouquetFloat, .actions a:is(:hover, :focus-visible, :active), .actions a:is(:hover, :focus-visible) svg { transform: none; }
+  .petals { display: none; }
+  .actions a::before { display: none; }
 }

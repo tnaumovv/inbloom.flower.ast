@@ -23,11 +23,17 @@ for (const width of [360, 390, 601, 768, 1023, 1440]) {
     page.on('console', m => { if (m.type() === 'error' || m.type() === 'warning') errors.push(m.text()); });
     await page.goto('/');
     for (const image of await page.locator('img').all()) {
-      await image.scrollIntoViewIfNeeded();
+      // The decorative hero continuously floats; resource checks must not wait for it to stop.
+      await image.evaluate(el => el.scrollIntoView({ block: 'center', behavior: 'instant' }));
       await expect.poll(() => image.evaluate(el => (el as HTMLImageElement).complete && (el as HTMLImageElement).naturalWidth > 0)).toBe(true);
     }
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
     expect(errors).toEqual([]);
+    if (width <= 600) {
+      const action = await page.getByRole('link', { name: 'Написать флористу', exact: true }).boundingBox();
+      const bouquet = await page.locator('[data-hero-scene] img').boundingBox();
+      expect(bouquet!.y).toBeGreaterThan(action!.y + action!.height);
+    }
     if ([390, 601, 768, 1023, 1440].includes(width)) {
       await mkdir('.frontend-workbench/inbloom-runtime', { recursive: true });
       if (width === 390) {

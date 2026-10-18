@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@property --whatsapp-angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+
 @theme inline {
   --color-cream: #faf4df;
   --color-olive: #787937;
@@ -33,7 +35,10 @@ button:focus-visible, a:focus-visible, summary:focus-visible, [tabindex="0"]:foc
 .desktop-nav a { padding-block: 12px; transition: color 150ms; }
 .desktop-nav a:hover { color: #f1a29b; }
 .header-actions { display: flex; align-items: center; gap: 14px; }
-.header-whatsapp { min-height: 54px; padding: 13px 25px; }
+.header-whatsapp { position: relative; isolation: isolate; min-height: 54px; padding: 13px 25px; border-color: #70efaa77; background: #123b2322; box-shadow: 0 0 18px #25d36620, inset 0 0 12px #25d3660a; }
+.header-whatsapp::before { content: ''; position: absolute; inset: -2px; border-radius: inherit; padding: 2px; background: conic-gradient(from var(--whatsapp-angle), transparent 0deg, #25d366 65deg, #d4ffe5 95deg, #25d366 125deg, transparent 170deg); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: whatsapp-orbit 4s linear infinite; pointer-events: none; }
+.header-whatsapp:hover { background: #174c2c77; border-color: #76f2ac; box-shadow: 0 0 24px #25d36640; }
+@keyframes whatsapp-orbit { to { --whatsapp-angle: 360deg; } }
 .header-whatsapp .icon { width: 21px; height: 21px; }
 .mobile-nav { display: none; position: relative; }
 .mobile-nav summary { display: grid; place-items: center; width: 46px; height: 46px; border: 1px solid #faf4df88; border-radius: 50%; cursor: pointer; list-style: none; }

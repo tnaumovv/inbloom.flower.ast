@@ -1,5 +1,11 @@
 {
   "mode": "Built-in ImageGen",
+  "heroScene": {
+    "source": "public/images/bouquets/soft-s.png",
+    "consumer": "src/features/landing/hero-scene.tsx",
+    "method": "Reuse existing transparent cutout unchanged with CSS perspective, pointer parallax, floating motion, shadow and code-native falling petals.",
+    "status": "Decorative layered image with a 3D effect, not a real-time 3D model or current inventory photograph. No new generated bitmap added."
+  },
   "hero": {
     "source": "design/inbloom-landing-v3/01-hero.png",
     "output": "public/images/hero.png",
