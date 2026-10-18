@@ -8,6 +8,7 @@ const paths = {
   'arrow-right': <path d="M4 12h16m-7-7 7 7-7 7"/>,
   menu: <path d="M4 8h16M4 16h16"/>,
   close: <path d="m6 6 12 12M6 18 18 6"/>,
+  check: <path d="m5 12 4 4L19 6"/>,
 };
 
 export type IconName = keyof typeof paths;
