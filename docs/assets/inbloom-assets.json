@@ -1,0 +1,47 @@
+{
+  "mode": "Built-in ImageGen",
+  "hero": {
+    "source": "design/inbloom-landing-v3/01-hero.png",
+    "output": "public/images/hero.png",
+    "method": "Remove UI overlays; preserve sculptural bouquet, olive scene and light.",
+    "status": "Decorative generated scene, not inventory photography.",
+    "sha256": "81499ac989059ed5a12d34fafd39ec2fd4f8c34e5e549c4a976e5752ff96f102"
+  },
+  "logo": {
+    "source": "design/inbloom-concept-v1/brand-logo-original.jpg",
+    "output": "public/images/logo.png",
+    "method": "Background extraction; original coral lettering and flower retained.",
+    "status": "Transparent derivative, visually compared with original.",
+    "sha256": "53c75ab3a4f3b36e681643032443a991982bbdfeca056816b500095af3b53a41"
+  },
+  "bouquets": {
+    "source": "prototype/assets-receipt.json",
+    "outputDirectory": "public/images/bouquets",
+    "files": [
+      "cloud.png",
+      "white-bloom.png",
+      "soft-s.png",
+      "sophie-basket-s.png"
+    ],
+    "method": "Existing generated cutouts copied unchanged.",
+    "status": "Demonstration product cutouts; stock and prices require owner confirmation before commercial publication."
+  },
+  "fonts": {
+    "families": [
+      "Cormorant Garamond",
+      "Manrope"
+    ],
+    "loader": "next/font/google; self-hosted by Next.js at runtime",
+    "licenses": [
+      "public/licenses/cormorant-garamond-OFL.txt",
+      "public/licenses/manrope-OFL.txt"
+    ]
+  },
+  "contact": {
+    "source": "design/inbloom-landing-v3/03-order-contact.png",
+    "output": "public/images/contact-flower.png",
+    "method": "Built-in ImageGen extraction of flower, bud, leaves and cream envelope.",
+    "status": "Decorative generated derivative with transparency; not a current-stock product photograph.",
+    "sha256": "eb16ef03b981e02763033a51ea43b55e7eb5b2e23db3120c9c2445d2977d7c57"
+  }
+}

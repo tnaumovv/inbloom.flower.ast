@@ -1,0 +1,23 @@
+{
+  "mode": "Built-in ImageGen",
+  "prompts": [
+    {
+      "asset": "hero",
+      "input": "design/inbloom-landing-v3/01-hero.png",
+      "transparent_background": false,
+      "prompt": "Use case: precise-object-edit. Asset type: art-only website hero background, landscape 1536x1024. Image 1 is the EDIT_TARGET. Remove ALL UI: logo at top left, navigation, WhatsApp pill at top right, large Russian heading, subtitle and both buttons. Reconstruct the same continuous deep olive studio background and ground beneath these removed elements. Preserve the bouquet on the right exactly: its entire scale and placement, coral-pink roses, cream eustomas, lime chrysanthemums, peach wrapping, coral ribbon, lighting, foreground petal and coherent shadows. Preserve the quiet dark negative space on the left. No text, logos, symbols, borders or UI anywhere. Change only the removed overlays; do not redesign the bouquet or scene. The result is a clean photographic/sculptural scene used behind real HTML text."
+    },
+    {
+      "asset": "logo",
+      "input": "design/inbloom-concept-v1/brand-logo-original.jpg",
+      "transparent_background": true,
+      "prompt": "Use case: background-extraction. Extract the original coral-pink In Bloom logo from this edit target. Remove only the olive background and extra outer margin. Preserve every original letter, flower, line and hand-drawn texture exactly. Complete original logo, tightly framed with a little transparent padding, genuinely transparent PNG, no new text, no redesign, no shadows."
+    },
+    {
+      "asset": "contact",
+      "input": "design/inbloom-landing-v3/03-order-contact.png",
+      "transparent_background": true,
+      "prompt": "Use case: background-extraction. Image 1 is the EDIT_TARGET. Extract only the sculptural coral flower, bud, green stem/leaves and folded cream envelope in the upper right. Keep their exact appearance, lighting and arrangement. Remove every word, number, icon, logo, button, olive background and leafy section border. Transparent cutout of this complete decorative flower-and-envelope arrangement, centered, with small generous margins and clean natural alpha edges. No text or added objects."
+    }
+  ]
+}
