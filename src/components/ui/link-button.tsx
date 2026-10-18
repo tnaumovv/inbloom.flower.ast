@@ -1,11 +1,12 @@
 import type { ReactNode } from 'react';
 
-export function LinkButton({ href, children, variant = 'primary', external = false, className = '' }: {
+export function LinkButton({ href, children, variant = 'primary', external = false, className = '', 'aria-label': ariaLabel }: {
   href: string;
   children: ReactNode;
   variant?: 'primary' | 'outline';
   external?: boolean;
   className?: string;
+  'aria-label'?: string;
 }) {
-  return <a className={`link-button link-button--${variant} ${className}`} href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}>{children}</a>;
+  return <a className={`link-button link-button--${variant} ${className}`} href={href} aria-label={ariaLabel} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}>{children}</a>;
 }

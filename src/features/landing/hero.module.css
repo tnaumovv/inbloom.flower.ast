@@ -1,6 +1,7 @@
 .hero { position: relative; isolation: isolate; min-height: clamp(760px, 66.6667vw, 1100px); background: radial-gradient(ellipse at 85% 30%, #747b3b 0%, #444d22 37%, #303719 72%); }
 .art { position: absolute; inset: 0; z-index: -2; overflow: hidden; pointer-events: none; perspective: 1400px; }
 .art::before { content: ''; position: absolute; inset: 65% -20% -35%; background: radial-gradient(ellipse, #96965266, #222c1400 65%); transform: rotate(-12deg); }
+.hero::after { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
 .bouquetParallax { position: absolute; width: 65%; height: 90%; right: -6%; top: 7%; transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateX(var(--shift-x, 0px)); transition: transform 650ms cubic-bezier(.2,.7,.2,1); transform-style: preserve-3d; }
 .bouquetFloat { position: absolute; inset: 0; animation: bouquet-float 8s ease-in-out infinite; }
 .image { object-fit: contain; filter: drop-shadow(-22px 35px 26px #17210f66); }
@@ -32,7 +33,7 @@
 @media (min-width: 1800px) { .hero { min-height: 1080px; } .content { padding-top: 310px; } }
 @media (max-width: 1023px) and (min-width: 601px) {
   .hero { min-height: 800px; }
-  .art::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, #30350fe6, #30350fbf); }
+  .hero::after { content: ''; background: linear-gradient(90deg, #30350fe6, #30350fbf); }
   .bouquetParallax { width: 78%; right: -18%; top: 9%; }
   .content { padding-top: 230px; }
   .content h1 { font-size: 84px; }
@@ -40,16 +41,17 @@
   .actions { flex-wrap: wrap; max-width: 500px; }
 }
 @media (max-width: 600px) {
-  .hero { min-height: clamp(680px, 88svh, 800px); }
-  .art::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, #303719f5 0%, #303719c7 56%, #30371912 94%), linear-gradient(0deg, #30371999, transparent 35%); }
+  .hero { min-height: 100svh; }
+  .hero::after { content: ''; background: radial-gradient(ellipse at 50% 45%, #30371966, transparent 70%), linear-gradient(0deg, #303719f0, transparent 65%), linear-gradient(90deg, #303719f0, #303719a6 62%, #3037191a); }
   .bouquetParallax { width: 150%; height: 88%; right: -76%; top: 15%; }
   .groundShadow { width: 80%; right: -35%; bottom: 6%; }
   .petal { left: calc(var(--left) - 20%); }
-  .content { position: relative; z-index: 1; padding-top: 160px; padding-bottom: 100px; }
+  .content { position: relative; z-index: 1; display: grid; grid-template-rows: minmax(min-content, 1fr) auto; gap: 32px; min-height: 100svh; padding-top: 140px; padding-bottom: max(64px, calc(env(safe-area-inset-bottom) + 48px)); }
+  .copy { align-self: center; transform: translateY(32px); text-align: center; text-shadow: 0 2px 18px #17210faa; }
   .content h1 { font-size: clamp(50px, 14vw, 82px); line-height: 1.12; letter-spacing: -.045em; }
-  .content p { max-width: 235px; font-size: 15px; line-height: 1.6; margin-top: 24px; }
-  .actions { flex-direction: column; align-items: flex-start; gap: 12px; margin-top: 28px; }
-  .actions a { min-width: 190px; padding: 14px 18px; min-height: 48px; font-size: 13px; }
+  .content p { max-width: 280px; margin: 24px auto 0; font-size: 15px; line-height: 1.6; }
+  .actions { flex-direction: column; align-items: stretch; justify-self: center; width: min(100%, 320px); gap: 12px; margin-top: 0; }
+  .actions a { min-width: 0; padding: 14px 18px; min-height: 48px; font-size: 13px; }
   .actions svg { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {

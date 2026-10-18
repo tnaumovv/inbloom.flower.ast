@@ -21,7 +21,14 @@ test('mobile menu supports keyboard, Escape focus restoration and desktop resize
   await toggle.focus();
   await toggle.press('Enter');
   await expect(nav).toBeVisible();
-  await nav.getByRole('link', { name: 'Букеты', exact: true }).focus();
+  await expect(page.locator('.mobile-nav-panel[data-state="open"]')).toHaveCSS('opacity', '1');
+  await expect(page.locator('.mobile-nav-item').last()).toHaveCSS('opacity', '1');
+  await page.screenshot({ path: '.frontend-workbench/header-carousel/mobile-menu.png' });
+  await nav.getByRole('menuitem', { name: 'Букеты', exact: true }).focus();
+  await page.keyboard.press('End');
+  await expect(nav.getByRole('menuitem', { name: 'Контакты', exact: true })).toBeFocused();
+  await page.keyboard.press('Home');
+  await expect(nav.getByRole('menuitem', { name: 'Букеты', exact: true })).toBeFocused();
   await page.keyboard.press('Escape');
   await expect(nav).not.toBeVisible();
   await expect(toggle).toBeFocused();
@@ -44,10 +51,10 @@ test('mobile header stays usable after scrolling and anchors clear the fixed hea
   await expect(header.getByRole('link', { name: 'In Bloom — на главную' })).toBeInViewport();
   await expect(toggle).toBeInViewport();
   expect((await header.boundingBox())!.y).toBe(0);
-  await expect(header.getByRole('link', { name: 'WhatsApp', exact: true })).toHaveCount(0);
+  await expect(header.getByRole('link', { name: 'WhatsApp', exact: true })).toHaveCount(1);
   await toggle.click();
   const nav = page.getByRole('navigation', { name: 'Мобильная навигация' });
-  await nav.getByRole('link', { name: 'Букеты', exact: true }).click();
+  await nav.getByRole('menuitem', { name: 'Букеты', exact: true }).click();
   await expect(nav).not.toBeVisible();
   await expect(page).toHaveURL(/#bouquets$/);
   await expect.poll(async () => (await page.locator('#showcase-title').boundingBox())!.y).toBeGreaterThan((await header.boundingBox())!.height);

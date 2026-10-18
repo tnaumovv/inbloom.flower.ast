@@ -37,7 +37,7 @@ for (const width of [360, 390, 601, 768, 1023, 1440]) {
       const hero = await page.locator('[data-hero-scene]').boundingBox();
       expect(bouquet!.y).toBeLessThan(title!.y + title!.height);
       expect(bouquet!.x + bouquet!.width).toBeGreaterThan(width);
-      expect(hero!.height).toBeLessThan(800);
+      expect(hero!.height).toBeCloseTo(844, 0);
     }
     if ([390, 601, 768, 1023, 1440].includes(width)) {
       await mkdir('.frontend-workbench/inbloom-runtime', { recursive: true });
@@ -49,6 +49,7 @@ for (const width of [360, 390, 601, 768, 1023, 1440]) {
         await expect.poll(() => carousel.evaluate(el => Math.round(el.scrollLeft))).toBe(0);
       }
       await page.evaluate(() => scrollTo({ top: 0, behavior: 'instant' }));
+      if (width === 390) await page.screenshot({ path: '.frontend-workbench/header-carousel/mobile-hero.png' });
       const capture = width === 1440 ? 'desktop' : width === 390 ? 'mobile' : `tablet-${width}`;
       await page.screenshot({ path: `.frontend-workbench/inbloom-runtime/${capture}.png`, fullPage: true });
       if ([601, 768, 1023].includes(width)) await page.screenshot({ path: `.frontend-workbench/inbloom-runtime/hero-${width}.png` });

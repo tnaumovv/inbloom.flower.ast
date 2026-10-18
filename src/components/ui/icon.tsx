@@ -8,6 +8,8 @@ const paths = {
   'arrow-right': <path d="M4 12h16m-7-7 7 7-7 7"/>,
   menu: <path d="M4 8h16M4 16h16"/>,
   close: <path d="m6 6 12 12M6 18 18 6"/>,
+  play: <path d="m9 5 11 7-11 7Z"/>,
+  pause: <path d="M8 5v14M16 5v14"/>,
   check: <path d="m5 12 4 4L19 6"/>,
   phone: <path d="m7 3 3 5-2 2a15 15 0 0 0 6 6l2-2 5 3v3a2 2 0 0 1-2 2A19 19 0 0 1 2 5a2 2 0 0 1 2-2h3Z"/>,
 };

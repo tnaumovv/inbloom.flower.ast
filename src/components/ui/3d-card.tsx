@@ -46,7 +46,7 @@ export const InteractiveTravelCard = React.forwardRef<HTMLDivElement, Interactiv
       mouseY.set(Math.max(-.5, Math.min(.5, (event.clientY - box.top) / box.height - .5)));
     }} onPointerLeave={reset} onPointerCancel={reset} style={{ rotateX: reducedMotion ? 0 : rotateX, rotateY: reducedMotion ? 0 : rotateY, transformStyle: 'preserve-3d' }} className={cn('relative h-[35rem] w-full rounded-2xl max-[600px]:h-[33rem]', className)}>
       <div className="absolute inset-0 rounded-2xl bg-[#5b6542]" style={{ ...lift, transformStyle: 'preserve-3d' }}>
-        <Image src={imageUrl} alt={imageAlt ?? `${title}, ${subtitle}`} fill sizes="(max-width: 600px) 88vw, (max-width: 1023px) 50vw, 440px" className="rounded-2xl object-cover" style={{ objectPosition: imagePosition }}/>
+        <Image src={imageUrl} alt={imageAlt ?? `${title}, ${subtitle}`} fill sizes="(max-width: 600px) 88vw, (max-width: 1023px) 50vw, 32vw" className="rounded-2xl object-cover" style={{ objectPosition: imagePosition }}/>
         <div className="absolute inset-0 rounded-2xl bg-[linear-gradient(180deg,rgba(13,24,15,.72)_0%,rgba(13,24,15,.72)_18%,transparent_36%,transparent_69%,rgba(13,24,15,.78)_88%,rgba(13,24,15,.82)_100%)]"/>
         <div className="relative flex h-full flex-col justify-between p-6 text-white" style={lift}>
           <div className="min-w-0"><h3 id={titleId} className="font-heading text-[1.875rem] font-normal leading-[1.1] tracking-[-.04em]">{title}</h3><p className="mt-2 text-base font-medium text-white">{subtitle}</p></div>
