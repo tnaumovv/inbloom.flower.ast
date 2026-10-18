@@ -15,7 +15,7 @@ test('page supplies Russian metadata and a visible keyboard skip link', async ({
   await expect(skip).toBeInViewport();
 });
 
-for (const width of [360, 390, 768, 1440]) {
+for (const width of [360, 390, 601, 768, 1023, 1440]) {
   test(`renders cleanly at ${width}px with every image available and no horizontal overflow`, async ({ page }) => {
     await page.setViewportSize({ width, height: width >= 1024 ? 1000 : 844 });
     const errors: string[] = [];
@@ -28,7 +28,7 @@ for (const width of [360, 390, 768, 1440]) {
     }
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
     expect(errors).toEqual([]);
-    if (width === 390 || width === 1440) {
+    if ([390, 601, 768, 1023, 1440].includes(width)) {
       await mkdir('.frontend-workbench/inbloom-runtime', { recursive: true });
       if (width === 390) {
         const carousel = page.getByRole('region', { name: 'Лента букетов', exact: true });
@@ -38,7 +38,9 @@ for (const width of [360, 390, 768, 1440]) {
         await expect.poll(() => carousel.evaluate(el => Math.round(el.scrollLeft))).toBe(0);
       }
       await page.evaluate(() => scrollTo({ top: 0, behavior: 'instant' }));
-      await page.screenshot({ path: `.frontend-workbench/inbloom-runtime/${width === 1440 ? 'desktop' : 'mobile'}.png`, fullPage: true });
+      const capture = width === 1440 ? 'desktop' : width === 390 ? 'mobile' : `tablet-${width}`;
+      await page.screenshot({ path: `.frontend-workbench/inbloom-runtime/${capture}.png`, fullPage: true });
+      if ([601, 768, 1023].includes(width)) await page.screenshot({ path: `.frontend-workbench/inbloom-runtime/hero-${width}.png` });
       if (width === 390) await expect(page.getByRole('status')).toContainText('1 из 4');
       if (width === 1440) await page.screenshot({ path: '.frontend-workbench/inbloom-runtime/preview.png' });
     }

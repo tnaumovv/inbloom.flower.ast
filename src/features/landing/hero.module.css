@@ -10,7 +10,7 @@
 @media (min-width: 1800px) { .hero { min-height: 1080px; } .content { padding-top: 310px; } }
 @media (max-width: 1023px) and (min-width: 601px) {
   .hero { min-height: 800px; }
-  .art::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, #30350f66, transparent 90%); }
+  .art::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, #30350fe6, #30350fbf); }
   .content { padding-top: 230px; }
   .content h1 { font-size: 108px; }
   .content p { max-width: 420px; }
