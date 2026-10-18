@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-cream: #faf4df;
+  --color-olive: #787937;
+  --color-deep-olive: #30350f;
+  --color-coral: #e89f94;
+}
+
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--color-deep-olive); color: var(--color-cream); font-family: Arial, Helvetica, sans-serif; }

@@ -1,0 +1,12 @@
+/node_modules/
+/.next/
+/out/
+/coverage/
+/test-results/
+/playwright-report/
+/.frontend-workbench/
+/.tooling/
+/.env*
+!/.env.example
+*.tsbuildinfo
+.DS_Store
