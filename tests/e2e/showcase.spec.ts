@@ -36,6 +36,11 @@ test('mobile carousel follows keyboard, manual scrolling and viewport changes', 
   await viewport.press('Home');
   await expect(status).toContainText('1 из 4');
   await expect(page.getByRole('button', { name: 'Предыдущий букет' })).toBeDisabled();
+  await page.getByRole('button', { name: 'Следующий букет' }).click();
+  await expect(status).toContainText('2 из 4');
+  await page.getByRole('button', { name: 'Предыдущий букет' }).click();
+  await expect(status).toContainText('1 из 4');
+  await viewport.focus();
   await viewport.press('ArrowRight');
   await expect(status).toContainText('2 из 4');
   await viewport.evaluate(el => el.scrollTo({ left: el.scrollWidth, behavior: 'instant' }));
