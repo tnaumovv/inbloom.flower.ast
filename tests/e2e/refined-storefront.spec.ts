@@ -5,6 +5,9 @@ for (const width of [320, 390, 430]) {
     await page.setViewportSize({ width, height: 844 });
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await page.goto('/');
+    expect((await page.locator('[data-hero-scene]').boundingBox())!.height).toBeCloseTo(844, 0);
+    await expect(page.locator('.site-header img')).toHaveAttribute('src', /logo/);
+    await expect(page.locator('.footer-brand img')).toHaveAttribute('src', /logo/);
     const choose = page.getByRole('link', { name: 'Выбрать букет', exact: true });
     const florist = page.getByRole('link', { name: 'Написать флористу', exact: true });
     const first = (await choose.boundingBox())!;

@@ -5,6 +5,8 @@ import Image from 'next/image';
 import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { Button } from './button';
+import { InteractiveHoverLink } from './interactive-hover-link';
+import { ShineBorder } from './shine-border';
 import { Icon } from './icon';
 
 export type InteractiveTravelCardProps = {
@@ -46,11 +48,11 @@ export const InteractiveTravelCard = React.forwardRef<HTMLDivElement, Interactiv
       mouseX.set(Math.max(-.5, Math.min(.5, (event.clientX - box.left) / box.width - .5)));
       mouseY.set(Math.max(-.5, Math.min(.5, (event.clientY - box.top) / box.height - .5)));
     }} onPointerLeave={reset} onPointerCancel={reset} style={{ rotateX: reducedMotion ? 0 : rotateX, rotateY: reducedMotion ? 0 : rotateY, transformStyle: 'preserve-3d' }} className={cn('bouquet-product', className)}>
-      <div className="bouquet-product-inner">
+      <div className="bouquet-product-inner"><ShineBorder/>
         <div className="bouquet-title"><h3 id={titleId}>{title}</h3><p>{subtitle}</p></div>
         <div className="bouquet-photo"><Image src={imageUrl} alt={imageAlt ?? `${title}, ${subtitle}`} fill sizes="(max-width: 600px) 88vw, (max-width: 1023px) 50vw, 32vw" className="object-cover" style={{ objectPosition: imagePosition }}/></div>
         <div className="bouquet-details">
-          {actionHref ? <Button asChild variant="outline" className={actionClass}><a href={actionHref} target="_blank" rel="noopener noreferrer" aria-label={actionLabel}><span className="bouquet-order-label"><Icon name="whatsapp"/>{actionText}</span><span className="bouquet-order-arrow" aria-hidden="true"><Icon name="arrow-up-right"/></span></a></Button> : <Button type="button" variant="outline" className={actionClass} onClick={onActionClick} aria-label={actionLabel}>{actionText}</Button>}
+          {actionHref ? <InteractiveHoverLink className={actionClass} href={actionHref} target="_blank" rel="noopener noreferrer" aria-label={actionLabel} icon={<Icon name="whatsapp"/>}>{actionText}</InteractiveHoverLink> : <Button type="button" variant="outline" className={actionClass} onClick={onActionClick} aria-label={actionLabel}>{actionText}</Button>}
         </div>
       </div>
     </motion.div>;

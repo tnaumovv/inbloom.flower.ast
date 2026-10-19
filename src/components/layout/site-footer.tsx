@@ -1,3 +1,5 @@
+import { Brand } from './brand';
+import { ShineBorder } from '@/components/ui/shine-border';
 import { Container } from '@/components/ui/container';
 import { Icon } from '@/components/ui/icon';
 import { LinkButton } from '@/components/ui/link-button';
@@ -20,11 +22,11 @@ export function SiteFooter() {
           <LinkButton href={siteConfig.instagramUrl} external variant="outline" className="footer-social footer-social--instagram"><Icon name="instagram"/><span className="footer-social-copy"><span>Instagram</span><small>@{siteConfig.instagramHandle}</small></span><Icon name="arrow-up-right"/></LinkButton>
         </div>
       </div>
-      <figure className="footer-map" data-reveal data-reveal-delay>
+      <figure className="footer-map" data-reveal data-reveal-delay><ShineBorder/>
         <iframe title="Магазин In Bloom на карте 2ГИС" src={siteConfig.mapEmbedUrl} loading="eager" referrerPolicy="no-referrer-when-downgrade" allowFullScreen/>
         <figcaption><span>In Bloom на карте</span><a href={siteConfig.mapUrl} target="_blank" rel="noopener noreferrer">Открыть в 2ГИС <Icon name="arrow-up-right"/></a></figcaption>
       </figure>
     </div>
-    <div className="footer-bottom"><a href="#" className="footer-brand" aria-label="In Bloom — на главную"><span className="brand-wordmark">in bloom<span>FLOWER STUDIO</span></span></a><span>In Bloom · Цветы в Астане</span></div>
+    <div className="footer-bottom"><Brand footer/><span>In Bloom · Цветы в Астане</span></div>
   </Container></footer>;
 }

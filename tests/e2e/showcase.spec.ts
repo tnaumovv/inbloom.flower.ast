@@ -93,6 +93,11 @@ test('the supplied 3D card tilts, resets and disables motion when the preference
   const article = page.getByRole('article', { name: 'Cloud', exact: true });
   const card = article.locator('[data-tilt-card]');
   await expect(article.getByRole('link')).toHaveAttribute('target', '_blank');
+  // Pause autoplay and select the card before measuring pointer coordinates.
+  const viewport = page.getByRole('region', { name: 'Лента букетов', exact: true });
+  await viewport.focus();
+  await viewport.press('Home');
+  await expect(article).toBeInViewport();
   const box = (await card.boundingBox())!;
   await page.mouse.move(box.x + 100, box.y + 100);
   await expect.poll(() => card.evaluate(el => getComputedStyle(el).transform)).not.toBe('none');

@@ -16,7 +16,7 @@
 .content h1 span { display: block; color: #657351; }
 .content p { margin: 28px 0 0; max-width: 345px; font-size: 16px; line-height: 1.8; color: #62685b; }
 .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; max-width: 55%; }
-.actions a { min-height: 54px; padding: 15px 23px; font-size: 13px; transition: transform 220ms, background 220ms; }
+.actions a { min-height: 56px; padding: 15px 60px 15px 22px; font-size: 13px; transition: transform 220ms, background 220ms; }
 .actions a:is(:hover, :focus-visible) { transform: translateY(-3px); }
 .actions svg { width: 17px; height: 17px; }
 .floristButton { background: transparent; }
@@ -32,18 +32,18 @@
   .actions { max-width: 60%; }
 }
 @media (max-width: 600px) {
-  .content { min-height: 720px; padding-top: 128px; padding-bottom: 106px; display: flex; flex-direction: column; }
+  .content { min-height: 100svh; padding-top: clamp(128px, 17svh, 165px); padding-bottom: 100px; display: flex; flex-direction: column; }
   .copy { max-width: 100%; }
   .eyebrow { font-size: 9px; letter-spacing: .17em; margin-bottom: 20px; }
   .content h1 { font-size: clamp(50px, 12.8vw, 76px); line-height: 1.16; }
   .content p { max-width: 220px; margin-top: 22px; font-size: 14px; }
   .art::before { width: 85%; height: 410px; right: -30%; top: 178px; }
   .art::after { width: 82%; height: 410px; right: -26%; top: 166px; }
-  .bouquetParallax { width: 118%; height: 440px; right: -44%; top: 174px; }
+  .bouquetParallax { width: 118%; height: clamp(390px, 60svh, 550px); right: -44%; top: clamp(160px, 20svh, 200px); }
   .hero::after { content: ''; position: absolute; z-index: -1; inset: 0; pointer-events: none; background: linear-gradient(90deg, #f5f1e9 0%, #f5f1e9d9 27%, #f5f1e900 63%); }
   .groundShadow { right: -18%; bottom: 19%; width: 70%; }
-  .actions { flex-direction: column; align-items: stretch; width: 100%; max-width: 100%; margin-top: 76px; padding-top: 0; gap: 12px; }
-  .actions a { min-height: 58px; padding: 17px 24px; font-size: 15px; justify-content: space-between; }
+  .actions { flex-direction: column; align-items: stretch; width: 100%; max-width: 100%; margin-top: clamp(42px, 7svh, 76px); padding-top: 0; gap: 12px; }
+  .actions a { min-height: 58px; padding: 17px 60px 17px 22px; font-size: 15px; justify-content: center; }
   .actions svg { width: 21px; height: 21px; }
   .floristButton { background: #faf7f1f5; border-color: #243e3040; }
   .signature { bottom: 32px; gap: 12px; flex-wrap: wrap; font-size: 9px; letter-spacing: .02em; padding-top: 18px; }
@@ -51,4 +51,15 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .bouquetParallax, .bouquetFloat, .actions a:is(:hover, :focus-visible, :active) { transform: none; }
+}
+
+@media (max-width: 600px) and (max-height: 700px) {
+  .content { padding-top: 112px; padding-bottom: 78px; }
+  .eyebrow { margin-bottom: 14px; }
+  .content h1 { font-size: clamp(44px, 12vw, 56px); }
+  .content p { margin-top: 16px; line-height: 1.6; }
+  .actions { margin-top: 24px; gap: 10px; }
+  .actions a { min-height: 54px; padding-block: 15px; }
+  .signature { bottom: 20px; }
+  .bouquetParallax { top: 140px; height: 370px; }
 }
