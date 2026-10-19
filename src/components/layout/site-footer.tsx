@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { Container } from '@/components/ui/container';
 import { Icon } from '@/components/ui/icon';
 import { LinkButton } from '@/components/ui/link-button';
@@ -26,6 +25,6 @@ export function SiteFooter() {
         <figcaption><span>In Bloom на карте</span><a href={siteConfig.mapUrl} target="_blank" rel="noopener noreferrer">Открыть в 2ГИС <Icon name="arrow-up-right"/></a></figcaption>
       </figure>
     </div>
-    <div className="footer-bottom"><a href="#" className="footer-brand" aria-label="In Bloom — на главную"><Image src="/images/logo.png" alt="In Bloom" width={108} height={76}/></a><span>In Bloom · Цветы в Астане</span></div>
+    <div className="footer-bottom"><a href="#" className="footer-brand" aria-label="In Bloom — на главную"><span className="brand-wordmark">in bloom<span>FLOWER STUDIO</span></span></a><span>In Bloom · Цветы в Астане</span></div>
   </Container></footer>;
 }

@@ -37,7 +37,10 @@ for (const width of [360, 390, 601, 768, 1023, 1440]) {
       const hero = await page.locator('[data-hero-scene]').boundingBox();
       expect(bouquet!.y).toBeLessThan(title!.y + title!.height);
       expect(bouquet!.x + bouquet!.width).toBeGreaterThan(width);
-      expect(hero!.height).toBeCloseTo(844, 0);
+      // The compact mobile composition no longer stretches actions to the viewport bottom.
+      expect(hero!.height).toBeLessThanOrEqual(844);
+      const action = (await page.getByRole('link', { name: 'Написать флористу', exact: true }).boundingBox())!;
+      expect(action.y + action.height).toBeLessThan(hero!.y + hero!.height);
     }
     if ([390, 601, 768, 1023, 1440].includes(width)) {
       await mkdir('.frontend-workbench/inbloom-runtime', { recursive: true });

@@ -4,6 +4,8 @@ import * as React from 'react';
 import Image from 'next/image';
 import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { Button } from './button';
+import { Icon } from './icon';
 
 export type InteractiveTravelCardProps = {
   title: string;
@@ -25,8 +27,8 @@ export const InteractiveTravelCard = React.forwardRef<HTMLDivElement, Interactiv
     const mouseY = useMotionValue(0);
     const springX = useSpring(mouseX, { damping: 22, stiffness: 170 });
     const springY = useSpring(mouseY, { damping: 22, stiffness: 170 });
-    const rotateX = useTransform(springY, [-.5, .5], ['8.5deg', '-8.5deg']);
-    const rotateY = useTransform(springX, [-.5, .5], ['-8.5deg', '8.5deg']);
+    const rotateX = useTransform(springY, [-.5, .5], ['3deg', '-3deg']);
+    const rotateY = useTransform(springX, [-.5, .5], ['-3deg', '3deg']);
     const reset = () => { mouseX.set(0); mouseY.set(0); };
 
     React.useEffect(() => {
@@ -36,21 +38,19 @@ export const InteractiveTravelCard = React.forwardRef<HTMLDivElement, Interactiv
       }
     }, [reducedMotion, mouseX, mouseY, springX, springY]);
 
-    const actionClass = 'flex min-h-12 w-full items-center justify-center rounded-xl bg-white/15 px-3 py-3 text-center text-sm font-semibold text-white ring-1 ring-inset ring-white/40 backdrop-blur-md transition-colors hover:bg-white/25 focus-visible:bg-white/25';
-    const lift = { transform: reducedMotion ? 'none' : 'translateZ(28px)' };
+    const actionClass = 'bouquet-order';
 
     return <motion.div ref={ref} data-tilt-card onPointerMove={event => {
       if (reducedMotion || event.pointerType !== 'mouse' || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
       const box = event.currentTarget.getBoundingClientRect();
       mouseX.set(Math.max(-.5, Math.min(.5, (event.clientX - box.left) / box.width - .5)));
       mouseY.set(Math.max(-.5, Math.min(.5, (event.clientY - box.top) / box.height - .5)));
-    }} onPointerLeave={reset} onPointerCancel={reset} style={{ rotateX: reducedMotion ? 0 : rotateX, rotateY: reducedMotion ? 0 : rotateY, transformStyle: 'preserve-3d' }} className={cn('relative h-[35rem] w-full rounded-2xl max-[600px]:h-[33rem]', className)}>
-      <div className="absolute inset-0 rounded-2xl bg-[#5b6542]" style={{ ...lift, transformStyle: 'preserve-3d' }}>
-        <Image src={imageUrl} alt={imageAlt ?? `${title}, ${subtitle}`} fill sizes="(max-width: 600px) 88vw, (max-width: 1023px) 50vw, 32vw" className="rounded-2xl object-cover" style={{ objectPosition: imagePosition }}/>
-        <div className="absolute inset-0 rounded-2xl bg-[linear-gradient(180deg,rgba(13,24,15,.72)_0%,rgba(13,24,15,.72)_18%,transparent_36%,transparent_69%,rgba(13,24,15,.78)_88%,rgba(13,24,15,.82)_100%)]"/>
-        <div className="relative flex h-full flex-col justify-between p-6 text-white" style={lift}>
-          <div className="min-w-0"><h3 id={titleId} className="font-heading text-[1.875rem] font-normal leading-[1.1] tracking-[-.04em]">{title}</h3><p className="mt-2 text-base font-medium text-white">{subtitle}</p></div>
-          {actionHref ? <motion.a href={actionHref} target="_blank" rel="noopener noreferrer" aria-label={actionLabel} whileHover={reducedMotion ? undefined : { scale: 1.025 }} whileTap={reducedMotion ? undefined : { scale: .98 }} className={actionClass}>{actionText}</motion.a> : <motion.button type="button" onClick={onActionClick} aria-label={actionLabel} whileHover={reducedMotion ? undefined : { scale: 1.025 }} whileTap={reducedMotion ? undefined : { scale: .98 }} className={actionClass}>{actionText}</motion.button>}
+    }} onPointerLeave={reset} onPointerCancel={reset} style={{ rotateX: reducedMotion ? 0 : rotateX, rotateY: reducedMotion ? 0 : rotateY, transformStyle: 'preserve-3d' }} className={cn('bouquet-product', className)}>
+      <div className="bouquet-product-inner">
+        <div className="bouquet-title"><h3 id={titleId}>{title}</h3><p>{subtitle}</p></div>
+        <div className="bouquet-photo"><Image src={imageUrl} alt={imageAlt ?? `${title}, ${subtitle}`} fill sizes="(max-width: 600px) 88vw, (max-width: 1023px) 50vw, 32vw" className="object-cover" style={{ objectPosition: imagePosition }}/></div>
+        <div className="bouquet-details">
+          {actionHref ? <Button asChild variant="outline" className={actionClass}><a href={actionHref} target="_blank" rel="noopener noreferrer" aria-label={actionLabel}><span className="bouquet-order-label"><Icon name="whatsapp"/>{actionText}</span><span className="bouquet-order-arrow" aria-hidden="true"><Icon name="arrow-up-right"/></span></a></Button> : <Button type="button" variant="outline" className={actionClass} onClick={onActionClick} aria-label={actionLabel}>{actionText}</Button>}
         </div>
       </div>
     </motion.div>;

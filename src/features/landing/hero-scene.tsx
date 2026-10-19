@@ -69,7 +69,7 @@ export function HeroScene() {
     } as CSSProperties}><i/></span>)}</div>
     <div className={styles.groundShadow}/>
     <div ref={bouquetRef} className={styles.bouquetParallax} data-hero-bouquet>
-      <div className={styles.bouquetFloat}><Image src="/images/bouquets/soft-s.png" alt="" fill sizes="(max-width: 600px) 150vw, (max-width: 1023px) 78vw, 65vw" loading="eager" className={styles.image}/></div>
+      <div className={styles.bouquetFloat}><Image src="/images/bouquets/soft-s.png" alt="" fill sizes="(max-width: 600px) 118vw, (max-width: 1023px) 66vw, 56vw" loading="eager" className={styles.image}/></div>
     </div>
   </div>;
 }

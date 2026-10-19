@@ -1,61 +1,54 @@
-.hero { position: relative; isolation: isolate; min-height: clamp(760px, 66.6667vw, 1100px); background: radial-gradient(ellipse at 85% 30%, #747b3b 0%, #444d22 37%, #303719 72%); }
+.hero { position: relative; isolation: isolate; overflow: hidden; background: #f5f1e9; color: var(--color-deep-olive); }
 .art { position: absolute; inset: 0; z-index: -2; overflow: hidden; pointer-events: none; perspective: 1400px; }
-.art::before { content: ''; position: absolute; inset: 65% -20% -35%; background: radial-gradient(ellipse, #96965266, #222c1400 65%); transform: rotate(-12deg); }
-.hero::after { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
-.bouquetParallax { position: absolute; width: 65%; height: 90%; right: -6%; top: 7%; transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateX(var(--shift-x, 0px)); transition: transform 650ms cubic-bezier(.2,.7,.2,1); transform-style: preserve-3d; }
-.bouquetFloat { position: absolute; inset: 0; animation: bouquet-float 8s ease-in-out infinite; }
-.image { object-fit: contain; filter: drop-shadow(-22px 35px 26px #17210f66); }
-.groundShadow { position: absolute; right: 3%; bottom: 7%; width: 46%; height: 9%; border-radius: 50%; background: #111b0c77; filter: blur(22px); transform: rotate(-8deg); }
-.petals { position: absolute; inset: 0; overflow: hidden; }
-.petal { position: absolute; top: -12%; left: var(--left); width: var(--size); height: calc(var(--size) * .72); animation: petal-fall var(--duration) var(--delay) linear infinite; opacity: 0; }
-.petal i { display: block; width: 100%; height: 100%; border-radius: 12% 85% 28% 85%; background: radial-gradient(ellipse at 28% 20%, #ffd2ce, #e99d9e 55%, #b85e74); box-shadow: inset 1px 1px 2px #ffe5dc88, 1px 3px 7px #14200d22; animation: petal-turn 6s var(--delay) ease-in-out infinite alternate; }
-.petal:nth-child(3n) { filter: blur(1px); }
-.petal:nth-child(4n) i { border-radius: 75% 15% 80% 25%; }
+.art::before { content: ''; position: absolute; width: 48%; height: 78%; right: 4%; top: 14%; border-radius: 48% 48% 4px 4px; background: #e9dfd5; }
+.art::after { content: ''; position: absolute; width: 45%; height: 77%; right: 6%; top: 12%; border: 1px solid #b4a58d66; border-radius: 48% 48% 4px 4px; }
+.bouquetParallax { position: absolute; width: 56%; height: 87%; right: -1%; top: 10%; transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateX(var(--shift-x, 0px)); transition: transform 650ms cubic-bezier(.2,.7,.2,1); transform-style: preserve-3d; }
+.bouquetFloat { position: absolute; inset: 0; animation: bouquet-float 9s ease-in-out infinite; }
+.image { object-fit: contain; filter: drop-shadow(0 24px 20px #564b3620); }
+.groundShadow { position: absolute; right: 10%; bottom: 7%; width: 34%; height: 5%; border-radius: 50%; background: #6b5f4826; filter: blur(22px); }
+.petals { display: none; }
 .art[data-paused="true"] * { animation-play-state: paused; }
-@keyframes bouquet-float { 0%, 100% { transform: translate3d(0, 0, 30px) rotateZ(-5deg); } 50% { transform: translate3d(0, -15px, 42px) rotateZ(-3deg); } }
-@keyframes petal-fall { 0% { transform: translate3d(0, -30px, -100px) rotateZ(-25deg); opacity: 0; } 12% { opacity: .65; } 85% { opacity: .55; } 100% { transform: translate3d(var(--drift), 1100px, -100px) rotateZ(190deg); opacity: 0; } }
-@keyframes petal-turn { from { transform: rotateY(-35deg) rotateX(15deg); } to { transform: rotateY(65deg) rotateX(-25deg); } }
-.content { padding-top: clamp(240px, 17.7vw, 310px); padding-bottom: 190px; }
-.content h1 { margin: 0; max-width: 640px; font-family: var(--font-display), Georgia, serif; font-size: clamp(78px, 7.5vw, 126px); font-weight: 400; letter-spacing: -.045em; line-height: 1.12; }
-.content h1 span { display: block; }
-.content p { margin: 32px 0 0; max-width: 600px; font-size: clamp(17px, 1.55vw, 25px); line-height: 1.55; letter-spacing: -.025em; }
-.actions { display: flex; gap: 18px; margin-top: 50px; }
-.actions a { position: relative; overflow: hidden; min-width: 222px; transition: transform 350ms cubic-bezier(.2,.8,.2,1), box-shadow 350ms, background 350ms, color 350ms, border-color 350ms; }
-.actions a::before { content: ''; position: absolute; inset: -70% -45%; background: linear-gradient(105deg, transparent 35%, #fff6 50%, transparent 65%); transform: translateX(-130%) rotate(10deg); transition: transform 750ms ease; pointer-events: none; }
-.actions a:is(:hover, :focus-visible)::before { transform: translateX(130%) rotate(10deg); }
-.actions a:is(:hover, :focus-visible) { transform: translateY(-4px); }
-.actions a:active { transform: translateY(-1px) scale(.97); }
-.actions svg { width: 20px; height: 20px; transition: transform 350ms cubic-bezier(.2,.8,.2,1); }
-.chooseButton:is(:hover, :focus-visible) { box-shadow: 0 12px 30px #ef9f9555; }
-.chooseButton:is(:hover, :focus-visible) svg { transform: translateX(5px); }
-.floristButton:is(:hover, :focus-visible) { background: var(--color-cream); color: var(--color-deep-olive); box-shadow: 0 10px 24px #10190d33; }
-.floristButton:is(:hover, :focus-visible) svg { transform: rotate(-12deg) scale(1.1); }
-@media (min-width: 1800px) { .hero { min-height: 1080px; } .content { padding-top: 310px; } }
+@keyframes bouquet-float { 0%, 100% { transform: translateY(0) rotate(-5deg); } 50% { transform: translateY(-12px) rotate(-3deg); } }
+.content { position: relative; min-height: 800px; padding-top: 240px; padding-bottom: 140px; }
+.copy { max-width: 54%; }
+.eyebrow { display: block; margin-bottom: 30px; font-size: 11px; letter-spacing: .23em; font-weight: 500; color: #59634e; }
+.content h1 { margin: 0; font-family: var(--font-display), Georgia, serif; font-size: clamp(68px, 6.9vw, 112px); font-weight: 400; letter-spacing: -.055em; line-height: 1.15; }
+.content h1 span { display: block; color: #657351; }
+.content p { margin: 28px 0 0; max-width: 345px; font-size: 16px; line-height: 1.8; color: #62685b; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; max-width: 55%; }
+.actions a { min-height: 54px; padding: 15px 23px; font-size: 13px; transition: transform 220ms, background 220ms; }
+.actions a:is(:hover, :focus-visible) { transform: translateY(-3px); }
+.actions svg { width: 17px; height: 17px; }
+.floristButton { background: transparent; }
+.signature { position: absolute; bottom: 38px; left: clamp(24px, 5.5vw, 88px); right: clamp(24px, 5.5vw, 88px); display: flex; align-items: center; gap: 28px; border-top: 1px solid #243e3026; padding-top: 22px; font-size: 11px; letter-spacing: .08em; color: #616c5d; }
+.signature span:last-child { margin-left: auto; }
+@media (min-width: 1600px) { .content { min-height: 900px; padding-top: 280px; } }
 @media (max-width: 1023px) and (min-width: 601px) {
-  .hero { min-height: 800px; }
-  .hero::after { content: ''; background: linear-gradient(90deg, #30350fe6, #30350fbf); }
-  .bouquetParallax { width: 78%; right: -18%; top: 9%; }
-  .content { padding-top: 230px; }
-  .content h1 { font-size: 84px; }
-  .content p { max-width: 420px; }
-  .actions { flex-wrap: wrap; max-width: 500px; }
+  .content { min-height: 780px; padding-top: 210px; }
+  .copy { max-width: 65%; }
+  .content h1 { font-size: clamp(64px, 8.6vw, 84px); }
+  .bouquetParallax { width: 66%; right: -15%; top: 13%; }
+  .art::before, .art::after { right: -8%; }
+  .actions { max-width: 60%; }
 }
 @media (max-width: 600px) {
-  .hero { min-height: 100svh; }
-  .hero::after { content: ''; background: radial-gradient(ellipse at 50% 45%, #30371966, transparent 70%), linear-gradient(0deg, #303719f0, transparent 65%), linear-gradient(90deg, #303719f0, #303719a6 62%, #3037191a); }
-  .bouquetParallax { width: 150%; height: 88%; right: -76%; top: 15%; }
-  .groundShadow { width: 80%; right: -35%; bottom: 6%; }
-  .petal { left: calc(var(--left) - 20%); }
-  .content { position: relative; z-index: 1; display: grid; grid-template-rows: minmax(min-content, 1fr) auto; gap: 32px; min-height: 100svh; padding-top: 140px; padding-bottom: max(64px, calc(env(safe-area-inset-bottom) + 48px)); }
-  .copy { align-self: center; transform: translateY(32px); text-align: left; text-shadow: 0 2px 18px #17210faa; }
-  .content h1 { font-size: clamp(50px, 14vw, 82px); line-height: 1.12; letter-spacing: -.045em; }
-  .content p { max-width: 280px; margin: 24px 0 0; font-size: 15px; line-height: 1.6; }
-  .actions { flex-direction: column; align-items: stretch; justify-self: start; width: min(240px, calc(100% - 56px)); gap: 12px; margin-top: 0; }
-  .actions a { min-width: 0; padding: 14px 18px; min-height: 48px; font-size: 13px; }
-  .actions svg { display: none; }
+  .content { min-height: 720px; padding-top: 128px; padding-bottom: 106px; display: flex; flex-direction: column; }
+  .copy { max-width: 100%; }
+  .eyebrow { font-size: 9px; letter-spacing: .17em; margin-bottom: 20px; }
+  .content h1 { font-size: clamp(50px, 12.8vw, 76px); line-height: 1.16; }
+  .content p { max-width: 220px; margin-top: 22px; font-size: 14px; }
+  .art::before { width: 85%; height: 410px; right: -30%; top: 178px; }
+  .art::after { width: 82%; height: 410px; right: -26%; top: 166px; }
+  .bouquetParallax { width: 118%; height: 440px; right: -44%; top: 174px; }
+  .hero::after { content: ''; position: absolute; z-index: -1; inset: 0; pointer-events: none; background: linear-gradient(90deg, #f5f1e9 0%, #f5f1e9d9 27%, #f5f1e900 63%); }
+  .groundShadow { right: -18%; bottom: 19%; width: 70%; }
+  .actions { flex-direction: column; align-items: stretch; width: 100%; max-width: 100%; margin-top: 76px; padding-top: 0; gap: 12px; }
+  .actions a { min-height: 58px; padding: 17px 24px; font-size: 15px; justify-content: space-between; }
+  .actions svg { width: 21px; height: 21px; }
+  .floristButton { background: #faf7f1f5; border-color: #243e3040; }
+  .signature { bottom: 32px; gap: 12px; flex-wrap: wrap; font-size: 9px; letter-spacing: .02em; padding-top: 18px; }
+  .signature span:nth-child(2) { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .bouquetParallax, .bouquetFloat, .actions a:is(:hover, :focus-visible, :active), .actions a:is(:hover, :focus-visible) svg { transform: none; }
-  .petals { display: none; }
-  .actions a::before { display: none; }
+  .bouquetParallax, .bouquetFloat, .actions a:is(:hover, :focus-visible, :active) { transform: none; }
 }

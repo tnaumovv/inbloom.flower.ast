@@ -1,12 +1,15 @@
-.showcase { position: relative; background: var(--color-cream); color: var(--color-deep-olive); padding: 58px 0 126px; scroll-margin-top: 40px; }
-.heading { text-align: center; }
+.showcase { position: relative; background: var(--color-cream); color: var(--color-deep-olive); padding: 92px 0 96px; scroll-margin-top: 40px; }
+.heading { text-align: left; }
+.eyebrow { display: block; margin-bottom: 22px; font-size: 10px; letter-spacing: .2em; color: #657351; }
 .heading h2 { margin: 0; font-family: var(--font-display), Georgia, serif; font-weight: 400; font-size: clamp(42px, 4.8vw, 72px); letter-spacing: -.04em; line-height: 1.2; }
 .heading p { margin: 16px 0 0; color: #5f653a; font-size: 17px; line-height: 1.6; }
-.viewport { --edge: 24px; --gap: 24px; --card-width: calc((100vw - 48px) / 3.2); width: 100%; margin: 24px 0 0; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; scroll-snap-type: x mandatory; scroll-padding-inline-start: var(--edge); overscroll-behavior-x: contain; }
+.viewport { --edge: 24px; --gap: 32px; --card-width: calc((100vw - 48px) / 3.2); width: 100%; margin: 24px 0 0; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; scroll-snap-type: x mandatory; scroll-padding-inline-start: var(--edge); overscroll-behavior-x: contain; }
 .viewport[data-enhanced] { overflow: hidden; scroll-snap-type: none; }
 .viewport::-webkit-scrollbar { display: none; }
 .track { display: flex; gap: var(--gap); width: max-content; padding: 42px var(--edge) 40px; }
-.viewport[data-enhanced] .track { width: 100%; padding-inline: 0; touch-action: pan-y pinch-zoom; }
+/* Keep spacing inside each looped slide, including the last-to-first seam. */
+.viewport[data-enhanced] .track { width: 100%; gap: 0; margin-left: calc(-1 * var(--gap)); padding-inline: 0; touch-action: pan-y pinch-zoom; }
+.viewport[data-enhanced] .slide { padding-left: var(--gap); }
 .slide { flex: 0 0 var(--card-width); width: var(--card-width); min-width: 0; scroll-snap-align: start; perspective: 1100px; }
 .card { margin: 0; min-width: 0; }
 .catalogueLink { display: flex; align-items: center; justify-content: center; gap: 8px; width: fit-content; min-height: 44px; margin: 14px auto 0; border-bottom: 1px solid currentColor; color: #a0442b; font-size: 16px; transition: color 180ms; }
@@ -16,10 +19,10 @@
   .viewport { --edge: 32px; --card-width: calc((100vw - 72px) / 2); }
 }
 @media (max-width: 600px) {
-  .showcase { padding-top: 52px; padding-bottom: 106px; }
-  .heading h2 { font-size: 38px; line-height: 1.1; max-width: 360px; margin-inline: auto; }
-  .heading p { font-size: 14px; max-width: 290px; margin: 17px auto 0; }
-  .viewport { --card-width: min(88vw, 400px); --edge: calc((100vw - var(--card-width)) / 2); --gap: 22px; margin-top: 14px; }
+  .showcase { padding-top: 60px; padding-bottom: 64px; }
+  .heading h2 { font-size: 34px; line-height: 1.1; max-width: 360px; margin-inline: 0; }
+  .heading p { font-size: 14px; max-width: 290px; margin: 17px 0 0; }
+  .viewport { --card-width: min(92vw, 420px); --edge: calc((100vw - var(--card-width)) / 2); --gap: 24px; margin-top: 14px; }
   .track { padding-block: 34px; }
   .catalogueLink { font-size: 14px; }
 }
