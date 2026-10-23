@@ -1,11 +1,11 @@
 import { expect, test } from '@playwright/test';
 
-test('custom composition opens a distinct enquiry and explains the three order steps', async ({ page }) => {
+test('custom composition keeps its description without a button and explains the three order steps', async ({ page }) => {
   await page.goto('/');
   await expect(page.getByRole('heading', { name: 'Не нашли свой букет?', exact: true })).toBeVisible();
   await expect(page.getByText('Расскажите о поводе и пожеланиях — обсудим композицию в WhatsApp.', { exact: true })).toBeVisible();
-  const href = await page.getByRole('link', { name: 'Обсудить букет', exact: true }).getAttribute('href');
-  expect(new URL(href!).searchParams.get('text')).toContain('индивидуальный букет');
+  await expect(page.locator('#studio').getByRole('link')).toHaveCount(0);
+  await expect(page.getByRole('link', { name: 'Написать в WhatsApp', exact: true })).toHaveAttribute('href', /^https:\/\/wa\.me\/77082204675\?text=/);
   const steps = page.getByRole('list', { name: 'Как заказать' }).getByRole('listitem');
   await expect(steps).toHaveCount(3);
   await expect(steps.nth(0)).toContainText('Выберите букет');

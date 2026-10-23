@@ -1,16 +1,18 @@
 import { expect, test } from '@playwright/test';
 
-test('desktop presents the main navigation and both hero actions', async ({ page }) => {
+test('desktop presents the main navigation and a transparent header logo', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('/');
   await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1);
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Цветы в Астане');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Нежность в каждом лепестке');
   const nav = page.getByRole('navigation', { name: 'Основная навигация' });
   for (const name of ['Букеты', 'О студии', 'Контакты']) {
     await expect(nav.getByRole('link', { name, exact: true })).toBeVisible();
   }
-  await expect(page.getByRole('link', { name: 'Выбрать букет', exact: true })).toHaveAttribute('href', '#bouquets');
-  await expect(page.getByRole('link', { name: 'Написать флористу', exact: true })).toHaveAttribute('href', /^https:\/\/wa\.me\/77082204675\?text=/);
+  await expect(page.locator('.site-header .brand-link')).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
+  await expect(page.locator('.site-header img')).toHaveAttribute('src', /logo/);
+  await expect(page.locator('section[aria-labelledby="hero-title"] a')).toHaveCount(0);
+  await expect(page.getByRole('link', { name: 'За букетом', exact: true })).toHaveAttribute('href', '#bouquets');
 });
 
 test('mobile menu supports keyboard, Escape focus restoration and desktop resize', async ({ page }) => {
@@ -37,9 +39,10 @@ test('mobile menu supports keyboard, Escape focus restoration and desktop resize
   await expect(nav).toBeVisible();
   await page.setViewportSize({ width: 1440, height: 1000 });
   await expect(toggle).not.toBeVisible();
+  await expect(nav).not.toBeVisible();
   await page.setViewportSize({ width: 390, height: 844 });
   await expect(nav).not.toBeVisible();
-  await expect(page.getByRole('link', { name: 'Выбрать букет', exact: true })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Нежность в каждом лепестке', exact: true })).toBeVisible();
 });
 
 test('mobile header stays usable after scrolling and anchors clear the fixed header', async ({ page }) => {

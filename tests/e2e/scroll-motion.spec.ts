@@ -45,7 +45,8 @@ test('scroll content stays readable without JavaScript', async ({ browser }) => 
   const copy = page.locator('.custom-copy');
   await copy.evaluate(el => el.scrollIntoView({ behavior: 'instant' }));
   await expect(copy).toHaveCSS('opacity', '1');
-  await expect(copy.getByRole('link', { name: 'Обсудить букет' })).toBeInViewport();
+  await expect(copy.getByRole('heading', { name: 'Не нашли свой букет?', exact: true })).toBeInViewport();
+  await expect(copy.getByRole('link')).toHaveCount(0);
   await expect(page.locator('.site-header .brand-link')).toBeInViewport();
   await context.close();
 });

@@ -8,13 +8,13 @@ for (const width of [320, 375, 390, 430, 768, 1024, 1440]) {
     page.on('pageerror', error => errors.push(error.message));
     page.on('console', message => { if (message.type() === 'error' && /hydrat|React|uncaught/i.test(message.text())) errors.push(message.text()); });
     await page.goto('/');
-    await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
-    const choose = page.getByRole('link', { name: 'Выбрать букет', exact: true });
-    await expect(choose).toBeInViewport();
-    const box = (await choose.boundingBox())!;
-    expect(box.height).toBeGreaterThanOrEqual(44);
+    const title = page.getByRole('heading', { level: 1 });
+    await expect(title).toBeInViewport();
+    await expect(page.locator('section[aria-labelledby="hero-title"] a')).toHaveCount(0);
+    const box = (await title.boundingBox())!;
     expect(box.x).toBeGreaterThanOrEqual(0);
     expect(box.x + box.width).toBeLessThanOrEqual(width);
+    await expect(page.locator('.site-header .brand-link')).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
     for (const id of ['bouquets', 'studio', 'faq', 'contacts']) {
       await page.locator(`#${id}`).evaluate(el => el.scrollIntoView({ behavior: 'instant' }));
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);

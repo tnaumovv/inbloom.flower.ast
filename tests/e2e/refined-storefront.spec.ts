@@ -1,22 +1,24 @@
 import { expect, test } from '@playwright/test';
 
 for (const width of [320, 390, 430]) {
-  test(`mobile hero actions stay near the copy at ${width}px`, async ({ page }) => {
+  test(`mobile hero overlays the enlarged bouquet with readable copy at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 844 });
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await page.goto('/');
     expect((await page.locator('[data-hero-scene]').boundingBox())!.height).toBeCloseTo(844, 0);
     await expect(page.locator('.site-header img')).toHaveAttribute('src', /logo/);
     await expect(page.locator('.footer-brand img')).toHaveAttribute('src', /logo/);
-    const choose = page.getByRole('link', { name: 'Выбрать букет', exact: true });
-    const florist = page.getByRole('link', { name: 'Написать флористу', exact: true });
-    const first = (await choose.boundingBox())!;
-    const second = (await florist.boundingBox())!;
-    expect(first.height).toBeGreaterThanOrEqual(56);
-    expect(first.width).toBeGreaterThanOrEqual(width - 48);
-    expect(second.y + second.height).toBeLessThan(660);
-    expect(await choose.evaluate(el => parseFloat(getComputedStyle(el).fontSize))).toBeGreaterThanOrEqual(15);
-    expect((await page.locator('[data-hero-bouquet]').boundingBox())!.y).toBeLessThan(220);
+    const hero = page.locator('section[aria-labelledby="hero-title"]');
+    await expect(hero.getByRole('link')).toHaveCount(0);
+    const title = (await hero.getByRole('heading', { level: 1 }).boundingBox())!;
+    const bouquet = (await page.locator('[data-hero-bouquet]').boundingBox())!;
+    expect(bouquet.width).toBeGreaterThan(width * 1.5);
+    expect(bouquet.y).toBeLessThan(title.y + title.height);
+    expect(bouquet.x).toBeLessThan(title.x + title.width);
+    expect(bouquet.x + bouquet.width).toBeGreaterThan(width);
+    expect(title.y).toBeGreaterThan((await page.locator('.header-content').boundingBox())!.height);
+    await expect(page.locator('.site-header .brand-link')).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
+    await page.screenshot({ path: `.frontend-workbench/mobile-hero-update/hero-${width}.png` });
   });
 }
 

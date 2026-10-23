@@ -37,10 +37,10 @@ for (const width of [360, 390, 601, 768, 1023, 1440]) {
       const hero = await page.locator('[data-hero-scene]').boundingBox();
       expect(bouquet!.y).toBeLessThan(title!.y + title!.height);
       expect(bouquet!.x + bouquet!.width).toBeGreaterThan(width);
-      // Mobile hero fills the screen while actions stay close to the copy.
+      // Mobile hero fills the screen with copy over the enlarged background bouquet.
       expect(hero!.height).toBeCloseTo(844, 0);
-      const action = (await page.getByRole('link', { name: 'Написать флористу', exact: true }).boundingBox())!;
-      expect(action.y + action.height).toBeLessThan(hero!.y + hero!.height);
+      expect(title!.y + title!.height).toBeLessThan(hero!.y + hero!.height);
+      await expect(page.locator('section[aria-labelledby="hero-title"] a')).toHaveCount(0);
     }
     if ([390, 601, 768, 1023, 1440].includes(width)) {
       await mkdir('.frontend-workbench/inbloom-runtime', { recursive: true });
@@ -66,7 +66,7 @@ test('server HTML preserves the catalogue and native mobile navigation without J
   const context = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
   const page = await context.newPage();
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'Цветы в Астане', exact: true })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Нежность в каждом лепестке', exact: true })).toBeVisible();
   await expect(page.getByRole('article')).toHaveCount(6);
   for (const name of ['Cloud', 'White bloom', 'Soft s', 'Sophie basket S', 'Green red', 'Autumn']) {
     await expect(page.getByRole('link', { name: `Заказать ${name} в WhatsApp` })).toHaveAttribute('href', /^https:\/\/wa\.me\/77082204675\?text=/);

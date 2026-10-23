@@ -14,7 +14,7 @@ export function Showcase({ bouquets }: { bouquets: readonly Bouquet[] }) {
   const selected = bouquets[selectedIndex];
 
   return <section id="bouquets" className={styles.showcase} aria-labelledby="showcase-title" onFocusCapture={onFocus} onBlurCapture={onBlur}>
-    <Container className={styles.heading}><div data-reveal><span className={styles.eyebrow}>ЦВЕТЫ, КОТОРЫЕ ГОВОРЯТ ЗА ВАС</span><h2 id="showcase-title">Витрина букетов</h2><p>Выберите букет — детали обсудим в WhatsApp.</p></div></Container>
+    <Container className={styles.heading}><div data-reveal><h2 id="showcase-title">Витрина букетов</h2></div></Container>
     <div data-reveal ref={viewportRef} data-enhanced={ready || undefined} className={styles.viewport} role="region" aria-roledescription="карусель" aria-label="Лента букетов" tabIndex={0} onPointerDownCapture={onPointerDown} onPointerEnter={onPointerEnter} onPointerLeave={onPointerLeave} onKeyDown={event => {
       if (event.target !== event.currentTarget) return;
       const targets: Record<string, 'next' | 'previous' | number> = { ArrowLeft: 'previous', ArrowRight: 'next', Home: 0, End: bouquets.length - 1 };
