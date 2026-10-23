@@ -14,6 +14,14 @@ for (const width of [320, 375, 390, 430, 768, 1024, 1440]) {
     const box = (await title.boundingBox())!;
     expect(box.x).toBeGreaterThanOrEqual(0);
     expect(box.x + box.width).toBeLessThanOrEqual(width);
+    expect(box.x + box.width / 2).toBeCloseTo(width / 2, 0);
+    const hero = (await page.locator('section[aria-labelledby="hero-title"]').boundingBox())!;
+    expect(hero.width).toBe(width);
+    expect(hero.height).toBeGreaterThanOrEqual(844);
+    if (width >= 1024) {
+      const nav = (await page.getByRole('navigation', { name: 'Основная навигация' }).boundingBox())!;
+      expect(nav.x + nav.width / 2).toBeCloseTo(width / 2, 0);
+    }
     await expect(page.locator('.site-header .brand-link')).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
     for (const id of ['bouquets', 'studio', 'faq', 'contacts']) {
       await page.locator(`#${id}`).evaluate(el => el.scrollIntoView({ behavior: 'instant' }));

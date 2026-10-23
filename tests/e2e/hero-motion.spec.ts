@@ -11,7 +11,7 @@ test('the enlarged hero scene responds to the pointer and header navigation reac
   await expect.poll(() => bouquet.evaluate(el => (el as HTMLElement).style.getPropertyValue('--tilt-y'))).not.toBe('');
   await page.mouse.move(1200, 700);
   await expect.poll(() => bouquet.evaluate(el => (el as HTMLElement).style.getPropertyValue('--tilt-x'))).not.toBe('0deg');
-  await page.mouse.move(1400, 990);
+  await page.mouse.move(40, 40);
   await expect.poll(() => bouquet.evaluate(el => (el as HTMLElement).style.getPropertyValue('--tilt-y'))).toBe('');
   await expect(page.locator('section[aria-labelledby="hero-title"] a')).toHaveCount(0);
   const choose = page.getByRole('link', { name: 'За букетом', exact: true });
