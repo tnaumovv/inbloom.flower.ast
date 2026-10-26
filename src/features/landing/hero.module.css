@@ -44,8 +44,9 @@
 }
 
 @media (max-width: 600px) and (max-height: 700px) {
-  .content { padding-bottom: 88px; }
+  .content { padding-top: 150px; padding-bottom: 100px; }
   .content h1 { font-size: clamp(40px, 11.5vw, 52px); }
   .content p { margin-top: 16px; line-height: 1.6; }
   .signature { bottom: 20px; }
+  .bouquetParallax { top: 100px; height: calc(100% - 100px); }
 }
