@@ -18,7 +18,11 @@
 .signature span:last-child { margin-left: auto; }
 @media (min-width: 1600px) { .content { min-height: 900px; padding-top: 280px; } }
 @media (max-width: 1023px) and (min-width: 601px) {
-  .content h1 { font-size: clamp(56px, 7.5vw, 76px); }
+  .content { min-height: 780px; padding-top: 210px; }
+  .copy { max-width: 65%; }
+  .content h1 { font-size: clamp(50px, 7.5vw, 76px); }
+  .bouquetParallax { width: 90%; right: -28%; top: 5%; }
+  .art::before, .art::after { right: -8%; }
 }
 @media (max-width: 600px) {
   .content { padding-top: 112px; padding-bottom: 100px; }
