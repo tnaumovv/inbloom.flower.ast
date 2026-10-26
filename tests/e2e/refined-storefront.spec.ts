@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 for (const width of [320, 390, 430]) {
-  test(`mobile hero centers the copy over a full-width bouquet at ${width}px`, async ({ page }) => {
+  test(`mobile hero overlays the enlarged bouquet with readable copy at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 844 });
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await page.goto('/');
@@ -13,10 +13,9 @@ for (const width of [320, 390, 430]) {
     const title = (await hero.getByRole('heading', { level: 1 }).boundingBox())!;
     const bouquet = (await page.locator('[data-hero-bouquet]').boundingBox())!;
     expect((await hero.boundingBox())!.width).toBe(width);
-    expect(bouquet.width).toBeGreaterThan(width);
-    expect(bouquet.x + bouquet.width / 2).toBeCloseTo(width / 2, 0);
-    expect(title.x + title.width / 2).toBeCloseTo(width / 2, 0);
-    await expect(hero.getByRole('heading', { level: 1 })).toHaveCSS('text-align', 'center');
+    expect(bouquet.width).toBeGreaterThan(width * 1.5);
+    expect(bouquet.x + bouquet.width / 2).toBeGreaterThan(width / 2);
+    await expect(hero.getByRole('heading', { level: 1 })).toHaveCSS('text-align', 'start');
     expect(bouquet.y).toBeLessThan(title.y + title.height);
     expect(bouquet.x).toBeLessThan(title.x + title.width);
     expect(bouquet.x + bouquet.width).toBeGreaterThan(width);
