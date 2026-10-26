@@ -1,10 +1,11 @@
 .hero { position: relative; isolation: isolate; width: 100%; overflow: hidden; background: #f5f1e9; color: var(--color-deep-olive); }
-.hero::after { content: ''; position: absolute; z-index: -1; inset: 0; pointer-events: none; background: radial-gradient(ellipse at center, #f5f1e9ed 0%, #f5f1e9c7 30%, #f5f1e94d 68%, #f5f1e926 100%), linear-gradient(0deg, #f5f1e9 0%, #f5f1e900 24%, #f5f1e900 80%, #f5f1e9b3 100%); }
 .art { position: absolute; inset: 0; z-index: -2; overflow: hidden; pointer-events: none; perspective: 1400px; }
-.bouquetParallax { position: absolute; width: 110%; height: 110%; left: -5%; top: -5%; transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateX(var(--shift-x, 0px)); transition: transform 650ms cubic-bezier(.2,.7,.2,1); transform-style: preserve-3d; }
+.art::before { content: ''; position: absolute; width: 48%; height: 78%; right: 4%; top: 14%; border-radius: 48% 48% 4px 4px; background: #e9dfd5; }
+.art::after { content: ''; position: absolute; width: 45%; height: 77%; right: 6%; top: 12%; border: 1px solid #b4a58d66; border-radius: 48% 48% 4px 4px; }
+.bouquetParallax { position: absolute; width: 66%; height: 100%; right: -6%; top: 1%; transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateX(var(--shift-x, 0px)); transition: transform 650ms cubic-bezier(.2,.7,.2,1); transform-style: preserve-3d; }
 .bouquetFloat { position: absolute; inset: 0; animation: bouquet-float 9s ease-in-out infinite; }
-.image { object-fit: cover; object-position: center 40%; filter: drop-shadow(0 24px 20px #564b3620); }
-.groundShadow { position: absolute; left: 20%; bottom: 5%; width: 60%; height: 5%; border-radius: 50%; background: #6b5f4826; filter: blur(22px); }
+.image { object-fit: contain; filter: drop-shadow(0 24px 20px #564b3620); }
+.groundShadow { position: absolute; right: 10%; bottom: 7%; width: 34%; height: 5%; border-radius: 50%; background: #6b5f4826; filter: blur(22px); }
 .petals { display: none; }
 .art[data-paused="true"] * { animation-play-state: paused; }
 @keyframes bouquet-float { 0%, 100% { transform: translateY(0) rotate(-5deg); } 50% { transform: translateY(-12px) rotate(-3deg); } }
