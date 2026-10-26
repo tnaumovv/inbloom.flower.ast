@@ -14,7 +14,8 @@
 .content h1 { margin: 0; font-family: var(--font-display), Georgia, serif; font-size: clamp(60px, 6.9vw, 98px); font-weight: 400; letter-spacing: -.04em; line-height: 1.15; }
 .content h1 span { display: block; color: #657351; }
 .content p { margin: 28px 0 0; max-width: 345px; font-size: 16px; line-height: 1.8; color: #62685b; }
-.signature { position: absolute; bottom: 38px; left: clamp(24px, 5.5vw, 88px); right: clamp(24px, 5.5vw, 88px); display: flex; justify-content: center; align-items: center; gap: 28px; border-top: 1px solid #243e3026; padding-top: 22px; font-size: 11px; letter-spacing: .08em; text-align: center; color: #424d3c; }
+.signature { position: absolute; bottom: 38px; left: clamp(24px, 5.5vw, 88px); right: clamp(24px, 5.5vw, 88px); display: flex; align-items: center; gap: 28px; border-top: 1px solid #243e3026; padding-top: 22px; font-size: 11px; letter-spacing: .08em; color: #616c5d; }
+.signature span:last-child { margin-left: auto; }
 @media (min-width: 1600px) { .content { min-height: 900px; padding-top: 280px; } }
 @media (max-width: 1023px) and (min-width: 601px) {
   .content h1 { font-size: clamp(56px, 7.5vw, 76px); }
