@@ -92,3 +92,14 @@ input::placeholder{color:var(--muted);opacity:1}
 .card-actions .pill.shaped{--button-size:44px;padding:0}
 .card-actions .pill.shaped>span{font-family:var(--body);font-size:14px;text-transform:none;padding:10px 18px}
 .contacts-page .contact-actions .pill.shaped{background:none}
+
+/* Two equal groups produce a seamless, slow right-to-left loop. */
+.ticker{position:relative;display:block;padding-block:16px}
+.ticker-track{display:flex;width:max-content;animation:brand-drift 65s linear infinite;animation-play-state:paused}
+.ticker[data-running=true] .ticker-track{animation-play-state:running}
+.ticker-group{display:flex;align-items:center;gap:42px;padding-right:42px;flex-shrink:0}
+.ticker-group>span{gap:42px;flex-shrink:0}
+.ticker-group svg{width:46px;height:46px}
+
+
+@keyframes brand-drift{to{transform:translateX(-50%)}}
