@@ -18,7 +18,7 @@ export function CinematicFooter({ children, action }: { children: ReactNode; act
     gsap.registerPlugin(ScrollTrigger);
     const media = gsap.matchMedia();
     media.add('(prefers-reduced-motion: no-preference)', () => {
-      gsap.fromTo(element.querySelector('[data-footer-wordmark]'), { y: 60 }, {
+      gsap.fromTo(element.querySelector('[data-footer-wordmark]'), { y: () => window.innerHeight * 0.1 }, {
         y: 0, ease: 'none', scrollTrigger: { trigger: element, start: 'top bottom', end: 'bottom bottom', scrub: 1 },
       });
       gsap.from(element.querySelectorAll('[data-footer-reveal]'), {
