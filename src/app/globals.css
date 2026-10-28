@@ -274,3 +274,4 @@ input::placeholder{color:var(--muted);opacity:1}
  .hero-copy p{font-size:17px;max-width:440px}
 }
 @media(min-width:701px) and (max-width:1199px){.hero-copy h1{font-size:clamp(48px,6vw,70px)}.hero-copy p{font-size:16px}.home-hero .hero-image{height:max(620px,calc(100svh - 144px))}}
+@media(max-width:700px){.home-hero{min-height:calc(100svh - 96px);padding-bottom:16px}.home-hero .hero-image{height:calc(100svh - 112px);min-height:480px}}
