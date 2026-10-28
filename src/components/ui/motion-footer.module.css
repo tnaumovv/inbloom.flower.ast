@@ -28,7 +28,7 @@
  .invitation h2{font-size:clamp(40px,4vw,60px)}
  .action{margin-top:20px}
  .links{padding-top:18px}
- .links :global(.footer-column a){min-height:36px}
+ .links :global(.footer-column a){min-height:36px;padding-block:4px}
 }
 @media(max-width:700px){
  .frame{margin-top:64px}
