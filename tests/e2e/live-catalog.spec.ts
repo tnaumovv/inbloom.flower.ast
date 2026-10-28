@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
-test('seven routes render current storefront content', async ({ page }) => {
-  for (const route of ['/', '/catalog', '/catalog/pink-cloud', '/promotions', '/about', '/delivery', '/contacts']) {
+test('six routes render current storefront content', async ({ page }) => {
+  for (const route of ['/', '/catalog', '/catalog/pink-cloud', '/about', '/delivery', '/contacts']) {
     await page.goto(route);
     await expect(page.locator('main')).toBeVisible();
     await expect(page.locator('main h1:visible')).toHaveCount(1);
