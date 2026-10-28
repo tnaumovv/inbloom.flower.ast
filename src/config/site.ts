@@ -19,7 +19,6 @@ export const siteConfig = {
 
 export const navItems = [
   { label: 'Букеты', href: '/catalog' },
-  { label: 'Акции', href: '/promotions' },
   { label: 'О студии', href: '/about' },
   { label: 'Доставка', href: '/delivery' },
   { label: 'Контакты', href: '/contacts' },

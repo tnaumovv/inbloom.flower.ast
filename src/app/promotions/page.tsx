@@ -1,2 +1,5 @@
-import { PromotionsPage } from '@/features/storefront/pages';
-export default PromotionsPage;
+import { redirect } from 'next/navigation';
+
+export default function PromotionsRedirect() {
+  redirect('/catalog');
+}
