@@ -4,7 +4,7 @@ import { mkdir } from 'node:fs/promises';
 test('FAQ supports single disclosure, collapse and keyboard navigation', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('/#faq');
-  const faq = page.getByRole('region', { name: 'О цветах и не только' });
+  const faq = page.getByRole('region', { name: 'Оплата и частые вопросы' });
   const questions = faq.getByRole('button');
   await expect(questions).toHaveCount(7);
   await expect(questions.nth(0)).toHaveAttribute('aria-expanded', 'true');
@@ -15,7 +15,7 @@ test('FAQ supports single disclosure, collapse and keyboard navigation', async (
   await expect(questions.nth(1)).toBeFocused();
   await page.keyboard.press('Enter');
   await expect(questions.nth(1)).toHaveAttribute('aria-expanded', 'true');
-  await expect(faq.getByRole('region').filter({ hasText: 'стоимость и возможность доставки' })).toBeVisible();
+  await expect(faq.getByRole('region').filter({ hasText: 'Возможность сборки, состав' })).toBeVisible();
   await questions.nth(3).click();
   await expect(questions.nth(1)).toHaveAttribute('aria-expanded', 'false');
   await expect(questions.nth(3)).toHaveAttribute('aria-expanded', 'true');
@@ -34,29 +34,22 @@ test('FAQ supports single disclosure, collapse and keyboard navigation', async (
   await page.screenshot({ path: '.frontend-workbench/inbloom-runtime/faq-desktop.png' });
 });
 
-test('FAQ keeps its source links and omits the removed introduction and CTA', async ({ page }) => {
+test('FAQ keeps the catalogue link and florist action', async ({ page }) => {
   await page.goto('/#faq');
   const faq = page.locator('#faq');
-  for (const [question, label, href] of [
-    ['Где находится магазин?', 'Посмотреть на карте', 'https://2gis.kz/astana/firm/70000001105801781'],
-    ['Где посмотреть часы работы?', 'График в 2ГИС', 'https://2gis.kz/astana/firm/70000001105801781'],
-    ['Где посмотреть больше букетов?', 'Открыть каталог', 'https://app.florax.kz/ru/in_bloom/bouquets'],
-  ]) {
-    await faq.getByRole('button', { name: question, exact: true }).click();
-    await expect(faq.getByRole('link', { name: label, exact: true })).toHaveAttribute('href', href);
-  }
-  await expect(faq.getByRole('link', { name: 'Задать свой вопрос', exact: false })).toHaveCount(0);
-  await expect(faq.getByText('Чтобы выбрать букет', { exact: false })).toHaveCount(0);
+  await faq.getByRole('button', { name: 'Где посмотреть полный ассортимент?', exact: true }).click();
+  await expect(faq.getByRole('link', { name: 'Открыть каталог Florax ↗' })).toHaveAttribute('href', 'https://app.florax.kz/ru/in_bloom/bouquets');
+  await expect(faq.getByRole('link', { name: 'Написать флористу', exact: false })).toHaveAttribute('href', /wa.me/);
 });
 
 test('FAQ works on mobile with reduced motion and remains within the viewport', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/#faq');
-  const delivery = page.locator('#faq').getByRole('button', { name: 'Есть ли доставка по Астане?' });
+  const delivery = page.locator('#faq').getByRole('button', { name: 'Сколько стоит доставка?' });
   await delivery.click();
   await expect(delivery).toHaveAttribute('aria-expanded', 'true');
-  const answer = page.locator('#faq').getByRole('region', { name: 'Есть ли доставка по Астане?' });
+  const answer = page.locator('#faq').getByRole('region', { name: 'Сколько стоит доставка?' });
   await expect(answer).toBeVisible();
   expect(await answer.evaluate(el => getComputedStyle(el).animationName)).toBe('none');
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
@@ -70,7 +63,7 @@ test('all FAQ answers remain available without JavaScript', async ({ browser }) 
   await page.goto('/#faq');
   const faq = page.locator('#faq');
   await expect(faq.locator('details')).toHaveCount(7);
-  await faq.locator('summary').filter({ hasText: 'Как можно оплатить букет?' }).click();
-  await expect(faq.getByText('В магазине можно оплатить картой', { exact: false })).toBeVisible();
+  await faq.locator('summary').filter({ hasText: 'Какие способы оплаты доступны?' }).click();
+  await expect(faq.getByText('В магазине доступны карта', { exact: false })).toBeVisible();
   await context.close();
 });
