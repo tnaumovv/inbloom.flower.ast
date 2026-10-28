@@ -307,7 +307,6 @@ input::placeholder{color:var(--muted);opacity:1}
 .editorial-panel.panel-centered{--card-surface:var(--surface-blush);--card-illustration:var(--illustration-rose)}
 .delivery-panel:nth-child(2){--card-surface:var(--surface-cream)}
 .review-card{--card-surface:var(--surface-neutral);--muted:#65676d;color:#383b40}
-.review-summary{--card-surface:var(--surface-sage)}
 .review-initials{background:var(--surface-sage)}
 .review-rating{background:var(--pink)}
 .contact-data{--card-surface:var(--surface-forest);--card-illustration:#c3d0b8;--muted:#dce3d2;color:var(--on-forest)}
