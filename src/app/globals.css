@@ -336,3 +336,6 @@ input::placeholder{color:var(--muted);opacity:1}
 .editorial-panel.panel-centered{--card-surface:var(--surface-blush);--card-illustration:var(--illustration-rose)}
 .editorial-panel.panel-centered .pill.shaped{--button-fill:var(--green);color:var(--white)}
 .editorial-panel.panel-centered .pill.shaped:hover{--button-fill:var(--green-text)}
+.review-summary{--card-surface:var(--surface-sage)}
+.review-initials{background:var(--surface-sage)}
+.review-rating{background:var(--pink)}
