@@ -29,6 +29,7 @@
  .action{margin-top:20px}
  .links{padding-top:18px}
  .links :global(.footer-column a){min-height:36px;padding-block:4px}
+ .links :global(.footer-column h3){margin-bottom:12px}
 }
 @media(max-width:700px){
  .frame{margin-top:64px}
