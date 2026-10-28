@@ -3,13 +3,12 @@ import { getFeaturedBouquets } from '@/features/catalog/data';
 import { formatPriceKzt } from '@/features/catalog/format-price';
 
 describe('featured bouquet data', () => {
-  it('provides six source name/price pairs for the showcase', async () => {
+  it('provides five approved preview name/price pairs for the showcase', async () => {
     const bouquets = await getFeaturedBouquets();
     expect(bouquets.map(({name, priceKzt}) => [name, priceKzt])).toEqual([
-      ['Cloud', 18700], ['White bloom', 13200], ['Soft s', 10700], ['Sophie basket S', 12100],
-      ['Green red', 20300], ['Autumn', 15400],
+      ['Pink cloud', 15700], ['Blue dream', 20200], ['Soft pink', 13200], ['Mono Sophie', 15800], ['Кашпо Софи С', 12100],
     ]);
-    expect(new Set(bouquets.map(b => b.slug)).size).toBe(6);
+    expect(new Set(bouquets.map(b => b.slug)).size).toBe(5);
     for (const b of bouquets) {
       expect(b.image).toMatch(/^\/images\/(bouquets|catalogue)\/.+\.(png|webp)$/);
       expect(b.imageAlt.length).toBeGreaterThan(15);

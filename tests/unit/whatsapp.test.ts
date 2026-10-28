@@ -3,7 +3,7 @@ import { getFeaturedBouquets } from '@/features/catalog/data';
 import { buildBouquetWhatsAppLink, buildWhatsAppLink, customBouquetMessage } from '@/features/contact/whatsapp';
 
 it('opens an enquiry for the selected bouquet at its displayed price', async () => {
-  const expected = [['Cloud', '18 700 ₸'], ['White bloom', '13 200 ₸'], ['Soft s', '10 700 ₸'], ['Sophie basket S', '12 100 ₸'], ['Green red', '20 300 ₸'], ['Autumn', '15 400 ₸']];
+  const expected = [['Pink cloud', '15 700 ₸'], ['Blue dream', '20 200 ₸'], ['Soft pink', '13 200 ₸'], ['Mono Sophie', '15 800 ₸'], ['Кашпо Софи С', '12 100 ₸']];
   const bouquets = await getFeaturedBouquets();
   bouquets.forEach((bouquet, i) => {
     const url = new URL(buildBouquetWhatsAppLink(bouquet));

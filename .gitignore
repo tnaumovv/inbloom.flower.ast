@@ -10,3 +10,6 @@
 !/.env.example
 *.tsbuildinfo
 .DS_Store
+
+# Local design review exports and ZIP bundles
+/design-deliverables/

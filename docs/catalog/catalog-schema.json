@@ -1,0 +1,19 @@
+{
+  "sheet": "Каталог",
+  "headers": [
+    "ID",
+    "Название",
+    "Цена",
+    "Фото",
+    "Описание",
+    "Состав",
+    "Показывать",
+    "Порядок",
+    "Категория"
+  ],
+  "id": "unique lowercase Latin slug",
+  "price": "positive integer KZT",
+  "visible": "TRUE/FALSE; blank draft",
+  "image": "public HTTPS image URL or /images/...",
+  "maxProducts": 1000
+}

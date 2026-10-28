@@ -6,4 +6,14 @@ export type Bouquet = Readonly<{
   image: string;
   imageAlt: string;
   imagePosition?: string;
+  description?: string;
+  composition?: readonly string[];
+  category?: string;
+}>;
+
+export type CatalogSnapshot = Readonly<{
+  bouquets: readonly Bouquet[];
+  source: 'sheets' | 'preview';
+  status: 'ok' | 'unavailable';
+  revision: string;
 }>;

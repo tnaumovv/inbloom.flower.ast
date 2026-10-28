@@ -1,14 +1,14 @@
 import type { Bouquet } from './types';
 
-const bouquets: readonly Bouquet[] = [
-  { id: 'cloud', slug: 'cloud', name: 'Cloud', priceKzt: 18700, image: '/images/catalogue/cloud.webp', imageAlt: 'Букет Cloud: белые цветы и эвкалипт в светлой упаковке' },
-  { id: 'white-bloom', slug: 'white-bloom', name: 'White bloom', priceKzt: 13200, image: '/images/catalogue/white-bloom.webp', imageAlt: 'Букет White bloom с кремовыми розами и большим светлым бантом' },
-  { id: 'soft-s', slug: 'soft-s', name: 'Soft s', priceKzt: 10700, image: '/images/bouquets/soft-s.png', imageAlt: 'Розовые розы, белые хризантемы и жёлтые цветы в пудровой упаковке' },
-  { id: 'sophie-basket-s', slug: 'sophie-basket-s', name: 'Sophie basket S', priceKzt: 12100, image: '/images/catalogue/sophie-basket-s.webp', imageAlt: 'Розовые кустовые розы Sophie basket S в плетёной корзине' },
-  { id: 'green-red', slug: 'green-red', name: 'Green red', priceKzt: 20300, image: '/images/catalogue/green-red.webp', imageAlt: 'Букет Green red из публичного каталога цветочной студии In Bloom' },
-  { id: 'autumn', slug: 'autumn', name: 'Autumn', priceKzt: 15400, image: '/images/catalogue/autumn.webp', imageAlt: 'Осенний букет Autumn из публичного каталога цветочной студии In Bloom', imagePosition: '50% 90%' },
+// Explicit preview only. A configured Google connection never falls back to these prices.
+export const previewBouquets: readonly Bouquet[] = [
+  { id: 'pink-cloud', slug: 'pink-cloud', name: 'Pink cloud', priceKzt: 15700, image: '/images/catalogue/pink-cloud.webp', imageAlt: 'Букет Pink cloud — исходная фотография In Bloom', description: 'Композиция в розово-кремовых оттенках с розами, гвоздиками, эустомой и эвкалиптом.', composition: ['Гвоздика микс — 3 шт.', 'Эустома микс — 2 шт.', 'Кустовая бэби хамелеон — 3 шт.', 'Кустовая Салинеро — 2 шт.', 'Эвкалипт биг лиф — 1 шт.', 'Роза пинк охара — 4 шт.'] },
+  { id: 'blue-dream', slug: 'blue-dream', name: 'Blue dream', priceKzt: 20200, image: '/images/catalogue/blue-dream.webp', imageAlt: 'Букет Blue dream — исходная фотография In Bloom' },
+  { id: 'soft-pink', slug: 'soft-pink', name: 'Soft pink', priceKzt: 13200, image: '/images/catalogue/soft-pink.webp', imageAlt: 'Букет Soft pink — исходная фотография In Bloom' },
+  { id: 'mono-sophie', slug: 'mono-sophie', name: 'Mono Sophie', priceKzt: 15800, image: '/images/catalogue/mono-sophie.webp', imageAlt: 'Букет Mono Sophie — исходная фотография In Bloom' },
+  { id: 'sophie-planter', slug: 'sophie-planter', name: 'Кашпо Софи С', priceKzt: 12100, image: '/images/catalogue/sophie-planter.webp', imageAlt: 'Кашпо Софи С — исходная фотография In Bloom' },
 ];
-
 export async function getFeaturedBouquets(): Promise<readonly Bouquet[]> {
-  return bouquets;
+  const { getCatalog } = await import('./sheets');
+  return (await getCatalog()).bouquets;
 }
