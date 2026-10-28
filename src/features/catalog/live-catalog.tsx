@@ -1,7 +1,7 @@
 'use client';
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from 'react';
 import type { CatalogSnapshot } from './types';
-import { buildWhatsAppLink } from '@/features/contact/whatsapp';
+import { siteConfig } from '@/config/site';
 
 const CatalogContext = createContext<{ snapshot: CatalogSnapshot; retry: () => void } | null>(null);
 export function CatalogProvider({ initial, children }: { initial: CatalogSnapshot; children: ReactNode }) {
@@ -44,7 +44,7 @@ export function useCatalog() {
 }
 export function CatalogNotice() {
   const { snapshot, retry } = useCatalog();
-  if (snapshot.status === 'unavailable') return <div className="catalog-notice" role="status"><p>Не удалось обновить каталог. Попробуйте ещё раз или уточните букеты и цены у флориста.</p><button className="pill outline" onClick={retry}>Попробовать снова</button>{' '}<a className="pill" href={buildWhatsAppLink()} target="_blank" rel="noopener noreferrer">Написать флористу</a></div>;
-  if (snapshot.source === 'preview') return <p className="preview-note">Предварительный каталог. Подключение Google Таблицы ещё не завершено; актуальные цены уточните у флориста.</p>;
+  if (snapshot.status === 'unavailable') return <div className="catalog-notice" role="status"><p>Не удалось загрузить букеты.</p><button className="pill outline" onClick={retry}>Попробовать снова</button>{' '}<a className="pill" href={siteConfig.catalogueUrl} target="_blank" rel="noopener noreferrer">Каталог Florax</a></div>;
+  if (snapshot.source === 'preview') return <p className="preview-note">Предварительный каталог. Ассортимент и цены ещё не подтверждены.</p>;
   return null;
 }

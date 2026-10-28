@@ -70,5 +70,39 @@
     "coordinateMethod": "Coordinates from the public route link in the verified shop listing; widget HTML returned the In Bloom company data before browser QA.",
     "consumer": "src/config/site.ts -> src/components/layout/site-footer.tsx",
     "fallback": "Address, phone, WhatsApp, Instagram and direct 2GIS listing link remain outside the iframe."
+  },
+  "faqRefresh": {
+    "researchedOn": "2026-10-29",
+    "sources": [
+      {
+        "url": "https://2gis.kz/astana/firm/70000001105801781",
+        "method": "Live browser; expanded opening-hours control",
+        "facts": [
+          "Astana, Zhenis avenue 8/1",
+          "Mon–Fri 08:30–22:30",
+          "Saturday 09:00–22:30",
+          "Sunday 09:00–22:00",
+          "Phone +77082204675"
+        ]
+      },
+      {
+        "url": "https://2gis.kz/astana/firm/70000001105801781/tab/info",
+        "facts": [
+          "Flower delivery",
+          "Cash, card, bank payment, card transfer, QR payment",
+          "Houseplants, dried and preserved flowers"
+        ]
+      },
+      {
+        "url": "https://www.instagram.com/inbloom.flower.ast/",
+        "status": "Direct access throttled; no Instagram claims added"
+      }
+    ],
+    "usage": "Shared FAQ, contact schedule and product payment copy. The weekly retail schedule supersedes the older incomplete observation above.",
+    "notPublished": [
+      "Delivery fees or guaranteed times",
+      "Deposit and remote payment terms",
+      "Holiday hours or current stock"
+    ]
   }
 }

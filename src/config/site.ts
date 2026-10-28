@@ -10,6 +10,13 @@ export const siteConfig = {
   phoneE164: '+77082204675',
   whatsappNumber: '77082204675',
   address: 'Астана, проспект Женис, 8/1',
+  // Weekly retail schedule verified in the expanded 2GIS listing on 2026-10-29.
+  openingHours: [
+    { days: 'Пн–пт', time: '08:30–22:30' },
+    { days: 'Сб', time: '09:00–22:30' },
+    { days: 'Вс', time: '09:00–22:00' },
+  ],
+  paymentMethods: 'В магазине — наличные, карта, QR, перевод или оплата через банк.',
   catalogueUrl: 'https://app.florax.kz/ru/in_bloom/bouquets',
   reviewsUrl: 'https://2gis.kz/astana/firm/70000001105801781/tab/reviews',
   mapUrl: 'https://2gis.kz/astana/firm/70000001105801781',

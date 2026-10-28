@@ -16,7 +16,6 @@ export function ReviewsSection() {
       <article className="review-card review-summary">
         <div className="review-badge review-rating"><strong>5,0</strong><span>в 2ГИС</span></div>
         <div className="review-card-heading"><h3>160 оценок</h3><p>На 28 октября 2026</p></div>
-        <p className="review-copy">Впечатления покупателей о букетах, работе флористов и доставке. Здесь — короткие цитаты из отзывов. Все отзывы и актуальный рейтинг доступны в 2ГИС.</p>
         <Link className="text-link" href={siteConfig.reviewsUrl} target="_blank" rel="noopener noreferrer">Все отзывы в 2ГИС <ArrowUpRight size={16} aria-hidden="true" /></Link>
       </article>
       {reviews.map(review => <article className="review-card" key={review.author}>
