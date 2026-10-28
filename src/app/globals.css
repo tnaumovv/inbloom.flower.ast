@@ -103,3 +103,33 @@ input::placeholder{color:var(--muted);opacity:1}
 
 
 @keyframes brand-drift{to{transform:translateX(-50%)}}
+
+@media(max-width:700px){
+ .home-header{height:76px}
+ .home-hero{padding-bottom:16px}
+ .home-hero .hero-image{height:calc(100svh - 92px);min-height:480px;border-radius:30px}
+ .hero-image:after{inset:0;background:linear-gradient(180deg,#243e3000 25%,#241e294d 58%,#241e2999 100%)}
+ .mobile-hero-copy{inset:0 18px;justify-content:flex-end;padding-bottom:clamp(86px,14svh,140px)}
+ .mobile-hero-copy .hero-title{font-size:clamp(40px,12vw,56px);line-height:1.02}
+ .mobile-hero-copy .compound{margin-top:26px;--button-size:50px}
+ .mobile-hero-copy .compound>span{min-height:var(--button-size);padding:12px 25px}
+ .mobile-hero-copy .compound>b{width:var(--button-size);height:var(--button-size)}
+
+ .ticker{margin-top:22px}
+ .ticker-group,.ticker-group>span{gap:28px}
+ .ticker-group{padding-right:28px}
+ .ticker-group svg{width:32px;height:32px}
+ .card-actions .pill.shaped>span{padding:10px 5px;font-size:13px}
+ .card-actions .pill.shaped{--button-size:40px;min-height:44px}
+ .card-actions .pill.shaped>span{min-height:44px}
+ .card-actions .pill.shaped .button-bridge{bottom:2px}
+ .contact-actions .pill.shaped>span,.menu-bottom .pill.shaped>span{font-size:14px;padding-inline:18px}
+}
+@media(max-width:700px) and (max-height:650px){
+ .home-hero .hero-image{min-height:440px}
+ .mobile-hero-copy{padding-bottom:72px}
+ .mobile-hero-copy .hero-title{font-size:40px}
+ .mobile-hero-copy .compound{margin-top:20px}
+
+}
+@media(prefers-reduced-motion:reduce){.ticker-track{animation:none}}
