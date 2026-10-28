@@ -10,6 +10,26 @@ export function RouteMotion({ children }: { children: ReactNode }) {
   const content = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // A streamed page/legacy redirect may resolve after the browser's hash scroll.
+    // Wait for local fonts so the destination's position is stable.
+    let cancelled = false;
+    let frame = 0;
+    const alignHash = () => {
+      const id = window.location.hash.slice(1);
+      if (!['studio', 'delivery', 'reviews', 'contacts', 'faq', 'bouquets'].includes(id)) return;
+      document.fonts.ready.then(() => {
+        if (cancelled) return;
+        frame = requestAnimationFrame(() => {
+          document.getElementById(id)?.scrollIntoView({ block: 'start', behavior: 'instant' });
+        });
+      });
+    };
+    alignHash();
+    window.addEventListener('hashchange', alignHash);
+    return () => { cancelled = true; cancelAnimationFrame(frame); window.removeEventListener('hashchange', alignHash); };
+  }, [pathname]);
+
+  useEffect(() => {
     const element = content.current;
     if (!element || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     // Older browsers keep a short fade without creating a transformed ancestor

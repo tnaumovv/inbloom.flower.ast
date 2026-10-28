@@ -1,2 +1,3 @@
-import { DeliveryPage } from '@/features/storefront/pages';
-export default DeliveryPage;
+import { redirect } from 'next/navigation';
+
+export default function Page() { redirect('/#delivery'); }

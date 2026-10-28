@@ -2,11 +2,39 @@ import Link from 'next/link';
 import { siteConfig } from '@/config/site';
 import { buildWhatsAppLink } from '@/features/contact/whatsapp';
 import { Featured } from '@/features/catalog/catalog-view';
-import { Hero, TitleRow, CustomSection, AboutSection, Steps, ContactsSection, PageHeading, Disclosures, ContactData, MapBlock } from './sections';
-import { Compound, Pill } from './shell';
+import { Hero, TitleRow, CustomSection, AboutSection, Steps, ContactsSection, Disclosures } from './sections';
+import { Pill } from './shell';
+import { ReviewsSection } from './reviews';
 
-export function HomePage() { return <main id="main"><Hero /><section className="container" id="bouquets"><TitleRow title="Букеты" subtitle={<>Выберите композицию<br />под ваш повод</>} /><Featured /><div className="more-row"><Pill href="/catalog" variant="outline">Посмотреть все</Pill></div></section><CustomSection /><section className="container section"><TitleRow title="Другие букеты" subtitle={<>Сравните цвета, форму<br />и стоимость</>} /><Featured secondary /><div className="more-row"><Pill href="/catalog" variant="outline">Посмотреть все</Pill></div></section><AboutSection /><section className="container section"><TitleRow title="Как заказать" subtitle={<>Три шага к разговору<br />с флористом</>} action={false} /><Steps /></section><ContactsSection /></main>; }
-export function AboutPage() { return <main id="main" className="container"><div className="page-heading"><Link className="breadcrumb" href="/">↖ На главную</Link></div><section className="story-intro"><div><h1 className="display">О студии<br />In Bloom</h1><p>In Bloom — цветочная студия в Астане на проспекте Женис, 8/1.</p><p>У нас можно выбрать готовый букет из каталога или обсудить индивидуальную композицию с флористом.</p><p>Начните с повода, любимых оттенков и бюджета. Состав, актуальную стоимость и получение согласуем перед заказом.</p><div style={{ marginTop: 32 }}><Compound href="/catalog">Выбрать букет</Compound></div></div><div className="story-photo"><img src="/images/catalogue/mono-sophie.webp" alt="Mono Sophie — работа из каталога студии" width={450} height={800} /></div></section><section className="section"><TitleRow title="Наш подход" action={false} /><div className="approach">{[['Начинаем с повода', 'Расскажите, кому выбираете цветы и какое настроение хотите передать.'], ['Обсуждаем пожелания', 'Назовите любимые оттенки, цветы и ориентир по бюджету.'], ['Согласуем детали', 'Флорист уточнит состав, стоимость, оплату и удобный способ получения.']].map(([title, text]) => <article key={title}><h3 className="display">{title}</h3><p>{text}</p></article>)}</div></section><section className="section editorial-pair"><div className="editorial-photo"><img src="/images/catalogue/soft-pink.webp" alt="Букет Soft pink из каталога In Bloom" width={600} height={800} loading="lazy" /></div><div className="editorial-panel"><h2 className="display">Давайте<br />выберем<br />ваш букет</h2><p>Смотрите каталог или напишите флористу. Студию можно найти на карте 2ГИС.</p><Pill href="/catalog">Смотреть букеты</Pill><Link className="text-link" href="/contacts">Контакты и маршрут ↗</Link></div></section></main>; }
+export function HomePage() {
+  return <main id="main">
+    <Hero />
+    <section className="container" id="bouquets">
+      <TitleRow title="Букеты" subtitle={<>Выберите композицию<br />под ваш повод</>} />
+      <Featured />
+      <div className="more-row"><Pill href="/catalog" variant="outline">Посмотреть все</Pill></div>
+    </section>
+    <CustomSection />
+    <section className="container section">
+      <TitleRow title="Другие букеты" subtitle={<>Сравните цвета, форму<br />и стоимость</>} />
+      <Featured secondary />
+      <div className="more-row"><Pill href="/catalog" variant="outline">Посмотреть все</Pill></div>
+    </section>
+    <AboutSection />
+    <section className="container section">
+      <TitleRow title="Наш подход" action={false} />
+      <div className="approach">{[
+        ['Начинаем с повода', 'Расскажите, кому выбираете цветы и какое настроение хотите передать.'],
+        ['Обсуждаем пожелания', 'Назовите любимые оттенки, цветы и ориентир по бюджету.'],
+        ['Согласуем детали', 'Флорист уточнит состав, стоимость, оплату и удобный способ получения.'],
+      ].map(([title, text]) => <article key={title}><h3 className="display">{title}</h3><p>{text}</p></article>)}</div>
+    </section>
+    <DeliverySection />
+    <ReviewsSection />
+    <ContactsSection />
+  </main>;
+}
+
 const faq = [
   ['Как заказать букет?', 'Выберите композицию и нажмите «Заказать в WhatsApp». Отправьте сообщение самостоятельно; флорист подтвердит наличие и согласует детали.'],
   ['Можно собрать индивидуальный букет?', 'Обсудите с флористом повод, цветы, оттенки и бюджет. Возможность сборки, состав и итоговая стоимость согласуются в переписке.'],
@@ -16,5 +44,5 @@ const faq = [
   ['Где посмотреть полный ассортимент?', <Link key="florax" className="text-link" href={siteConfig.catalogueUrl} target="_blank" rel="noopener noreferrer">Открыть каталог Florax ↗</Link>],
   ['Когда работает студия?', 'Проверьте актуальный график в 2ГИС или уточните его по телефону +7 708 220 46 75.'],
 ] as const;
-export function DeliveryPage() { return <main id="main" className="container"><PageHeading title="Доставка и заказ">Выберите букет, напишите флористу и согласуйте удобный способ получения.</PageHeading><section className="delivery-steps"><Steps /></section><section className="section delivery-panels"><article className="delivery-panel"><h2 className="display">Доставка<br />по Астане</h2><p>Укажите адрес и желаемую дату. Стоимость и время доставки согласуйте с флористом.</p><p>Наличие букета и возможность доставки подтверждаются в переписке.</p><Pill href={buildWhatsAppLink()} external>Уточнить доставку</Pill></article><article className="delivery-panel"><h2 className="display">Самовывоз<br />из студии</h2><p>{siteConfig.address}.</p><p>Согласуйте готовность букета и время визита. Актуальный график можно проверить в 2ГИС.</p><Pill href={siteConfig.mapUrl} variant="outline" external>Построить маршрут</Pill></article></section><h2 className="display faq-heading" id="faq">Оплата и частые вопросы</h2><Disclosures items={faq} /><div style={{ marginTop: 32 }}><Pill href={buildWhatsAppLink()} external>Написать флористу</Pill></div></main>; }
-export function ContactsPage() { return <main id="main" className="container contacts-page"><Link className="breadcrumb" href="/">↖ На главную</Link><section className="contact-pair" style={{ marginTop: 24 }}><ContactData page /><MapBlock /></section></main>; }
+
+function DeliverySection() { return <section className="container section" id="delivery"><TitleRow title="Доставка и заказ" action={false} /><Steps /><div className="delivery-options"><div className="delivery-panels"><article className="delivery-panel"><h2 className="display">Доставка<br />по Астане</h2><p>Укажите адрес и желаемую дату. Стоимость и время доставки согласуйте с флористом.</p><p>Наличие букета и возможность доставки подтверждаются в переписке.</p><Pill href={buildWhatsAppLink()} external>Уточнить доставку</Pill></article><article className="delivery-panel"><h2 className="display">Самовывоз<br />из студии</h2><p>{siteConfig.address}.</p><p>Согласуйте готовность букета и время визита. Актуальный график можно проверить в 2ГИС.</p><Pill href={siteConfig.mapUrl} variant="outline" external>Построить маршрут</Pill></article></div><section id="faq"><h2 className="display faq-heading">Оплата и частые вопросы</h2><Disclosures items={faq} /></section><div style={{ marginTop: 32 }}><Pill href={buildWhatsAppLink()} external>Написать флористу</Pill></div></div></section>; }

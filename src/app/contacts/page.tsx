@@ -1,2 +1,3 @@
-import { ContactsPage } from '@/features/storefront/pages';
-export default ContactsPage;
+import { redirect } from 'next/navigation';
+
+export default function Page() { redirect('/#contacts'); }

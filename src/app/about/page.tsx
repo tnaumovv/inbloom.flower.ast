@@ -1,2 +1,3 @@
-import { AboutPage } from '@/features/storefront/pages';
-export default AboutPage;
+import { redirect } from 'next/navigation';
+
+export default function Page() { redirect('/#studio'); }
