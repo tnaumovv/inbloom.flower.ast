@@ -306,7 +306,7 @@ input::placeholder{color:var(--muted);opacity:1}
 .delivery-panel:first-child{--card-surface:var(--surface-sage)}
 .editorial-panel.panel-centered{--card-surface:var(--surface-blush);--card-illustration:var(--illustration-rose)}
 .delivery-panel:nth-child(2){--card-surface:var(--surface-cream)}
-.review-card{--card-surface:var(--surface-neutral);--muted:#65676d}
+.review-card{--card-surface:var(--surface-neutral);--muted:#65676d;color:#383b40}
 .review-summary{--card-surface:var(--surface-sage)}
 .review-initials{background:var(--surface-sage)}
 .review-rating{background:var(--pink)}
