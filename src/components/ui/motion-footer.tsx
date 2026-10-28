@@ -24,7 +24,7 @@ export function CinematicFooter({ children, action }: { children: ReactNode; act
       gsap.fromTo(element.querySelectorAll('[data-footer-reveal]'), {
         y: 48, opacity: 0.2,
       }, {
-        y: 0, opacity: 1, duration: 0.8, stagger: 0.12, ease: 'power3.out',
+        y: 0, opacity: 1, duration: 0.8, stagger: 0.12, ease: 'power2.out',
         scrollTrigger: { trigger: element, start: 'top 85%', once: true },
       });
     }, element);
