@@ -58,17 +58,17 @@ export function ScrollReveals() {
         seen.add(element);
         const rect = element.getBoundingClientRect();
         const index = sequence++;
-        // Server HTML and restored scroll positions stay readable. Only offscreen
-        // content and the initial hero sequence are staged after JavaScript starts.
+        // Keep the first screen visible even when a background tab suspends animation.
+        // Only offscreen content is staged after JavaScript starts.
         const hero = element.matches('.hero-copy,.hero-image') && window.scrollY < 24;
-        if (preference.matches || (!hero && rect.top < window.innerHeight - 20) || rect.width === 0 || rect.height === 0) {
+        if (hero || preference.matches || rect.top < window.innerHeight - 20 || rect.width === 0 || rect.height === 0) {
           element.dataset.reveal = 'visible';
           continue;
         }
         staged.set(element, { transform: element.style.transform, opacity: element.style.opacity, index });
         element.dataset.reveal = 'pending';
         element.style.opacity = '0';
-        if (hero) reveal(element); else observer.observe(element);
+        observer.observe(element);
       }
     };
     const onPreference = () => {
