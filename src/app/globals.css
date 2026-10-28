@@ -339,3 +339,6 @@ input::placeholder{color:var(--muted);opacity:1}
 .review-summary{--card-surface:var(--surface-sage)}
 .review-initials{background:var(--surface-sage)}
 .review-rating{background:var(--pink)}
+.contact-data{--card-surface:var(--surface-forest);--card-illustration:#c3d0b8;--muted:#dce3d2;color:var(--on-forest)}
+.contact-data h1,.contact-data h2{color:var(--on-forest)}
+.contact-data a:focus-visible{outline-color:var(--on-forest)}
