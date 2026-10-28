@@ -24,6 +24,7 @@
 }
 @media(min-width:1100px) and (min-height:650px) and (max-height:899px){
  .footer{padding:96px 0 22px;gap:16px}
+ .invitation{padding:0 24px}
 }
 @media(max-width:700px){
  .frame{margin-top:64px}
