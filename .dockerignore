@@ -1,0 +1,15 @@
+node_modules
+.next
+.tooling
+.frontend-workbench
+.superpowers
+.git
+.env*
+test-results
+playwright-report
+coverage
+prototype
+design
+design-deliverables
+docs
+*.tsbuildinfo

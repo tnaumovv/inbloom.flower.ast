@@ -1,3 +1,4 @@
+import 'server-only';
 import { importPKCS8, SignJWT } from 'jose';
 import { type AdminEnvironment } from './config';
 import { AdminError } from './errors';

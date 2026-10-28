@@ -1,3 +1,4 @@
+import 'server-only';
 import { NextResponse } from 'next/server';
 import { readAdminSession, type AdminSession } from './auth';
 import { adminCookieName, getAdminConfig, type AdminEnvironment } from './config';

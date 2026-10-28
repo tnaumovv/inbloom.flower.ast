@@ -1,0 +1,8 @@
+{$SITE_HOST} {
+  encode zstd gzip
+  reverse_proxy web:3000
+}
+
+www.{$SITE_HOST} {
+  redir https://{$SITE_HOST}{uri} permanent
+}

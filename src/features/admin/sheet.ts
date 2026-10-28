@@ -1,3 +1,4 @@
+import 'server-only';
 import { createHash } from 'node:crypto';
 import { type AdminEnvironment } from './config';
 import { AdminError } from './errors';
@@ -13,7 +14,7 @@ export function createSheetEditor({ env = process.env, fetcher = fetch, getToken
   const baseUrl = `https://sheets.googleapis.com/v4/spreadsheets/${encodeURIComponent(env.GOOGLE_SHEET_ID || '')}/values/`;
   async function read() {
     if (!env.GOOGLE_SHEET_ID || !/^.+!A1:I1001$/.test(range)) throw new AdminError(503, 'Проверьте подключение листа каталога.');
-    const body = await googleJson(fetcher, baseUrl + encodeURIComponent(range), { headers: { Authorization: `Bearer ${await getToken()}` } }, pause);
+    const body = await googleJson(fetcher, baseUrl + encodeURIComponent(range) + '?valueRenderOption=UNFORMATTED_VALUE&majorDimension=ROWS', { headers: { Authorization: `Bearer ${await getToken()}` } }, pause);
     const rows = body.values;
     if (!Array.isArray(rows) || !Array.isArray(rows[0]) || rows.length > 1001) throw new AdminError(502, 'Не удалось прочитать каталог. Проверьте лист Google Таблицы.');
     const headers: string[] = rows[0].map(value => String(value).trim().toLowerCase());

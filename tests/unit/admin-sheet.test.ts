@@ -24,7 +24,7 @@ function fixture(initial: unknown[][] = [headers]) {
 describe('admin sheet editor', () => {
   it('validates hidden drafts as strictly as published bouquets', () => {
     expect(validateBouquetInput(base)).toEqual(base);
-    for (const invalid of [{ priceKzt: 0 }, { visible: 'false' }, { image: 'javascript:alert(1)' }, { id: 'bad id' }, { name: '' }]) {
+    for (const invalid of [{ priceKzt: 0 }, { priceKzt: true }, { order: true }, { visible: 'false' }, { image: 'javascript:alert(1)' }, { id: 'bad id' }, { name: '' }]) {
       expect(() => validateBouquetInput({ ...base, ...invalid, visible: invalid.visible ?? false })).toThrow();
     }
   });
@@ -44,6 +44,7 @@ describe('admin sheet editor', () => {
     expect(f.rows[1].slice(0, 2)).toEqual([base.name, base.id]);
     expect(f.rows[1][4]).toBe('=IMPORTXML("bad")');
     expect(f.calls.find(call => call.body)?.url).toContain('valueInputOption=RAW');
+    expect(f.calls.find(call => !call.body)?.url).toContain('valueRenderOption=UNFORMATTED_VALUE');
   });
   it('rereads uncertain writes and repeated create IDs without duplicating rows', async () => {
     const f = fixture(); f.setUncertain();

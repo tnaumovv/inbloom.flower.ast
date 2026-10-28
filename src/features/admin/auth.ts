@@ -1,3 +1,4 @@
+import 'server-only';
 import { randomBytes, randomUUID } from 'node:crypto';
 import { createRemoteJWKSet, jwtVerify, SignJWT, type JWTVerifyGetKey } from 'jose';
 import { allowedEmails, getAdminConfig, type AdminEnvironment } from './config';

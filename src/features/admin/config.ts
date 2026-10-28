@@ -1,3 +1,4 @@
+import 'server-only';
 import { AdminError } from './errors';
 
 export type AdminEnvironment = Record<string, string | undefined>;
