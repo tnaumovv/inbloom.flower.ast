@@ -333,3 +333,6 @@ input::placeholder{color:var(--muted);opacity:1}
 .step{--card-surface:var(--surface-cream)}
 .approach article,.about-pair .editorial-panel,.delivery-panel:first-child{--card-surface:var(--surface-sage)}
 .delivery-panel:nth-child(2),.review-card{--card-surface:var(--surface-cream)}
+.editorial-panel.panel-centered{--card-surface:var(--surface-blush);--card-illustration:var(--illustration-rose)}
+.editorial-panel.panel-centered .pill.shaped{--button-fill:var(--green);color:var(--white)}
+.editorial-panel.panel-centered .pill.shaped:hover{--button-fill:var(--green-text)}
