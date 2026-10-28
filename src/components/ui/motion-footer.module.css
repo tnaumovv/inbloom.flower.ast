@@ -1,0 +1,34 @@
+.frame{position:relative;margin-top:96px;background:#fff;overflow:clip}
+.footer{position:relative;isolation:isolate;display:flex;flex-direction:column;min-height:850px;padding:120px 0 36px;background:#fff;color:var(--ink);overflow:hidden}
+.ribbon{position:absolute;top:26px;left:-2%;width:104%;overflow:hidden;transform:rotate(-2deg);border-block:1px solid var(--line);background:var(--pink);padding:16px 0}
+.track{display:flex;width:max-content;animation:footer-marquee 55s linear infinite;animation-play-state:paused}
+.frame[data-in-view=true]:not([data-hidden=true]) .track{animation-play-state:running}
+.ribbonGroup{display:flex;flex-shrink:0;gap:36px;padding-right:36px}
+.ribbonGroup span{display:flex;align-items:center;gap:36px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--green-text);white-space:nowrap}
+.ribbonGroup svg{flex-shrink:0}
+.invitation{position:relative;z-index:1;text-align:center;padding:48px 24px 64px}
+.invitation h2{font-size:clamp(40px,5.6vw,84px);color:var(--green);letter-spacing:-.04em}
+.action{display:inline-block;margin-top:32px;max-width:100%}
+.links{position:relative;z-index:1;padding-top:32px;border-top:1px solid var(--line)}
+.bottom{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:40px;font-size:13px;color:var(--muted)}
+.backTop{display:grid;place-items:center;width:48px;height:48px;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--green-text);flex-shrink:0}
+.backTop:hover{background:var(--pink)}
+.wordmark{position:absolute;bottom:-.18em;left:50%;translate:-50% 0;z-index:0;pointer-events:none;white-space:nowrap;color:var(--pink);opacity:.4;font:400 clamp(140px,25vw,440px)/1 var(--display);letter-spacing:-.06em}
+@keyframes footer-marquee{to{transform:translateX(-50%)}}
+/* The clip contains the fixed curtain; small/short viewports use normal flow. */
+@media(min-width:1100px) and (min-height:900px){
+ .frame{height:100svh;clip-path:inset(0)}
+ .footer{position:fixed;inset:auto 0 0;height:100svh;min-height:900px;justify-content:space-between}
+ .invitation{padding-block:30px 40px}
+ .bottom{margin-top:24px}
+}
+@media(max-width:700px){
+ .frame{margin-top:64px}
+ .footer{min-height:0;padding-top:110px;padding-bottom:28px}
+ .invitation{padding:28px 20px 48px}
+ .links{padding-top:28px}
+ .bottom{margin-top:32px}
+ .wordmark{font-size:34vw;bottom:0}
+}
+@media(prefers-reduced-motion:reduce){.track{animation:none}.frame{height:auto;clip-path:none}.footer{position:relative;height:auto;min-height:0}.wordmark{transform:none!important}}
+.links a:focus-visible{outline-color:var(--green)}
