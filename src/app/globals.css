@@ -264,3 +264,12 @@ input::placeholder{color:var(--muted);opacity:1}
 .review-card>.text-link{margin-top:auto;align-self:flex-start}
 @media(min-width:701px) and (max-width:1050px){.reviews-grid{grid-template-columns:1fr 1fr}.review-summary{grid-column:1/-1}.review-summary .review-copy{max-width:650px}}
 @media(max-width:700px){.reviews-grid{grid-template-columns:1fr;gap:24px}.review-card{padding:26px 24px 18px;border-radius:28px}.review-card-heading{padding-left:84px;margin-bottom:20px}.review-copy{font-size:15px}.reviews-section .section-title h2{font-size:30px}.delivery-options{margin-top:28px}}
+
+/* A viewport-tall introduction inside the shared page width. */
+@media(min-width:701px){
+ .home-hero{padding-top:0;padding-bottom:32px;min-height:calc(100svh - 112px);align-items:stretch}
+ .home-hero .hero-image{height:max(640px,calc(100svh - 144px))}
+ .home-hero .hero-copy{padding:40px 0;justify-content:center}
+ .hero-copy h1{font-size:clamp(72px,6vw,94px)}
+ .hero-copy p{font-size:17px;max-width:440px}
+}
