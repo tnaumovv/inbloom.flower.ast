@@ -26,6 +26,7 @@
  .footer{padding:96px 0 22px;gap:16px}
  .invitation{padding:0 24px}
  .invitation h2{font-size:clamp(40px,4vw,60px)}
+ .action{margin-top:20px}
 }
 @media(max-width:700px){
  .frame{margin-top:64px}
