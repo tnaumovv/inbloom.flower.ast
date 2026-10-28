@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Gift, Palette, HeartHandshake, Truck, Store, MessagesSquare } from 'lucide-react';
-import { IconTile } from './decoration';
+import { IconTile, CardAccent } from './decoration';
 import { siteConfig } from '@/config/site';
 import { buildWhatsAppLink } from '@/features/contact/whatsapp';
 import { Featured } from '@/features/catalog/catalog-view';
@@ -29,7 +29,7 @@ export function HomePage() {
         ['Начинаем с повода', 'Расскажите, кому выбираете цветы и какое настроение хотите передать.'],
         ['Обсуждаем пожелания', 'Назовите любимые оттенки, цветы и ориентир по бюджету.'],
         ['Согласуем детали', 'Флорист уточнит состав, стоимость, оплату и удобный способ получения.'],
-      ].map(([title, text], index) => <article key={title}><IconTile icon={[Gift, Palette, HeartHandshake][index]} /><h3 className="display">{title}</h3><p>{text}</p></article>)}</div>
+      ].map(([title, text], index) => <article key={title}><CardAccent icon={[Gift, Palette, HeartHandshake][index]} /><h3 className="display">{title}</h3><p>{text}</p></article>)}</div>
     </section>
     <DeliverySection />
     <ReviewsSection />
