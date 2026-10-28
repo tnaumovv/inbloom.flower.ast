@@ -5,15 +5,15 @@
 .item, .nativeItem { border: 0; border-bottom: 1px solid var(--line); transition: background .2s; }
 .item[data-state='open'], .nativeItem[open] { background: var(--surface-sage); }
 .trigger { display: flex; align-items: center; justify-content: space-between; gap: 24px; width: 100%; min-height: 78px; padding: 22px 20px; border: 0; background: transparent; color: var(--green-text); text-align: left; font-family: var(--body); font-size: 17px; line-height: 1.5; font-weight: 500; letter-spacing: -.01em; }
-.trigger:hover { text-decoration: none; color: #a54f69; }
+.trigger:hover { text-decoration: none; color: var(--green); }
 .trigger:focus-visible { outline-offset: -3px; border-radius: 4px; }
-.trigger>svg { flex-shrink: 0; width: 18px; height: 18px; color: #a54f69; }
+.trigger>svg { flex-shrink: 0; width: 18px; height: 18px; color: var(--green); }
 .answer { padding: 0 56px 24px 20px; color: var(--muted); font-size: 15px; line-height: 1.75; }
 .answer p { margin: 0; }
 .answerLink { display: inline-block; margin-top: 12px; min-height: 32px; color: var(--green-text); text-decoration: underline; text-underline-offset: 4px; }
 .nativeItem summary { cursor: pointer; list-style: none; }
 .nativeItem summary::-webkit-details-marker { display: none; }
-.nativeItem summary::after { content: ''; width: 9px; height: 9px; flex-shrink: 0; margin-right: 5px; border-right: 1.5px solid #a54f69; border-bottom: 1.5px solid #a54f69; transform: rotate(45deg); }
+.nativeItem summary::after { content: ''; width: 9px; height: 9px; flex-shrink: 0; margin-right: 5px; border-right: 1.5px solid var(--green); border-bottom: 1.5px solid var(--green); transform: rotate(45deg); }
 .nativeItem[open] summary::after { transform: rotate(225deg); }
 @media (max-width: 700px) {
  .layout { grid-template-columns: 1fr; gap: 32px; }
