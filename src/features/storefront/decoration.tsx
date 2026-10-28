@@ -8,3 +8,8 @@ export function IconTile({ icon: Icon, className = '' }: { icon: LucideIcon; cla
 export function BotanicalAccent({ className = '' }: { className?: string }) {
   return <span className={`botanical-accent ${className}`} aria-hidden="true"><Flower2 strokeWidth={.8} /><Leaf strokeWidth={.8} /></span>;
 }
+
+/** A single, non-interactive watermark inside an information card. */
+export function CardAccent({ icon: Icon }: { icon: LucideIcon }) {
+  return <span className="card-accent" aria-hidden="true"><Icon strokeWidth={1.2} /></span>;
+}
