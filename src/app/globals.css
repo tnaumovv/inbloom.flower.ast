@@ -9,6 +9,7 @@
  @keyframes accordion-up { from { height: var(--radix-accordion-content-height); } to { height: 0; } }
 }
 @theme inline {
+ --color-surface-neutral: var(--surface-neutral);
  --color-surface-cream: var(--surface-cream);
  --color-surface-sage: var(--surface-sage);
  --color-surface-blush: var(--surface-blush);
