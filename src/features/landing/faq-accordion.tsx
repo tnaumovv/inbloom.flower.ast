@@ -24,7 +24,7 @@ export function FaqAccordion({ items }: { items: readonly FaqItem[] }) {
     </details>
   ))}</div>;
 
-  return <Accordion type="single" collapsible defaultValue="order" className={styles.list}>
+  return <Accordion type="single" collapsible defaultValue={items[0]?.id} className={styles.list}>
     {items.map(item => <AccordionItem key={item.id} value={item.id} className={styles.item}>
       <AccordionTrigger className={styles.trigger}>{item.question}</AccordionTrigger>
       <AccordionContent className={styles.answer}><Answer item={item}/></AccordionContent>
