@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowUpRight, Quote } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { siteConfig } from '@/config/site';
 
 // Manually verified against the live 2GIS listing on 2026-10-28.
@@ -22,7 +22,7 @@ export function ReviewsSection() {
       {reviews.map(review => <article className="review-card" key={review.author}>
         <div className="review-badge review-initials" aria-hidden="true">{review.initials}</div>
         <div className="review-card-heading"><h3>{review.author}</h3><time dateTime={review.date}>{review.label}</time></div>
-        <Quote className="review-quote-icon" size={27} strokeWidth={1.2} aria-hidden="true" /><blockquote className="review-copy">«{review.quote}»</blockquote>
+        <blockquote className="review-copy">«{review.quote}»</blockquote>
         <Link className="text-link" href={siteConfig.reviewsUrl} target="_blank" rel="noopener noreferrer" aria-label={`Читать отзыв ${review.author} в 2ГИС`}>Читать в 2ГИС <ArrowUpRight size={16} aria-hidden="true" /></Link>
       </article>)}
     </div>
