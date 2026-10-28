@@ -41,13 +41,15 @@ export function createSheetEditor({ env = process.env, fetcher = fetch, getToken
       const found = entries.find(value => value.record.id === draft.id);
       if (found && sameDraft(found.record, draft)) return found.record;
       if ((expectedVersion === null && found) || (expectedVersion !== null && (!found || found.record.version !== expectedVersion))) throw new AdminError(409, 'Букет уже изменили. Откройте его заново, чтобы сохранить актуальные данные.');
-      if (!found && entries.length >= 1000) throw new AdminError(422, 'В каталоге уже 1000 букетов. Обратитесь к тому, кто настраивает сайт.');
+      const occupied = new Set(entries.map(value => value.row));
+      const targetRow = found?.row ?? Array.from({ length: 1000 }, (_, index) => index + 2).find(row => !occupied.has(row));
+      if (!targetRow) throw new AdminError(422, 'В каталоге уже 1000 букетов. Обратитесь к тому, кто настраивает сайт.');
       const values = draftValues(draft);
       const row = headers.map(header => values[adminColumns.findIndex(column => column.toLowerCase() === header)]);
-      const writeRange = found ? `${sheet}!A${found.row}:I${found.row}` : `${sheet}!A1:I1001`;
-      const url = baseUrl + encodeURIComponent(writeRange) + (found ? '?valueInputOption=RAW' : ':append?valueInputOption=RAW&insertDataOption=INSERT_ROWS');
+      const writeRange = `${sheet}!A${targetRow}:I${targetRow}`;
+      const url = baseUrl + encodeURIComponent(writeRange) + '?valueInputOption=RAW';
       try {
-        await googleJson(fetcher, url, { method: found ? 'PUT' : 'POST', headers: { Authorization: `Bearer ${await getToken()}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ values: [row], majorDimension: 'ROWS' }) }, pause, 0);
+        await googleJson(fetcher, url, { method: 'PUT', headers: { Authorization: `Bearer ${await getToken()}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ values: [row], majorDimension: 'ROWS' }) }, pause, 0);
       } catch { /* A lost response does not prove a failed write. Read the ID before retrying. */ }
       const verified = (await read()).entries.find(value => value.record.id === draft.id)?.record;
       if (verified && sameDraft(verified, draft)) return verified;

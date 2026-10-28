@@ -11,7 +11,7 @@ function fixture(initial: unknown[][] = [headers]) {
     const url = String(input); const body = init?.body ? JSON.parse(String(init.body)) : undefined;
     calls.push({ url, body });
     if (fail) return new Response('', { status: 503 });
-    if (!init?.method || init.method === 'GET') return Response.json({ values: rows });
+    if (!init?.method || init.method === 'GET') return Response.json({ values: rows.slice(0, 1001) });
     writes++;
     if (url.includes(':append')) rows.push(body.values[0]);
     else { const row = Number(decodeURIComponent(url).match(/!A(\d+):I\d+/)?.[1]); rows[row - 1] = body.values[0]; }
@@ -36,7 +36,7 @@ describe('admin sheet editor', () => {
     expect(updated.id).toBe('pink-cloud'); expect(updated.name).toBe('Обновлённый');
     expect(f.rows[1][6]).toBe(true);
   });
-  it('appends with RAW values and maps columns by their existing headers', async () => {
+  it('creates with RAW values and maps columns by their existing headers', async () => {
     const reordered = ['Название', 'ID', ...headers.slice(2)];
     const f = fixture([reordered]);
     const saved = await f.editor.save({ ...base, description: '=IMPORTXML("bad")' }, null);
@@ -55,6 +55,19 @@ describe('admin sheet editor', () => {
   it('serializes concurrent same-ID creates in one process', async () => {
     const f = fixture(); await Promise.all([f.editor.save(base, null), f.editor.save(base, null)]);
     expect(f.writes).toBe(1);
+  });
+  it('reuses a bounded empty row when physical row 1001 is occupied', async () => {
+    const rows = Array.from({ length: 1000 }, (_, index) => index === 499 ? [] : [`existing-${index}`, `Букет ${index}`, 10000, '/images/catalogue/pink-cloud.webp', '', '', true, index, '']);
+    const f = fixture([headers, ...rows]);
+    const saved = await f.editor.save(base, null);
+    expect(saved.id).toBe(base.id); expect(f.rows[500][0]).toBe(base.id);
+    expect(f.rows).toHaveLength(1001); expect(f.writes).toBe(1);
+  });
+  it('does not write outside a physically full catalog', async () => {
+    const rows = Array.from({ length: 1000 }, (_, index) => [`existing-${index}`, `Букет ${index}`, 10000, '/images/catalogue/pink-cloud.webp', '', '', true, index, '']);
+    const f = fixture([headers, ...rows]);
+    await expect(f.editor.save(base, null)).rejects.toMatchObject({ status: 422 });
+    expect(f.writes).toBe(0);
   });
   it('rejects stale edits and conflicting creation IDs', async () => {
     const f = fixture(); const first = await f.editor.save(base, null);

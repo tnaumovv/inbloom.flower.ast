@@ -1,6 +1,6 @@
 # Mobile Catalog Admin Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** Give In Bloom admins a mobile interface to add/edit/hide bouquets and upload photos using Google Sheets, without a separate database.
 
@@ -42,9 +42,9 @@
 
 **Interfaces:** `AdminError(status, message, fields?)`; `getAdminConfig(env?)`; `getAdminSetupIssues(env?)`; `createAdminSession(identity, env?, now?)`; `readAdminSession(token, env?, now?)`; `verifyGoogleCredential(credential, nonce, env?, keySet?)`; `requireAdmin(request)`; `assertSameOrigin(request)`; `adminResponse(handler)`.
 
-- [ ] Write tests for session tampering/expiry/revocation, configuration, origin and Google nonce/audience/verified-email checks; run and observe missing-module failure.
-- [ ] Install pinned jose; implement helpers, GIS nonce flow and login/logout routes, 8-hour host-only HttpOnly session and 10-minute signed login nonce.
-- [ ] Run focused tests and confirm all pass; commit the protected boundary.
+- [x] Write tests for session tampering/expiry/revocation, configuration, origin and Google nonce/audience/verified-email checks; run and observe missing-module failure.
+- [x] Install pinned jose; implement helpers, GIS nonce flow and login/logout routes, 8-hour host-only HttpOnly session and 10-minute signed login nonce.
+- [x] Run focused tests and confirm all pass; commit the protected boundary.
 
 ### Task 2: Google Sheets editor
 
@@ -52,9 +52,9 @@
 
 **Interfaces:** `AdminBouquet` includes all nine sheet fields plus `version`; `validateBouquetInput(input)` returns typed draft; `createSheetEditor({env?,fetcher?,pause?})` returns `list()` and `save(draft, expectedVersion, uploadedImage?)`; service token uses jose RS256 and Google OAuth token endpoint.
 
-- [ ] Test hidden rows, header mapping, RAW formula-like text, stable-ID retry, stale edits, provider failure and no fallbacks; observe RED.
-- [ ] Implement bounded transport, service-account token caching, serialized reread/write and safe errors. Keep service credentials server-only; public read path unchanged.
-- [ ] Test GREEN and commit; manual sheet edits remain a documented best-effort boundary.
+- [x] Test hidden rows, header mapping, RAW formula-like text, stable-ID retry, stale edits, provider failure and no fallbacks; observe RED.
+- [x] Implement bounded transport, service-account token caching, serialized reread/write and safe errors. Keep service credentials server-only; public read path unchanged.
+- [x] Test GREEN and commit; manual sheet edits remain a documented best-effort boundary.
 
 ### Task 3: Photo upload authorization
 
@@ -62,9 +62,9 @@
 
 **Interfaces:** `createUploadTicket(session)` returns Cloudinary endpoint, signed constrained fields, publicId and a session-bound ticket; `verifyUploadResult(result, ticket, session)` validates provider signature and returns URL plus signed receipt; `verifyImageReceipt(receipt, url, session)` authorizes attachment at save.
 
-- [ ] Test tampered provider signatures/tickets, mismatched public IDs, other session, wrong cloud/format, 10 MB cap and expired receipts; observe RED.
-- [ ] Implement authenticated signed preset upload, server response verification and session-bound receipt; no paid upgrade or delete endpoints.
-- [ ] Focused tests GREEN and commit.
+- [x] Test tampered provider signatures/tickets, mismatched public IDs, other session, wrong cloud/format, 10 MB cap and expired receipts; observe RED.
+- [x] Implement authenticated signed preset upload, server response verification and session-bound receipt; no paid upgrade or delete endpoints.
+- [x] Focused tests GREEN and commit.
 
 ### Task 4: Mobile workspace, deployment handover and verification
 
@@ -72,11 +72,11 @@
 
 **Interfaces:** /admin server page renders setup state, Google login or protected workspace; client uses /api/admin/bouquets and /api/admin/uploads with same-origin fetch. Responses carry Russian message/field errors and no secrets. No public storefront chrome under /admin.
 
-- [ ] Read installed route-group/cookie/deploy docs. Add isolated browser tests (dedicated fake config, signed test cookie, mocked browser API only) for setup/unauthorized API, add/upload/save, retry retention, edit/hide, empty/error and mobile no-overflow. Observe RED.
-- [ ] Implement the native form and state boundaries, scoped styling and public shell route group. Add noindex/no-store and upload/error limits. Root admin page never calls Google catalog loader.
-- [ ] Add standalone Node deployment instructions, .kz/DNS/HTTPS requirements, Google/Cloudinary setup, cost research with primary links, backup/manual media cleanup and company account ownership. Live OAuth/cloud writes/deployment remain explicitly unverified until credentials are provided.
-- [ ] Run unit tests, typecheck, lint, production build, focused existing storefront tests and isolated admin e2e. Inspect mobile/desktop screenshots; correct material issues.
-- [ ] Request one fresh whole-change review; fix material findings with regression tests, rerun affected checks and commit. Record what is verified locally and what requires external accounts.
+- [x] Read installed route-group/cookie/deploy docs. Add isolated browser tests (dedicated fake config, signed test cookie, mocked browser API only) for setup/unauthorized API, add/upload/save, retry retention, edit/hide, empty/error and mobile no-overflow. Observe RED.
+- [x] Implement the native form and state boundaries, scoped styling and public shell route group. Add noindex/no-store and upload/error limits. Root admin page never calls Google catalog loader.
+- [x] Add standalone Node deployment instructions, .kz/DNS/HTTPS requirements, Google/Cloudinary setup, cost research with primary links, backup/manual media cleanup and company account ownership. Live OAuth/cloud writes/deployment remain explicitly unverified until credentials are provided.
+- [x] Run unit tests, typecheck, lint, production build, focused existing storefront tests and isolated admin e2e. Inspect mobile/desktop screenshots; correct material issues.
+- [x] Request one fresh whole-change review; fix material findings with regression tests, rerun affected checks and commit. Record what is verified locally and what requires external accounts.
 
 ## Execution
 

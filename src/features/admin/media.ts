@@ -11,7 +11,7 @@ function cloudSignature(fields: Record<string, string>, secret: string) {
 export async function createUploadTicket(session: AdminSession, env: AdminEnvironment = process.env, now = Date.now()) {
   const config = getAdminConfig(env);
   const publicId = `inbloom-bouquets/${randomUUID()}`;
-  const parameters = { public_id: publicId, timestamp: String(Math.floor(now / 1000)), upload_preset: config.preset, overwrite: 'false', format: 'webp', transformation: 'c_limit,h_2000,w_2000' };
+  const parameters = { public_id: publicId, timestamp: String(Math.floor(now / 1000)), upload_preset: config.preset, overwrite: 'false', transformation: 'c_limit,h_2000,w_2000' };
   return {
     url: `https://api.cloudinary.com/v1_1/${config.cloudName}/image/upload`,
     fields: { ...parameters, api_key: config.cloudKey, signature: cloudSignature(parameters, config.cloudSecret) },
@@ -34,10 +34,14 @@ export async function verifyUploadResult(result: Record<string, unknown>, ticket
     });
     if (!response.ok) throw new Error(); metadata = await response.json();
   } catch { throw new AdminError(502, 'Фото загружено, но пока не подтверждено. Попробуйте сохранить ещё раз.'); }
-  const image = `https://res.cloudinary.com/${config.cloudName}/image/upload/v${version}/${publicId}.webp`;
-  if (metadata.public_id !== publicId || metadata.version !== version || metadata.resource_type !== 'image' || metadata.type !== 'upload' || metadata.format !== 'webp'
+  const format = typeof metadata.format === 'string' ? metadata.format : '';
+  const source = `https://res.cloudinary.com/${config.cloudName}/image/upload/v${version}/${publicId}.${format}`;
+  if (metadata.public_id !== publicId || metadata.version !== version || metadata.resource_type !== 'image' || metadata.type !== 'upload' || !['jpg', 'jpeg', 'png', 'webp', 'heic', 'heif'].includes(format)
     || typeof metadata.bytes !== 'number' || metadata.bytes <= 0 || metadata.bytes > maxImageBytes
-    || typeof metadata.width !== 'number' || metadata.width < 1 || metadata.width > 2000 || typeof metadata.height !== 'number' || metadata.height < 1 || metadata.height > 2000 || metadata.secure_url !== image) throw new AdminError(422, 'Не удалось подготовить это фото. Выберите другое изображение.', { image: 'Фото не прошло проверку размера или формата.' });
+    || typeof metadata.width !== 'number' || metadata.width < 1 || metadata.width > 2000 || typeof metadata.height !== 'number' || metadata.height < 1 || metadata.height > 2000 || metadata.secure_url !== source) throw new AdminError(422, 'Не удалось подготовить это фото. Выберите другое изображение.', { image: 'Фото не прошло проверку размера или формата.' });
+  // Delivery conversion is independent of upload allowed_formats. Do not set upload
+  // `format`: Cloudinary would then convert otherwise-disallowed source formats.
+  const image = `https://res.cloudinary.com/${config.cloudName}/image/upload/f_webp/q_auto/v${version}/${publicId}.webp`;
   return { image, receipt: await signAdminToken({ image, publicId, sid: session.sid }, 'image-receipt', 8 * 3600, env) };
 }
 export async function verifyImageReceipt(receipt: string, image: string, session: AdminSession, env: AdminEnvironment = process.env) {
