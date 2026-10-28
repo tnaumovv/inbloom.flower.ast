@@ -298,7 +298,7 @@ input::placeholder{color:var(--muted);opacity:1}
 #main,#home,#bouquets,#studio,#delivery,#reviews,#contacts,#faq{scroll-margin-top:112px}
 @media(max-width:700px){#main,#home,#bouquets,#studio,#delivery,#reviews,#contacts,#faq{scroll-margin-top:96px}.menu-links a{font-size:clamp(24px,6.5vw,32px);min-height:44px}.menu-links{gap:8px}}
 
-/* Surface roles: cream for information, sage for service, blush for bespoke flowers. */
+/* Light neutral cards balance sage service panels and blush bouquet accents. */
 .step,.approach article,.delivery-panel,.editorial-panel,.contact-data,.review-card{background:var(--card-surface,var(--surface-cream));border:0;box-shadow:none}
 .step{--card-surface:var(--surface-cream)}
 .approach article,.about-pair .editorial-panel,.delivery-panel:first-child{--card-surface:var(--surface-sage)}
