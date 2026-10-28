@@ -9,7 +9,7 @@ test('storefront pages and legacy redirects render current content', async ({ pa
     const target = ({ '/about': '/#studio', '/delivery': '/#delivery', '/contacts': '/#contacts' } as Record<string, string>)[route];
     if (target) {
       await expect(page).toHaveURL(new URL(target, page.url()).href);
-      await expect.poll(() => page.locator(target.slice(1)).evaluate(el => Math.abs(el.getBoundingClientRect().top - 28))).toBeLessThan(4);
+      await expect.poll(() => page.locator(target.slice(1)).evaluate(el => Math.abs(el.getBoundingClientRect().top - parseFloat(getComputedStyle(el).scrollMarginTop)))).toBeLessThan(4);
     }
   }
 });
