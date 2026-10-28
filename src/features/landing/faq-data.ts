@@ -1,9 +1,10 @@
+import type { ReactNode } from 'react';
 import { siteConfig } from '@/config/site';
 
 export type FaqItem = Readonly<{
   id: string;
   question: string;
-  answer: string;
+  answer: ReactNode;
   link?: Readonly<{ label: string; href: string }>;
 }>;
 
