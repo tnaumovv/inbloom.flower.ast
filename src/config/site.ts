@@ -11,6 +11,7 @@ export const siteConfig = {
   whatsappNumber: '77082204675',
   address: 'Астана, проспект Женис, 8/1',
   catalogueUrl: 'https://app.florax.kz/ru/in_bloom/bouquets',
+  reviewsUrl: 'https://2gis.kz/astana/firm/70000001105801781/tab/reviews',
   mapUrl: 'https://2gis.kz/astana/firm/70000001105801781',
   mapEmbedUrl: `https://widgets.2gis.com/widget?type=firmsonmap&options=${encodeURIComponent(JSON.stringify(mapWidgetOptions))}`,
   instagramUrl: 'https://www.instagram.com/inbloom.flower.ast/',
@@ -19,7 +20,8 @@ export const siteConfig = {
 
 export const navItems = [
   { label: 'Букеты', href: '/catalog' },
-  { label: 'О студии', href: '/about' },
-  { label: 'Доставка', href: '/delivery' },
-  { label: 'Контакты', href: '/contacts' },
+  { label: 'О студии', href: '/#studio' },
+  { label: 'Доставка', href: '/#delivery' },
+  { label: 'Отзывы', href: '/#reviews' },
+  { label: 'Контакты', href: '/#contacts' },
 ] as const;
