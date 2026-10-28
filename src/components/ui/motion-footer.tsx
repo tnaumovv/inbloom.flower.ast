@@ -19,7 +19,7 @@ export function CinematicFooter({ children, action }: { children: ReactNode; act
     const media = gsap.matchMedia();
     media.add('(prefers-reduced-motion: no-preference)', () => {
       gsap.fromTo(element.querySelector('[data-footer-wordmark]'), { y: () => window.innerHeight * 0.1, scale: 0.86, opacity: 0.05 }, {
-        y: 0, scale: 1, opacity: 0.4, ease: 'none', scrollTrigger: { trigger: element, start: 'top bottom', end: 'bottom bottom', scrub: 1 },
+        y: 0, scale: 1, opacity: 0.4, ease: 'none', scrollTrigger: { trigger: element, start: 'top 80%', end: 'bottom bottom', scrub: 1, invalidateOnRefresh: true },
       });
       gsap.from(element.querySelectorAll('[data-footer-reveal]'), {
         y: 28, duration: 0.8, stagger: 0.12, ease: 'power3.out',
