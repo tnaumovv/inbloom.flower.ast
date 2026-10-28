@@ -21,8 +21,10 @@ export function CinematicFooter({ children, action }: { children: ReactNode; act
       gsap.fromTo(element.querySelector('[data-footer-wordmark]'), { y: () => window.innerHeight * 0.1, scale: 0.86, opacity: 0.05 }, {
         y: 0, scale: 1, opacity: 0.4, ease: 'none', scrollTrigger: { trigger: element, start: 'top 80%', end: 'bottom bottom', scrub: 1, invalidateOnRefresh: true },
       });
-      gsap.from(element.querySelectorAll('[data-footer-reveal]'), {
-        y: 28, duration: 0.8, stagger: 0.12, ease: 'power3.out',
+      gsap.fromTo(element.querySelectorAll('[data-footer-reveal]'), {
+        y: 48, opacity: 0.2,
+      }, {
+        y: 0, opacity: 1, duration: 0.8, stagger: 0.12, ease: 'power3.out',
         scrollTrigger: { trigger: element, start: 'top 85%', once: true },
       });
     }, element);
