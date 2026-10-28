@@ -9,7 +9,9 @@ import { siteConfig, navItems } from '@/config/site';
 import { buildWhatsAppLink, customBouquetMessage } from '@/features/contact/whatsapp';
 
 export const navigation = navItems;
-export function Brand() { return <Link className="brand" href="/" aria-label="In Bloom — главная"><img src="/images/logo.png" width="1768" height="890" alt="In Bloom" /></Link>; }
+// Use native fragment navigation to avoid cached route hashes accumulating across pages.
+// eslint-disable-next-line @next/next/no-html-link-for-pages
+export function Brand() { return <a className="brand" href="/#home" aria-label="In Bloom — главная"><img src="/images/logo.png" width="1768" height="890" alt="In Bloom" /></a>; }
 function ButtonShape({ children }: { children: ReactNode }) {
   return <><span>{children}</span><svg className="button-bridge" viewBox="0 0 36 50" preserveAspectRatio="none" aria-hidden="true"><path d="M0 8C12 8 10 20 18 20S24 8 36 8V42C24 42 26 30 18 30S12 42 0 42Z" /></svg><b aria-hidden="true"><ArrowUpRight /></b></>;
 }
