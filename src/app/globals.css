@@ -301,7 +301,7 @@ input::placeholder{color:var(--muted);opacity:1}
 /* Light neutral cards balance sage service panels and blush bouquet accents. */
 .step,.approach article,.delivery-panel,.editorial-panel,.contact-data,.review-card{background:var(--card-surface,var(--surface-cream));border:0;box-shadow:none}
 .step{--card-surface:var(--surface-cream)}
-.approach article{--card-surface:var(--surface-neutral)}
+.approach article{--card-surface:var(--surface-neutral);--card-illustration:var(--illustration-neutral)}
 .about-pair .editorial-panel{--card-surface:var(--surface-sage)}
 .delivery-panel:first-child{--card-surface:var(--surface-sage)}
 .editorial-panel.panel-centered{--card-surface:var(--surface-blush);--card-illustration:var(--illustration-rose)}
