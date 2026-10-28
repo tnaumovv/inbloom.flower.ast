@@ -288,3 +288,33 @@ input::placeholder{color:var(--muted);opacity:1}
 .home-hero+.ticker{margin-top:32px}
 #main,#home,#bouquets,#studio,#delivery,#reviews,#contacts,#faq{scroll-margin-top:112px}
 @media(max-width:700px){#main,#home,#bouquets,#studio,#delivery,#reviews,#contacts,#faq{scroll-margin-top:96px}.menu-links a{font-size:clamp(24px,6.5vw,32px);min-height:44px}.menu-links{gap:8px}}
+
+/* Small botanical details shared across the storefront. */
+.icon-tile{display:grid;place-items:center;flex-shrink:0;width:62px;height:62px;margin-bottom:24px;border-radius:20px;background:#fce7ec;color:#b85873;box-shadow:inset 0 0 0 1px #edbfc638;transition:transform .35s ease,background .35s ease}
+.icon-tile>svg{width:31px;height:31px}
+.icon-tile-large{width:88px;height:88px;border-radius:26px}
+.icon-tile-large>svg{width:44px;height:44px}
+.title-flower{display:inline-block;vertical-align:middle;margin-left:18px;color:#ce8d9e}
+.botanical-accent{position:absolute;display:block;pointer-events:none;color:#ce8d9e;opacity:.55}
+.botanical-accent>svg:first-child{width:86px;height:86px;transform:rotate(-15deg)}
+.botanical-accent>svg:last-child{position:absolute;width:48px;height:48px;right:-13px;bottom:-17px;transform:rotate(35deg)}
+.hero-copy{position:relative}
+.hero-botanical{right:38px;bottom:45px}
+.panel-botanical{right:30px;bottom:40px;opacity:.28}
+.step{display:flex;flex-direction:column;align-items:flex-start}
+.step h3,.step p{grid-column:auto}
+.step .icon-tile{margin-bottom:22px}
+.approach article{border:1px solid #eee9e4;transition:border-color .3s,box-shadow .3s}
+.approach article:nth-child(2) .icon-tile,.step:nth-child(2) .icon-tile{background:#e9eddf;color:var(--green)}
+.delivery-panel{border:1px solid #eee9e4;position:relative}
+.delivery-panel:nth-child(2) .icon-tile{background:#e9eddf;color:var(--green)}
+.review-card-heading{padding-right:22px}
+.review-quote-icon{position:absolute;right:24px;top:28px;color:#c58599}
+.faq-layout{display:grid;grid-template-columns:.8fr 1.2fr;gap:72px;margin-top:88px;align-items:start}
+.faq-heading{margin:0 0 30px;font-size:clamp(32px,3.3vw,46px);line-height:1.13}
+.faq-intro .pill{margin-top:8px}
+.faq-layout>.disclosures{margin-top:0;min-width:0}
+@media(hover:hover){.step:hover .icon-tile,.approach article:hover .icon-tile,.delivery-panel:hover .icon-tile{transform:translateY(-4px) rotate(-5deg)}.approach article:hover{border-color:#dca8b8;box-shadow:0 10px 28px #626b3608}}
+@media(max-width:1050px){.faq-layout{gap:36px;grid-template-columns:.8fr 1.2fr}.hero-botanical{right:22px;bottom:22px;transform:scale(.8)}}
+@media(max-width:700px){.icon-tile{width:56px;height:56px;border-radius:18px;margin-bottom:22px}.icon-tile-large{width:72px;height:72px;border-radius:22px}.icon-tile-large>svg{width:38px;height:38px}.title-flower{width:22px;height:22px;margin-left:12px}.panel-botanical{right:20px;bottom:25px;transform:scale(.7);opacity:.2}.faq-layout{grid-template-columns:1fr;gap:32px;margin-top:60px}.faq-heading{font-size:32px;margin-bottom:20px}.faq-intro .icon-tile{margin-bottom:20px}}
+@media(prefers-reduced-motion:reduce){.icon-tile,.approach article{transition:none}.icon-tile{transform:none!important}[data-radix-collection-item], [data-state]>svg{transition:none!important}[role=region][data-state]{animation:none!important}}
