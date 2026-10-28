@@ -16,7 +16,7 @@ export function RouteMotion({ children }: { children: ReactNode }) {
     let frame = 0;
     const alignHash = () => {
       const id = window.location.hash.slice(1);
-      if (!['studio', 'delivery', 'reviews', 'contacts', 'faq', 'bouquets'].includes(id)) return;
+      if (!['main', 'home', 'studio', 'delivery', 'reviews', 'contacts', 'faq', 'bouquets'].includes(id)) return;
       document.fonts.ready.then(() => {
         if (cancelled) return;
         frame = requestAnimationFrame(() => {
