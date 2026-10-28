@@ -331,3 +331,5 @@ input::placeholder{color:var(--muted);opacity:1}
 .card-accent>svg{display:block;width:100%;height:100%}
 .step,.approach article,.delivery-panel,.editorial-panel,.contact-data,.review-card{background:var(--card-surface,var(--surface-cream));border:0;box-shadow:none}
 .step{--card-surface:var(--surface-cream)}
+.approach article,.about-pair .editorial-panel,.delivery-panel:first-child{--card-surface:var(--surface-sage)}
+.delivery-panel:nth-child(2),.review-card{--card-surface:var(--surface-cream)}
