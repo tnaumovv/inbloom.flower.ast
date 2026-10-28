@@ -1,11 +1,16 @@
 import { expect, test } from '@playwright/test';
 
-test('six routes render current storefront content', async ({ page }) => {
+test('storefront pages and legacy redirects render current content', async ({ page }) => {
   for (const route of ['/', '/catalog', '/catalog/pink-cloud', '/about', '/delivery', '/contacts']) {
     await page.goto(route);
     await expect(page.locator('main')).toBeVisible();
     await expect(page.locator('main h1:visible')).toHaveCount(1);
     expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false);
+    const target = ({ '/about': '/#studio', '/delivery': '/#delivery', '/contacts': '/#contacts' } as Record<string, string>)[route];
+    if (target) {
+      await expect(page).toHaveURL(new URL(target, page.url()).href);
+      await expect.poll(() => page.locator(target.slice(1)).evaluate(el => Math.abs(el.getBoundingClientRect().top - 28))).toBeLessThan(4);
+    }
   }
 });
 
