@@ -305,7 +305,8 @@ input::placeholder{color:var(--muted);opacity:1}
 .about-pair .editorial-panel{--card-surface:var(--surface-sage)}
 .delivery-panel:first-child{--card-surface:var(--surface-sage)}
 .editorial-panel.panel-centered{--card-surface:var(--surface-blush);--card-illustration:var(--illustration-rose)}
-.delivery-panel:nth-child(2),.review-card{--card-surface:var(--surface-cream)}
+.delivery-panel:nth-child(2){--card-surface:var(--surface-cream)}
+.review-card{--card-surface:var(--surface-cream)}
 .review-summary{--card-surface:var(--surface-sage)}
 .review-initials{background:var(--surface-sage)}
 .review-rating{background:var(--pink)}
