@@ -3,7 +3,7 @@
 .intro h2 { font-family: var(--display); font-size: 46px; font-weight: 400; line-height: 1.13; }
 .list { width: 100%; min-width: 0; border-top: 1px solid var(--line); }
 .item, .nativeItem { border: 0; border-bottom: 1px solid var(--line); transition: background .2s; }
-.item[data-state='open'] { background: var(--surface-sage); }
+.item[data-state='open'] { background: var(--surface-neutral); }
 .nativeItem[open] { background: var(--surface-sage); }
 .trigger { display: flex; align-items: center; justify-content: space-between; gap: 24px; width: 100%; min-height: 78px; padding: 22px 20px; border: 0; background: transparent; color: var(--green-text); text-align: left; font-family: var(--body); font-size: 17px; line-height: 1.5; font-weight: 500; letter-spacing: -.01em; }
 .trigger:hover { text-decoration: none; color: var(--green); }
