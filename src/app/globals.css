@@ -307,7 +307,7 @@ input::placeholder{color:var(--muted);opacity:1}
 .editorial-panel.panel-centered{--card-surface:var(--surface-blush);--card-illustration:var(--illustration-rose)}
 .delivery-panel:nth-child(2){--card-surface:var(--surface-cream)}
 .review-card{--card-surface:var(--surface-neutral);--muted:#65676d;color:#383b40}
-.review-initials{background:#ececef}
+.review-initials{background:#ececef;color:#65676d}
 .review-rating{background:var(--pink)}
 .contact-data{--card-surface:var(--surface-forest);--card-illustration:#c3d0b8;--muted:#dce3d2;color:var(--on-forest)}
 .contact-data h1,.contact-data h2{color:var(--on-forest)}
