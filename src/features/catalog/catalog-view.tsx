@@ -9,14 +9,18 @@ import { BouquetImage } from './bouquet-image';
 import { formatPriceKzt } from './format-price';
 import { buildBouquetWhatsAppLink } from '@/features/contact/whatsapp';
 import { Pill } from '@/features/storefront/shell';
+import { AddToCartButton } from '@/features/cart/cart-ui';
 import styles from './catalog.module.css';
 
 export function BouquetCard({ bouquet: p }: { bouquet: Bouquet }) {
   return <article className={`product-card ${styles.card}`} data-bouquet-id={p.id}>
-    <Link className="product-photo" href={`/catalog/${p.slug}`} aria-label={`Подробнее о букете ${p.name}`}>
-      <span className="photo-fallback">Фото букета {p.name}</span>
-      <BouquetImage bouquet={p} lazy />
-    </Link>
+    <div className={styles.photoFrame}>
+      <Link className="product-photo" href={`/catalog/${p.slug}`} aria-label={`Подробнее о букете ${p.name}`}>
+        <span className="photo-fallback">Фото букета {p.name}</span>
+        <BouquetImage bouquet={p} lazy />
+      </Link>
+      <AddToCartButton bouquet={p} iconOnly className={styles.photoCart} />
+    </div>
     <div className={`product-info ${styles.productInfo}`}>
       <Link className="product-name" href={`/catalog/${p.slug}`}>{p.name}</Link>
       <span className="price">{formatPriceKzt(p.priceKzt)}</span>
@@ -28,14 +32,14 @@ export function BouquetCard({ bouquet: p }: { bouquet: Bouquet }) {
   </article>;
 }
 
-export function ProductGrid({ products }: { products: readonly Bouquet[] }) {
-  return <div className="product-grid">{products.map(p => <BouquetCard key={p.id} bouquet={p} />)}</div>;
+export function ProductGrid({ products, selection = false }: { products: readonly Bouquet[]; selection?: boolean }) {
+  return <div className={`product-grid ${selection ? styles.selectionGrid : ''}`}>{products.map(p => <BouquetCard key={p.id} bouquet={p} />)}</div>;
 }
 
 export function Featured({ secondary = false }: { secondary?: boolean }) {
   const { snapshot } = useCatalog();
-  const list = secondary ? [...snapshot.bouquets.slice(3, 5), ...snapshot.bouquets.slice(1, 2)] : snapshot.bouquets.slice(0, 3);
-  return <>{!secondary && <CatalogNotice />}{snapshot.status === 'ok' && (list.length ? <ProductGrid products={list} /> : <p>Подборка обновляется. Напишите флористу, чтобы выбрать букет.</p>)}</>;
+  const list = secondary ? snapshot.bouquets.slice(4, 8) : snapshot.bouquets.slice(0, 4);
+  return <>{!secondary && <CatalogNotice />}{snapshot.status === 'ok' && (list.length ? <ProductGrid products={list} selection /> : <p>Подборка обновляется. Напишите флористу, чтобы выбрать букет.</p>)}</>;
 }
 
 const budgets = [

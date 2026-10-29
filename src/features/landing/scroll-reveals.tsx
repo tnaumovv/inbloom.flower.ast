@@ -75,7 +75,11 @@ export function ScrollReveals() {
       if (preference.matches) for (const element of [...staged.keys()]) reveal(element, true);
     };
     const onFocus = (event: FocusEvent) => {
-      if (event.target instanceof Element) for (const element of [...staged.keys()]) if (element.contains(event.target)) reveal(element, true);
+      // Keyboard focus must reveal hidden controls. Pointer focus must not move a
+      // control between pointerdown and click while its entrance is still running.
+      if (event.target instanceof Element && event.target.matches(':focus-visible')) {
+        for (const element of [...staged.keys()]) if (element.contains(event.target)) reveal(element, true);
+      }
     };
     const onPageShow = () => {
       for (const element of [...staged.keys()]) if (element.getBoundingClientRect().top < window.innerHeight) reveal(element, true);

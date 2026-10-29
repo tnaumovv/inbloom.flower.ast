@@ -50,3 +50,29 @@
 }
 
 .detailCode { margin-top: 12px; font-size: 13px; color: var(--muted); overflow-wrap: anywhere; }
+
+.photoFrame { position: relative; }
+.photoFrame .photoCart { position: absolute; right: 12px; bottom: 12px; z-index: 2; }
+.selectionGrid:global(.product-grid) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.selectionGrid :global(.card-actions) { grid-template-columns: 1fr; }
+.selectionGrid :global(.card-actions .outline) { display: none; }
+.detailActions { display: flex; align-items: stretch; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.desktopOrder { flex: 1 1 280px; }
+.desktopOrder :global(.pill) { width: 100%; }
+
+@media (max-width: 1000px) {
+  .selectionGrid:global(.product-grid) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 700px) {
+  .photoFrame .photoCart { right: 8px; bottom: 8px; }
+  .desktopOrder { display: none; }
+  .stickyOrder:global(.sticky-order) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+    padding: 10px 88px max(12px, env(safe-area-inset-bottom)) 16px;
+  }
+  .stickyOrder :global(.sticky-price) { font-size: 15px; }
+  .stickyOrder :global(.pill) { width: 100%; }
+}
