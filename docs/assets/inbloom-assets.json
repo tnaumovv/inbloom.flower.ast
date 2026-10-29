@@ -32,7 +32,9 @@
       "sophie-basket-s.webp"
     ],
     "method": "Generated cutouts re-encoded to WebP. Only Soft s also remains in public/images/bouquets for the legacy hero component.",
-    "status": "Demonstration product cutouts; stock and prices require owner confirmation before commercial publication."
+    "status": "Demonstration product cutouts; stock and prices require owner confirmation before commercial publication.",
+    "retired": true,
+    "retiredReason": "Prototype-only cutouts removed from the current tree; the legacy hero keeps public/images/bouquets/soft-s.webp."
   },
   "fonts": {
     "families": [
@@ -63,5 +65,14 @@
   "optimization": {
     "date": "2026-10-29",
     "note": "Legacy PNG duplicates removed; current files use WebP. Historical source hashes refer to original generation where retained."
+  },
+  "archive": {
+    "revision": "216e5d5e800d2b164ba485840ce57b425ae9320a",
+    "url": "https://github.com/tnaumovv/inbloom.flower.ast/tree/216e5d5e800d2b164ba485840ce57b425ae9320a",
+    "directories": [
+      "design/",
+      "prototype/"
+    ],
+    "note": "Historical source paths below refer to this revision. Design mockups and the prototype are omitted from the deployment repository as of 2026-10-29."
   }
 }

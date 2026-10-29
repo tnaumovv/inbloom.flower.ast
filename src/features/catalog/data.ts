@@ -1,5 +1,5 @@
 import type { Bouquet } from './types';
-import importedCatalogue from '../../../docs/assets/florax-catalog-2026-10-29.json';
+import importedCatalogue from './florax-catalog.json';
 
 // Explicit preview only. A configured Google connection never falls back to these prices.
 const originalBouquets: readonly Bouquet[] = [

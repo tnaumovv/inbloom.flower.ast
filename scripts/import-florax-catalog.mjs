@@ -72,7 +72,7 @@ async function main() {
   if (!env.GOOGLE_SHEET_ID || !env.GOOGLE_SHEETS_API_KEY) throw new Error('Configure GOOGLE_SHEET_ID and GOOGLE_SHEETS_API_KEY first.');
   const range = env.GOOGLE_SHEET_RANGE || "'Каталог'!A1:I1001";
   if (!/^.+!A1:I1001$/.test(range)) throw new Error('Expected catalogue range A1:I1001.');
-  const manifest = JSON.parse(await readFile(new URL('../docs/assets/florax-catalog-2026-10-29.json', import.meta.url), 'utf8'));
+  const manifest = JSON.parse(await readFile(new URL('../src/features/catalog/florax-catalog.json', import.meta.url), 'utf8'));
   for (const product of manifest.products) {
     if (!/^\/images\/[\w./-]+$/.test(product.image) || product.image.includes('..')) throw new Error('Import images must be local catalogue assets.');
     if (!(await stat(new URL(`../public${product.image}`, import.meta.url))).isFile()) throw new Error('Missing imported catalogue image.');

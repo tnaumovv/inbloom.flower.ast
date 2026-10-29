@@ -13,3 +13,11 @@
 
 # Local design review exports and ZIP bundles
 /design-deliverables/
+
+# Local design sources and development assistants are not part of the storefront
+/design/
+/prototype/
+/.agents/
+/.codex/
+/.impeccable/
+/.superpowers/

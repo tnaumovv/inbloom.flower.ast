@@ -3,6 +3,9 @@ node_modules
 .tooling
 .frontend-workbench
 .superpowers
+.agents
+.codex
+.impeccable
 .git
 .env*
 test-results
