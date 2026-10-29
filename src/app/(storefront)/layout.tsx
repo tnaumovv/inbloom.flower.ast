@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import '@/components/arc/theme.css';
 import { Header, Footer } from '@/features/storefront/shell';
 import { CatalogProvider } from '@/features/catalog/live-catalog';
 import { getCatalog } from '@/features/catalog/sheets';

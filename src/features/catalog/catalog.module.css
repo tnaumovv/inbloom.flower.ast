@@ -1,23 +1,26 @@
 .toolbar {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) repeat(2, minmax(110px, 135px)) minmax(190px, 220px);
+  align-items: end;
   padding: 24px;
   gap: 16px;
-  border-radius: 16px;
+  border-radius: 20px;
   background: var(--gray);
 }
 
-.toolbar .search { min-width: 220px; }
-.searchInput { position: relative; display: block; }
-.searchInput > svg {
-  position: absolute;
-  top: 50%;
-  left: 17px;
-  transform: translateY(-50%);
-  color: var(--muted);
-  pointer-events: none;
-}
-.searchInput input { padding-left: 45px; }
+.search, .budget, .sort, .category { min-width: 0; }
+.category { grid-column: 1 / -1; }
 .toolbar input::placeholder { color: var(--muted); opacity: 1; }
-.toolbar input, .toolbar select { caret-color: var(--green); }
+.toolbar input { caret-color: var(--green); }
+.filterTrigger { display: none; }
+.sheetRange { align-items: start; }
+.sheetRange input { padding-inline: 14px; }
+
+@media (min-width: 701px) and (max-width: 1050px) {
+  .toolbar { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .search, .sort { grid-column: 1 / -1; }
+}
+
 .meta { padding-bottom: 20px; border-bottom: 1px solid var(--line); }
 .meta > span { white-space: nowrap; font-variant-numeric: tabular-nums; }
 .meta .activeChip { color: white; background: var(--green); }
@@ -40,10 +43,12 @@
 .productInfo :global(.price) { color: var(--green-text); font-variant-numeric: tabular-nums; }
 
 @media (max-width: 700px) {
-  .toolbar { padding: 18px 14px; gap: 12px; margin-inline: -4px; }
-  .toolbar .search { min-width: 0; }
-  .toolbar :global(.filter-trigger) { background: white; padding-inline: 12px; }
-  .toolbar select { font-size: 14px; padding-inline: 12px; }
+  .toolbar { grid-template-columns: minmax(0, 1fr); padding: 18px 14px; gap: 14px; margin-inline: -4px; }
+  .toolbar .budget { display: none; }
+  .toolbar .filterTrigger { display: inline-flex; min-height: 50px; padding-inline: 16px; background: var(--pink); border-color: transparent; }
+  .toolbar .filterTrigger:hover { background: #f2cbd0; }
+  .search, .sort, .category { grid-column: 1 / -1; }
+  .sort { grid-row: 2; }
   .meta { gap: 12px; padding-bottom: 16px; }
   .meta > span { padding-top: 10px; }
   .card .productInfo { min-height: 76px; justify-content: flex-start; }

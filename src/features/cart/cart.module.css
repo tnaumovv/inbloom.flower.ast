@@ -65,11 +65,9 @@
 .remove:hover { background: var(--gray); color: var(--ink); }
 .unitPrice { margin-top: 8px; color: var(--muted); font-size: 13px; }
 .itemBottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px 12px; margin-top: 12px; }
-.quantity { display: inline-grid; grid-template-columns: 40px 24px 40px; align-items: center; border: 1px solid var(--line); border-radius: 99px; }
-.quantity button { display: grid; place-items: center; min-height: 42px; border: 0; background: transparent; border-radius: 50%; }
-.quantity button:hover:not(:disabled) { background: var(--gray); }
-.quantity button:disabled { opacity: .35; }
-.quantity span { text-align: center; font-size: 14px; font-variant-numeric: tabular-nums; }
+.quantity { --number-field-width: 164px; max-width: 100%; flex-shrink: 0; }
+.itemBottom:has(.quantity) { align-items: flex-end; }
+.itemBottom:has(.quantity) .lineTotal { padding-block: 15px; }
 .lineTotal { font-size: 15px; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .panelFooter { flex-shrink: 0; padding: 22px 28px max(18px, env(safe-area-inset-bottom)); border-top: 1px solid var(--line); }
 .total { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
@@ -121,5 +119,8 @@
   .receiving legend { margin-bottom: 8px; }
   .receivingOption { min-height: 46px; padding-block: 8px; }
   .checkout { margin-top: 12px; }
+}
+@media (max-width: 360px) {
+  .itemBottom:has(.quantity) .lineTotal { padding-block: 0; }
 }
 @media (prefers-reduced-motion: reduce) { .floating, .addButton, .receivingOption { transition: none; } .floating:hover { transform: none; } }

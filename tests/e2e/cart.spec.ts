@@ -47,15 +47,15 @@ test('same-name bouquets stay separate and quantity changes update the complete 
   const first = dialog.locator('[data-cart-item="bag-303869"]');
   const second = dialog.locator('[data-cart-item="bag-301723"]');
   await expect(dialog.locator('[data-cart-item]')).toHaveCount(2);
-  await expect(first.getByTestId('cart-quantity')).toHaveText('2');
-  await expect(second.getByTestId('cart-quantity')).toHaveText('1');
+  await expect(first.getByRole('spinbutton')).toHaveAttribute('aria-valuenow', '2');
+  await expect(second.getByRole('spinbutton')).toHaveAttribute('aria-valuenow', '1');
   await expect(dialog.getByTestId('cart-total')).toHaveText(/21\s000\s₸/);
 
   await second.getByRole('button', { name: 'Увеличить количество Bag', exact: true }).click();
-  await expect(second.getByTestId('cart-quantity')).toHaveText('2');
+  await expect(second.getByRole('spinbutton')).toHaveAttribute('aria-valuenow', '2');
   await expect(dialog.getByTestId('cart-total')).toHaveText(/28\s000\s₸/);
   await first.getByRole('button', { name: 'Уменьшить количество Bag', exact: true }).click();
-  await expect(first.getByTestId('cart-quantity')).toHaveText('1');
+  await expect(first.getByRole('spinbutton')).toHaveAttribute('aria-valuenow', '1');
   await expect(dialog.getByTestId('cart-total')).toHaveText(/21\s000\s₸/);
 
   const href = await dialog.getByRole('link', { name: checkoutName, exact: true }).getAttribute('href');
@@ -116,7 +116,7 @@ test('desktop actions align and the receiving choice updates the WhatsApp order'
   await expect(delivery).not.toBeChecked();
   expect(await message()).toContain('Способ получения: Самовывоз');
   await expect(dialog.getByTestId('cart-total')).toHaveText(/15\s700\s₸/);
-  await expect(dialog.getByTestId('cart-quantity')).toHaveText('1');
+  await expect(dialog.getByRole('spinbutton')).toHaveAttribute('aria-valuenow', '1');
   await page.keyboard.press('Escape');
   await openCart(page);
   await expect(pickup).toBeChecked();
@@ -170,7 +170,7 @@ test('detail additions survive navigation and reload with only IDs and quantitie
   await expect(page).toHaveURL(/\/catalog(?:#main)?$/);
   await page.reload();
   dialog = await openCart(page);
-  await expect(dialog.locator('[data-cart-item="pink-cloud"]').getByTestId('cart-quantity')).toHaveText('2');
+  await expect(dialog.locator('[data-cart-item="pink-cloud"]').getByRole('spinbutton')).toHaveAttribute('aria-valuenow', '2');
   await expect(dialog.getByTestId('cart-total')).toHaveText(/31\s400\s₸/);
   expect(await page.evaluate(key => JSON.parse(localStorage.getItem(key)!), storageKey)).toEqual([{ id: 'pink-cloud', quantity: 2 }]);
   await dialog.getByRole('button', { name: 'Закрыть корзину', exact: true }).click();

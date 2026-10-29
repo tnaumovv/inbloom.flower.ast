@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useRef, useState } from 'react';
-import { Asterisk, Search, SlidersHorizontal, X } from 'lucide-react';
+import { Asterisk, SlidersHorizontal, X } from 'lucide-react';
 import { useCatalog, CatalogNotice } from './live-catalog';
 import type { Bouquet } from './types';
 import { BouquetImage } from './bouquet-image';
@@ -10,6 +10,9 @@ import { formatPriceKzt } from './format-price';
 import { buildBouquetWhatsAppLink } from '@/features/contact/whatsapp';
 import { Pill } from '@/features/storefront/shell';
 import { AddToCartButton } from '@/features/cart/cart-ui';
+import { SearchField } from '@/components/arc/search-field';
+import { Input } from '@/components/arc/input';
+import { Select } from '@/components/arc/select';
 import styles from './catalog.module.css';
 
 export function BouquetCard({ bouquet: p }: { bouquet: Bouquet }) {
@@ -49,6 +52,18 @@ const budgets = [
   ['20000', '', 'От 20 000 ₸'],
 ] as const;
 
+const sortOptions = [
+  { value: 'default', label: 'По умолчанию' },
+  { value: 'asc', label: 'Сначала дешевле' },
+  { value: 'desc', label: 'Сначала дороже' },
+  { value: 'name', label: 'По названию' },
+];
+
+function updateBudget(rawValue: string, onChange: (value: string) => void) {
+  const value = rawValue.replace(/\s/g, '');
+  if (/^\d*$/.test(value)) onChange(value);
+}
+
 export function CatalogView() {
   const { snapshot } = useCatalog();
   const [search, setSearch] = useState('');
@@ -59,6 +74,7 @@ export function CatalogView() {
   const [sheetMin, setSheetMin] = useState('');
   const [sheetMax, setSheetMax] = useState('');
   const dialog = useRef<HTMLDialogElement>(null);
+  const sheetRangeInvalid = Boolean(sheetMin && sheetMax && Number(sheetMax) < Number(sheetMin));
   const categories = [...new Set(snapshot.bouquets.map(p => p.category).filter((s): s is string => Boolean(s)))];
   const filtered = Boolean(search.trim() || min || max || category);
   const reset = () => { setSearch(''); setMin(''); setMax(''); setCategory(''); };
@@ -73,17 +89,42 @@ export function CatalogView() {
   return <>
     <CatalogNotice />
     <div className={`catalog-toolbar ${styles.toolbar}`}>
-      <label className={`field search-field ${styles.search}`}>
-        <span>Поиск букета</span>
-        <span className={styles.searchInput}><Search size={18} aria-hidden="true" /><input type="search" placeholder="Какой букет вы ищете?" value={search} onChange={e => setSearch(e.target.value)} /></span>
-      </label>
-      <label className="field budget-field"><span>Бюджет от, ₸</span><input type="number" min="0" inputMode="numeric" placeholder="От" value={min} onChange={e => setMin(e.target.value)} /></label>
-      <label className="field budget-field"><span>До, ₸</span><input type="number" min="0" inputMode="numeric" placeholder="До" value={max} onChange={e => setMax(e.target.value)} /></label>
-      <button className="pill outline filter-trigger" onClick={() => { setSheetMin(min); setSheetMax(max); dialog.current?.showModal(); }}>
+      <SearchField
+        fieldClassName={styles.search}
+        label="Поиск букета"
+        placeholder="Какой букет вы ищете?"
+        value={search}
+        onValueChange={setSearch}
+      />
+      <Input
+        fieldClassName={styles.budget}
+        label="Бюджет от, ₸"
+        inputMode="numeric"
+        pattern="[0-9]*"
+        placeholder="От"
+        value={min}
+        onChange={event => updateBudget(event.target.value, setMin)}
+      />
+      <Input
+        fieldClassName={styles.budget}
+        label="До, ₸"
+        inputMode="numeric"
+        pattern="[0-9]*"
+        placeholder="До"
+        value={max}
+        onChange={event => updateBudget(event.target.value, setMax)}
+      />
+      <Select fieldClassName={styles.sort} label="Сортировка" value={sort} onValueChange={setSort} options={sortOptions} />
+      {categories.length > 0 && <Select
+        fieldClassName={styles.category}
+        label="Категория"
+        value={category ? `category:${category}` : 'all'}
+        onValueChange={value => setCategory(value === 'all' ? '' : value.slice('category:'.length))}
+        options={[{ value: 'all', label: 'Все категории' }, ...categories.map(value => ({ value: `category:${value}`, label: value }))]}
+      />}
+      <button type="button" className={`pill outline ${styles.filterTrigger}`} onClick={() => { setSheetMin(min); setSheetMax(max); dialog.current?.showModal(); }}>
         Фильтры <SlidersHorizontal aria-hidden="true" size={16} />{(min || max) && <span className={styles.filterDot} aria-label="Задан бюджет" />}
       </button>
-      <label className="field sort-field"><span className="sort-label">Сортировка</span><select aria-label="Сортировка" value={sort} onChange={e => setSort(e.target.value)}><option value="default">По умолчанию</option><option value="asc">Сначала дешевле</option><option value="desc">Сначала дороже</option><option value="name">По названию</option></select></label>
-      {categories.length > 0 && <label className="field category-field"><span>Категория</span><select value={category} onChange={e => setCategory(e.target.value)}><option value="">Все категории</option>{categories.map(c => <option key={c}>{c}</option>)}</select></label>}
     </div>
     <div className={`catalog-meta ${styles.meta}`}>
       <div className="selected-filters">
@@ -96,13 +137,16 @@ export function CatalogView() {
     </div>
     {snapshot.status === 'ok' && <div id="catalog-results">{products.length ? <ProductGrid products={products} /> : <div className="empty-state"><div><Asterisk className="empty-symbol" aria-hidden="true" size={58} /><h2 className="display">Ничего<br />не найдено</h2><p>Попробуйте другое название или измените бюджет.</p><button className="pill" onClick={reset}>Сбросить фильтры</button></div></div>}</div>}
     <dialog ref={dialog} className="filter-panel" aria-label="Фильтры букетов">
-      <form onSubmit={e => { e.preventDefault(); setMin(sheetMin); setMax(sheetMax); dialog.current?.close(); }}>
+      <form onSubmit={e => { e.preventDefault(); if (sheetRangeInvalid) return; setMin(sheetMin); setMax(sheetMax); dialog.current?.close(); }}>
         <div className="filter-panel-top"><h2 className="display">Фильтры</h2><button autoFocus type="button" className="close-button" aria-label="Закрыть фильтры" onClick={() => dialog.current?.close()}><X aria-hidden="true" /></button></div>
         <h3>Бюджет, ₸</h3>
-        <div className="filter-range"><label className="field"><span>От</span><input type="number" min="0" inputMode="numeric" value={sheetMin} onChange={e => setSheetMin(e.target.value)} /></label><label className="field"><span>До</span><input type="number" min={sheetMin || '0'} inputMode="numeric" value={sheetMax} onChange={e => setSheetMax(e.target.value)} /></label></div>
+        <div className={`filter-range ${styles.sheetRange}`}>
+          <Input label="От" inputMode="numeric" pattern="[0-9]*" placeholder="Любая сумма" value={sheetMin} onChange={event => updateBudget(event.target.value, setSheetMin)} />
+          <Input label="До" inputMode="numeric" pattern="[0-9]*" placeholder="Любая сумма" value={sheetMax} onChange={event => updateBudget(event.target.value, setSheetMax)} error={sheetRangeInvalid ? 'Сумма «До» должна быть не меньше «От».' : undefined} />
+        </div>
         <div className="filter-options">{budgets.map(([a, b, label]) => <button type="button" key={label} aria-pressed={a === sheetMin && b === sheetMax} className={a === sheetMin && b === sheetMax ? 'active' : ''} onClick={() => { setSheetMin(a); setSheetMax(b); }}>{label}</button>)}</div>
         <p className="sheet-help">Состав и наличие выбранного букета уточнит флорист.</p>
-        <div className="filter-panel-actions"><button type="submit" className="pill">Показать букеты</button><button type="button" className="pill outline" onClick={() => { setSheetMin(''); setSheetMax(''); }}>Сбросить</button></div>
+        <div className="filter-panel-actions"><button type="submit" className="pill" disabled={sheetRangeInvalid}>Показать букеты</button><button type="button" className="pill outline" onClick={() => { setSheetMin(''); setSheetMax(''); }}>Сбросить</button></div>
       </form>
     </dialog>
   </>;

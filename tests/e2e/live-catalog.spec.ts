@@ -17,7 +17,8 @@ test('storefront pages and legacy redirects render current content', async ({ pa
 
 test('search, price sorting and empty reset operate on the same catalogue', async ({ page }) => {
   await page.goto('/catalog');
-  await page.getByRole('combobox', { name: 'Сортировка' }).selectOption('asc');
+  await page.getByRole('combobox', { name: 'Сортировка' }).click();
+  await page.getByRole('option', { name: 'Сначала дешевле', exact: true }).click();
   await expect(page.locator('#catalog-results .product-card').first()).toHaveAttribute('data-bouquet-id', 'bag-291807');
   await page.getByRole('searchbox').fill('Pink');
   await expect(page.locator('#catalog-results .product-card')).toHaveCount(3);

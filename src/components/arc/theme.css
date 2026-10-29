@@ -1,0 +1,51 @@
+/* UIArc foundation tokens, scoped to the imported controls and their portals.
+   Adapted for In Bloom. Copyright (c) 2026 Elia Kuratli. MIT; see LICENSE. */
+.arc-theme {
+  --surface: var(--white);
+  --surface-raised: var(--white);
+  --surface-muted: var(--pink);
+  --foreground: var(--ink);
+  --text-secondary: var(--muted);
+  --text-muted: var(--muted);
+  --border: var(--line);
+  --border-strong: var(--line);
+  --accent-strong: var(--green);
+  --accent-subtle: var(--pink);
+  --warning: #875825;
+  --danger: #a13939;
+  --shadow-floating: 0 18px 44px #3037221a, 0 3px 10px #3037220a;
+  --space-2: .5rem;
+  --space-3: .75rem;
+  --radius-control: 1.5rem;
+  --control-height-sm: 3rem;
+  --control-height-md: 3.125rem;
+  --control-height-lg: 3.375rem;
+  --text-xs: .75rem;
+  --text-sm: 1rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --tracking-body: 0;
+  --leading-body: 1.4;
+  --ease-enter: cubic-bezier(.16, 1, .3, 1);
+  --ease-standard: cubic-bezier(.22, 1, .36, 1);
+  --ease-spring: linear(0, .0213, .0739, .1443, .2235, .305, .3849, .4606, .5305, .594, .6508, .7011, .7452, .7836, .8168, .8454, .8699, .8907, .9084, .9234, .9361, .9467, .9557, .9632, .9694, .9747, .979, .9826, .9857, .9882, .9902, .992, .9934, .9946, .9955, .9963, 1);
+  --duration-instant: 120ms;
+  --duration-fast: 160ms;
+  --duration-standard: 240ms;
+  --duration-spring: 580ms;
+  font-family: var(--body);
+}
+
+.arc-theme :is(input, button):focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arc-theme {
+    --duration-instant: 0ms;
+    --duration-fast: 0ms;
+    --duration-standard: 0ms;
+    --duration-spring: 0ms;
+  }
+}

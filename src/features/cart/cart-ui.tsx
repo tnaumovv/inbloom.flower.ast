@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
-import { ArrowUpRight, Minus, Plus, ShoppingBag, ShoppingCart, Store, Truck, Trash2, X } from 'lucide-react';
+import { ArrowUpRight, Plus, ShoppingBag, ShoppingCart, Store, Truck, Trash2, X } from 'lucide-react';
+import { NumberField } from '@/components/arc/number-field';
 import { useCart } from './cart-provider';
 import { buildCartWhatsAppLink, receivingMethodLabels, type ReceivingMethod } from './model';
 import { useCatalog } from '@/features/catalog/live-catalog';
@@ -73,11 +74,20 @@ export function CartPanel() {
                   </div>
                   <p className={styles.unitPrice}>{bouquet ? `${formatPriceKzt(bouquet.priceKzt)} / шт.` : 'Удалите из корзины'}</p>
                   <div className={styles.itemBottom}>
-                    <div className={styles.quantity}>
-                      <button type="button" aria-label={`Уменьшить количество ${name}`} disabled={quantity <= 1} onClick={() => cart.setQuantity(id, quantity - 1)}><Minus size={16} aria-hidden="true" /></button>
-                      <span data-testid="cart-quantity">{quantity}</span>
-                      <button type="button" aria-label={`Увеличить количество ${name}`} disabled={!bouquet || quantity >= 99} onClick={() => cart.setQuantity(id, quantity + 1)}><Plus size={16} aria-hidden="true" /></button>
-                    </div>
+                    <NumberField
+                      className={styles.quantity}
+                      label="Количество"
+                      ariaLabel={`Количество ${name}`}
+                      stepperLabel={`количество ${name}`}
+                      value={quantity}
+                      onValueChange={next => cart.setQuantity(id, next)}
+                      min={1}
+                      max={99}
+                      step={1}
+                      size="sm"
+                      locale="ru-RU"
+                      disabled={!bouquet || !cart.isOpen}
+                    />
                     {bouquet && <span className={styles.lineTotal}>{formatPriceKzt(bouquet.priceKzt * quantity)}</span>}
                   </div>
                 </div>
