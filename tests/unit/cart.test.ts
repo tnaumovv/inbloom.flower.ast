@@ -138,27 +138,33 @@ describe('cart storage', () => {
 });
 
 describe('WhatsApp cart enquiry', () => {
-  it('includes each stable ID, name, quantity, current line price and correct total in one encoded message', () => {
+  it.each([['delivery', 'Доставка'], ['pickup', 'Самовывоз']] as const)('includes a concise order and the selected %s method', (method, label) => {
     const { lines } = resolveCart([{ id: pink.id, quantity: 2 }, { id: blue.id, quantity: 1 }], catalog([pink, blue]));
-    const link = buildCartWhatsAppLink(lines);
+    const link = buildCartWhatsAppLink(lines, method);
     expect(link).not.toBeNull();
     const url = new URL(link!);
     const message = url.searchParams.get('text')!.replace(/[\u00a0\u202f]/g, ' ');
     expect(url.origin).toBe('https://wa.me');
-    expect(message).toContain('Розовый & нежный');
-    expect(message).toContain('pink-cloud');
-    expect(message).toContain('blue-dream');
-    expect(message).toContain('Blue dream');
-    expect(message).toMatch(/2 шт\..*15 700 ₸.*31 400 ₸/u);
-    expect(message).toMatch(/1 шт\..*20 200 ₸.*20 200 ₸/u);
-    expect(message).toMatch(/Итого: 51 600 ₸/u);
-    expect(message).toMatch(/наличие.*доставк/iu);
+    expect(message).toBe(
+      'Здравствуйте! Хочу заказать:\n\n' +
+      '1. Розовый & нежный — 2 шт., 31 400 ₸ (арт. pink-cloud)\n' +
+      '2. Blue dream — 1 шт., 20 200 ₸ (арт. blue-dream)\n\n' +
+      `Итого за букеты: 51 600 ₸\nСпособ получения: ${label}`,
+    );
   });
 
   it('refuses empty, unavailable, invalid quantities and mismatched bouquet IDs', () => {
-    expect(buildCartWhatsAppLink([])).toBeNull();
-    expect(buildCartWhatsAppLink([{ id: pink.id, quantity: 1, bouquet: undefined }])).toBeNull();
-    expect(buildCartWhatsAppLink([{ id: pink.id, quantity: 0, bouquet: pink }])).toBeNull();
-    expect(buildCartWhatsAppLink([{ id: pink.id, quantity: 1, bouquet: blue }])).toBeNull();
+    expect(buildCartWhatsAppLink([], 'delivery')).toBeNull();
+    expect(buildCartWhatsAppLink([{ id: pink.id, quantity: 1, bouquet: undefined }], 'delivery')).toBeNull();
+    expect(buildCartWhatsAppLink([{ id: pink.id, quantity: 0, bouquet: pink }], 'pickup')).toBeNull();
+    expect(buildCartWhatsAppLink([{ id: pink.id, quantity: 1, bouquet: blue }], 'pickup')).toBeNull();
+  });
+
+  it('refuses a missing or unsupported receiving method instead of claiming a choice', () => {
+    const { lines } = resolveCart([{ id: pink.id, quantity: 1 }], catalog([pink]));
+    // @ts-expect-error A missing method can still arrive from untyped callers.
+    expect(buildCartWhatsAppLink(lines)).toBeNull();
+    // @ts-expect-error Runtime validation must also reject unsupported methods.
+    expect(buildCartWhatsAppLink(lines, 'courier')).toBeNull();
   });
 });

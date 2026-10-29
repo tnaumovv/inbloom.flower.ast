@@ -10,6 +10,6 @@ export function buildWhatsAppLink(message: string = generalEnquiryMessage): stri
 }
 
 export function buildBouquetWhatsAppLink(bouquet: Pick<Bouquet, 'name' | 'priceKzt'> & Partial<Pick<Bouquet, 'id'>>): string {
-  const productCode = bouquet.id ? ` Артикул: ${bouquet.id}.` : '';
-  return buildWhatsAppLink(`Здравствуйте! Хочу заказать букет «${bouquet.name}» (${formatPriceKzt(bouquet.priceKzt)}).${productCode} Подскажите, пожалуйста, наличие и варианты доставки.`);
+  const productCode = bouquet.id ? `\nАртикул: ${bouquet.id}.` : '';
+  return buildWhatsAppLink(`Здравствуйте! Хочу заказать «${bouquet.name}» — ${formatPriceKzt(bouquet.priceKzt)}.${productCode}`);
 }

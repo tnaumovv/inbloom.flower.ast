@@ -25,7 +25,7 @@ export function ProductView({ slug }: { slug: string }) {
         <p className="detail-description">{p.description || 'Композиция из каталога In Bloom. Состав и актуальную стоимость уточнит флорист.'}</p>
         <div className={styles.detailActions}>
           <div className={styles.desktopOrder}><Pill href={buildBouquetWhatsAppLink(p)} variant="order-main" external>Заказать в WhatsApp</Pill></div>
-          <AddToCartButton bouquet={p} />
+          <AddToCartButton bouquet={p} className={styles.detailCartButton} />
         </div>
         {Boolean(p.composition?.length) && <div className="composition"><h2>Состав букета</h2><ul>{p.composition?.map(item => <li key={item}>{item}</li>)}</ul></div>}
       </div>

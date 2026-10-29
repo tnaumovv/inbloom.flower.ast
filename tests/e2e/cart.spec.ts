@@ -63,9 +63,9 @@ test('same-name bouquets stay separate and quantity changes update the complete 
   expect(orderUrl.origin).toBe('https://wa.me');
   expect(orderUrl.searchParams.get('text')!.replace(/\u00a0|\u202f/g, ' ')).toBe(
     'Здравствуйте! Хочу заказать:\n\n' +
-    '1. «Bag» (артикул: bag-303869) — 1 шт. × 7 000 ₸ = 7 000 ₸\n' +
-    '2. «Bag» (артикул: bag-301723) — 2 шт. × 7 000 ₸ = 14 000 ₸\n\n' +
-    'Итого: 21 000 ₸.\nПодскажите, пожалуйста, наличие букетов и варианты доставки.',
+    '1. Bag — 1 шт., 7 000 ₸ (арт. bag-303869)\n' +
+    '2. Bag — 2 шт., 14 000 ₸ (арт. bag-301723)\n\n' +
+    'Итого за букеты: 21 000 ₸\nСпособ получения: Доставка',
   );
 
   await first.getByRole('button', { name: 'Удалить Bag из корзины', exact: true }).click();
@@ -88,6 +88,73 @@ test('same-name bouquets stay separate and quantity changes update the complete 
   await expect(keyboardCard).toHaveCSS('opacity', '1');
   await page.keyboard.press('Enter');
   await expect(page.getByTestId('cart-trigger')).toHaveAccessibleName('Открыть корзину, товаров: 1');
+});
+
+test('desktop actions align and the receiving choice updates the WhatsApp order', async ({ page }) => {
+  for (const width of [1280, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/catalog/pink-cloud');
+    await page.evaluate(() => document.fonts.ready);
+    const details = page.locator('.detail-copy');
+    const order = (await details.getByRole('link', { name: 'Заказать в WhatsApp', exact: true }).boundingBox())!;
+    const add = (await details.getByRole('button', { name: 'Добавить Pink cloud в корзину', exact: true }).boundingBox())!;
+    expect(Math.abs(add.width - order.width)).toBeLessThanOrEqual(1);
+    expect(Math.abs(add.height - order.height)).toBeLessThanOrEqual(1);
+    expect(Math.abs(add.y - order.y)).toBeLessThanOrEqual(1);
+  }
+  await page.locator('.detail-copy').getByRole('button', { name: 'Добавить Pink cloud в корзину', exact: true }).click();
+  const dialog = await openCart(page);
+  const receiving = dialog.getByRole('group', { name: 'Способ получения', exact: true });
+  const delivery = receiving.getByRole('radio', { name: 'Доставка', exact: true });
+  const pickup = receiving.getByRole('radio', { name: 'Самовывоз', exact: true });
+  const message = async () => new URL((await dialog.getByRole('link', { name: checkoutName, exact: true }).getAttribute('href'))!).searchParams.get('text');
+  await expect(delivery).toBeChecked();
+  expect(await message()).toContain('Способ получения: Доставка');
+
+  await receiving.getByText('Самовывоз', { exact: true }).click();
+  await expect(pickup).toBeChecked();
+  await expect(delivery).not.toBeChecked();
+  expect(await message()).toContain('Способ получения: Самовывоз');
+  await expect(dialog.getByTestId('cart-total')).toHaveText(/15\s700\s₸/);
+  await expect(dialog.getByTestId('cart-quantity')).toHaveText('1');
+  await page.keyboard.press('Escape');
+  await openCart(page);
+  await expect(pickup).toBeChecked();
+  expect(await message()).toContain('Способ получения: Самовывоз');
+
+  await pickup.focus();
+  await page.keyboard.press('ArrowRight');
+  await expect(delivery).toBeChecked();
+  await expect(delivery).toBeFocused();
+  expect(await message()).toContain('Способ получения: Доставка');
+});
+
+test('tablet product actions keep their painted contents within each button', async ({ page }) => {
+  for (const width of [720, 820, 1024]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/catalog/pink-cloud');
+    await page.evaluate(() => document.fonts.ready);
+    const details = page.locator('.detail-copy');
+    const order = details.getByRole('link', { name: 'Заказать в WhatsApp', exact: true });
+    const add = details.getByRole('button', { name: 'Добавить Pink cloud в корзину', exact: true });
+    for (const control of [order, add]) {
+      const geometry = await control.evaluate(element => ({
+        box: element.getBoundingClientRect().toJSON(),
+        parts: [...element.querySelectorAll(':scope > span, :scope > b, :scope > svg')].map(part => part.getBoundingClientRect().toJSON()),
+      }));
+      for (const part of geometry.parts) {
+        expect.soft(part.left, `${width}px: control content crosses its left edge`).toBeGreaterThanOrEqual(geometry.box.left - 1);
+        expect.soft(part.right, `${width}px: control content crosses its right edge`).toBeLessThanOrEqual(geometry.box.right + 1);
+        expect.soft(part.top, `${width}px: control content crosses its top edge`).toBeGreaterThanOrEqual(geometry.box.top - 1);
+        expect.soft(part.bottom, `${width}px: control content crosses its bottom edge`).toBeLessThanOrEqual(geometry.box.bottom + 1);
+      }
+    }
+    const a = (await order.boundingBox())!;
+    const b = (await add.boundingBox())!;
+    const separated = a.x + a.width <= b.x || b.x + b.width <= a.x || a.y + a.height <= b.y || b.y + b.height <= a.y;
+    expect.soft(separated, `${width}px: order and cart buttons overlap`).toBe(true);
+    expect.soft(await page.evaluate(() => document.documentElement.scrollWidth), `${width}px: horizontal page overflow`).toBeLessThanOrEqual(width);
+  }
 });
 
 test('detail additions survive navigation and reload with only IDs and quantities stored', async ({ page }) => {
@@ -157,8 +224,8 @@ test('catalogue failure retains the selection while withholding checkout', async
 });
 
 test('mobile product pages keep one primary WhatsApp CTA and a reachable cart without overlap', async ({ page }) => {
-  for (const width of [320, 390]) {
-    await page.setViewportSize({ width, height: 844 });
+  for (const { width, height } of [{ width: 320, height: 844 }, { width: 390, height: 844 }, { width: 390, height: 640 }]) {
+    await page.setViewportSize({ width, height });
     await page.goto('/catalog/pink-cloud');
     await expect(page.locator('.order-main')).not.toBeVisible();
     await expect(page.locator('.detail-note')).toHaveCount(0);
@@ -173,14 +240,23 @@ test('mobile product pages keep one primary WhatsApp CTA and a reachable cart wi
     const stickyBounds = (await stickyOrder.boundingBox())!;
     expect(cartBounds.x).toBeGreaterThan(width / 2);
     expect(cartBounds.x + cartBounds.width).toBeLessThanOrEqual(width);
-    expect(cartBounds.y).toBeGreaterThan(844 / 2);
+    expect(cartBounds.y).toBeGreaterThan(height / 2);
     const separated = cartBounds.x + cartBounds.width <= stickyBounds.x
       || stickyBounds.x + stickyBounds.width <= cartBounds.x
       || cartBounds.y + cartBounds.height <= stickyBounds.y
       || stickyBounds.y + stickyBounds.height <= cartBounds.y;
     expect(separated).toBe(true);
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
+    await page.locator('.detail-copy').getByRole('button', { name: 'Добавить Pink cloud в корзину', exact: true }).click();
     const dialog = await openCart(page);
+    const receiving = dialog.getByRole('group', { name: 'Способ получения', exact: true });
+    await expect(receiving).toBeInViewport({ ratio: 1 });
+    await receiving.getByText('Самовывоз', { exact: true }).click();
+    await expect(receiving.getByRole('radio', { name: 'Самовывоз', exact: true })).toBeChecked();
+    const checkout = dialog.getByRole('link', { name: checkoutName, exact: true });
+    await expect(checkout).toBeInViewport({ ratio: 1 });
+    expect(new URL((await checkout.getAttribute('href'))!).searchParams.get('text')).toContain('Способ получения: Самовывоз');
+    expect(await dialog.evaluate(element => element.scrollWidth <= element.clientWidth)).toBe(true);
     await page.keyboard.press('Escape');
     await expect(dialog).not.toBeVisible();
     await expect(trigger).toBeFocused();

@@ -4,6 +4,11 @@ import { buildWhatsAppLink } from '@/features/contact/whatsapp';
 
 export type CartItem = Readonly<{ id: string; quantity: number }>;
 export type CartLine = CartItem & Readonly<{ bouquet: Bouquet | undefined }>;
+export type ReceivingMethod = 'delivery' | 'pickup';
+export const receivingMethodLabels: Record<ReceivingMethod, string> = {
+  delivery: 'Доставка',
+  pickup: 'Самовывоз',
+};
 
 export const MAX_CART_QUANTITY = 99;
 export const MAX_CART_ITEMS = 100;
@@ -61,8 +66,8 @@ export function resolveCart(items: readonly CartItem[], snapshot: CatalogSnapsho
   };
 }
 
-export function buildCartWhatsAppLink(lines: readonly CartLine[]): string | null {
-  if (!lines.length || lines.some(({ id, quantity, bouquet }) =>
+export function buildCartWhatsAppLink(lines: readonly CartLine[], receivingMethod: ReceivingMethod): string | null {
+  if ((receivingMethod !== 'delivery' && receivingMethod !== 'pickup') || !lines.length || lines.some(({ id, quantity, bouquet }) =>
     !validId(id) || !Number.isSafeInteger(quantity) || quantity < 1 || quantity > MAX_CART_QUANTITY ||
     !bouquet || bouquet.id !== id || !Number.isSafeInteger(bouquet.priceKzt) || bouquet.priceKzt <= 0
   )) return null;
@@ -73,7 +78,7 @@ export function buildCartWhatsAppLink(lines: readonly CartLine[]): string | null
     const product = bouquet!;
     const lineKzt = product.priceKzt * quantity;
     totalKzt += lineKzt;
-    return `${index + 1}. «${product.name}» (артикул: ${id}) — ${quantity} шт. × ${formatPriceKzt(product.priceKzt)} = ${formatPriceKzt(lineKzt)}`;
+    return `${index + 1}. ${product.name} — ${quantity} шт., ${formatPriceKzt(lineKzt)} (арт. ${id})`;
   });
-  return buildWhatsAppLink(`Здравствуйте! Хочу заказать:\n\n${descriptions.join('\n')}\n\nИтого: ${formatPriceKzt(totalKzt)}.\nПодскажите, пожалуйста, наличие букетов и варианты доставки.`);
+  return buildWhatsAppLink(`Здравствуйте! Хочу заказать:\n\n${descriptions.join('\n')}\n\nИтого за букеты: ${formatPriceKzt(totalKzt)}\nСпособ получения: ${receivingMethodLabels[receivingMethod]}`);
 }

@@ -10,9 +10,7 @@ it('opens an enquiry for the selected bouquet at its displayed price', async () 
     const text = url.searchParams.get('text')!.replace(/[\u00a0\u202f]/g, ' ');
     expect(url.origin).toBe('https://wa.me');
     expect(url.pathname).toBe('/77082204675');
-    expect(text).toContain(`«${expected[i][0]}»`);
-    expect(text).toContain(expected[i][1]);
-    expect(text).toMatch(/наличие.*доставк/iu);
+    expect(text).toBe(`Здравствуйте! Хочу заказать «${expected[i][0]}» — ${expected[i][1]}.\nАртикул: ${bouquet.id}.`);
   });
 });
 it('distinguishes bouquets with the same name and price by their stable catalogue ID', () => {
@@ -29,4 +27,9 @@ it('round-trips Cyrillic, quotes and URL delimiters without truncating the messa
 it('provides a useful general enquiry when called without arguments', () => {
   expect(new URL(buildWhatsAppLink()).searchParams.get('text')).toMatch(/букет/iu);
   expect(new URL(buildWhatsAppLink(customBouquetMessage)).searchParams.get('text')).toMatch(/индивидуальн/iu);
+});
+
+it('omits the article line when a direct enquiry has no catalogue ID', () => {
+  const text = new URL(buildBouquetWhatsAppLink({ name: 'Пион', priceKzt: 7000 })).searchParams.get('text')!.replace(/[\u00a0\u202f]/g, ' ');
+  expect(text).toBe('Здравствуйте! Хочу заказать «Пион» — 7 000 ₸.');
 });
