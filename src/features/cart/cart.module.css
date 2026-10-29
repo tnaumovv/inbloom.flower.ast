@@ -40,6 +40,10 @@
 .panel:not([open]) { display: none; }
 .panel[open] { display: flex; flex-direction: column; }
 .panel::backdrop { background: #222a1e66; }
+.panel[data-state="opening"]::backdrop { animation: backdropIn 360ms ease both; }
+.panel[data-state="closing"]::backdrop { animation: backdropOut 260ms ease both; }
+@keyframes backdropIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes backdropOut { from { opacity: 1; } to { opacity: 0; } }
 .panelHeader { flex-shrink: 0; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding: 30px 28px 22px; border-bottom: 1px solid var(--line); }
 .panelHeader h2 { color: var(--green-text); font-size: 38px; line-height: 1.15; }
 .panelHeader p { color: var(--muted); font-size: 14px; margin-top: 10px; }
@@ -94,6 +98,9 @@
   .floating { width: 56px; height: 56px; min-height: 56px; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom)); padding: 0; }
   .floatingLabel { display: none; }
   .floating .count { position: absolute; right: -3px; top: -5px; }
+  :global(body:has(.sticky-order)) .floating { width: 52px; height: 52px; min-height: 52px; bottom: max(12px, env(safe-area-inset-bottom)); right: 16px; box-shadow: none; }
+  :global(body:has(.sticky-order)) .floating:hover { transform: none; }
+  :global(body:has(.sticky-order)) .floating .count { right: -3px; top: -5px; min-width: 21px; height: 21px; border: 2px solid var(--white); font-size: 11px; }
   .panel { inset: auto 0 0; height: min(90dvh, 820px); width: 100%; border-radius: 24px 24px 0 0; }
   .panelHeader { padding: 22px 20px 18px; }
   .panelHeader h2 { font-size: 32px; }
@@ -123,4 +130,4 @@
 @media (max-width: 360px) {
   .itemBottom:has(.quantity) .lineTotal { padding-block: 0; }
 }
-@media (prefers-reduced-motion: reduce) { .floating, .addButton, .receivingOption { transition: none; } .floating:hover { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .floating, .addButton, .receivingOption { transition: none; } .floating:hover { transform: none; } .panel::backdrop { animation: none; } }

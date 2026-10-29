@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
+import { useReducedMotion } from 'framer-motion';
 import { ArrowUpRight, Plus, ShoppingBag, ShoppingCart, Store, Truck, Trash2, X } from 'lucide-react';
 import { NumberField } from '@/components/arc/number-field';
 import { useCart } from './cart-provider';
@@ -28,15 +29,37 @@ export function CartPanel() {
   const { snapshot, retry } = useCatalog();
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
+  const interruptedTransform = useRef<string | null>(null);
   const [receivingMethod, setReceivingMethod] = useState<ReceivingMethod>('delivery');
+  const reducedMotion = useReducedMotion();
   const checkout = cart.canCheckout ? buildCartWhatsAppLink(cart.lines, receivingMethod) : null;
 
   useEffect(() => {
     const panel = dialog.current;
     if (!panel) return;
+    if (!cart.isOpen && !panel.open) return;
+    const from = panel.open ? interruptedTransform.current ?? getComputedStyle(panel).transform : 'translateY(100%)';
+    interruptedTransform.current = null;
     if (cart.isOpen && !panel.open) panel.showModal();
-    if (!cart.isOpen && panel.open) panel.close();
-  }, [cart.isOpen]);
+    panel.dataset.state = cart.isOpen ? 'opening' : 'closing';
+    if (reducedMotion) {
+      if (!cart.isOpen) panel.close();
+      return;
+    }
+    const animation = panel.animate(
+      [{ transform: from }, { transform: cart.isOpen ? 'translateY(0)' : 'translateY(100%)' }],
+      { duration: cart.isOpen ? 360 : 260, easing: cart.isOpen ? 'cubic-bezier(.22,1,.36,1)' : 'cubic-bezier(.4,0,.8,.2)', fill: 'both' },
+    );
+    let cancelled = false;
+    animation.finished.then(() => {
+      if (!cancelled && !cart.isOpen) panel.close();
+    }).catch(() => { /* A direction change or unmount cancels the previous animation. */ });
+    return () => {
+      cancelled = true;
+      interruptedTransform.current = getComputedStyle(panel).transform;
+      animation.cancel();
+    };
+  }, [cart.isOpen, reducedMotion]);
 
   return <>
     <button ref={trigger} type="button" className={styles.floating} data-testid="cart-trigger" aria-label={`Открыть корзину, товаров: ${cart.totalQuantity}`} aria-haspopup="dialog" aria-controls="shopping-cart" aria-expanded={cart.isOpen} disabled={!cart.ready} onClick={cart.openCart}>
@@ -45,7 +68,7 @@ export function CartPanel() {
       {cart.totalQuantity > 0 && <span className={styles.count} aria-hidden="true">{cart.totalQuantity}</span>}
     </button>
     <p className="sr-only" aria-live="polite" aria-atomic="true">{cart.ready && `В корзине товаров: ${cart.totalQuantity}`}</p>
-    <dialog ref={dialog} id="shopping-cart" className={styles.panel} aria-labelledby="cart-title" onClose={() => { cart.closeCart(); trigger.current?.focus({ preventScroll: true }); }} onCancel={cart.closeCart} onClick={event => {
+    <dialog ref={dialog} id="shopping-cart" className={styles.panel} aria-labelledby="cart-title" onClose={() => { cart.closeCart(); trigger.current?.focus({ preventScroll: true }); }} onCancel={event => { event.preventDefault(); cart.closeCart(); }} onClick={event => {
       if (event.target !== event.currentTarget) return;
       const bounds = event.currentTarget.getBoundingClientRect();
       if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) cart.closeCart();

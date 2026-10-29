@@ -69,7 +69,6 @@ export function Header() {
             <span>{item.label}</span>
           </a>)}
         </nav>
-        <Link className={styles.action} href={buildWhatsAppLink()} target="_blank" rel="noopener noreferrer">WhatsApp <b aria-hidden="true"><ArrowUpRight size={17} /></b></Link>
         <button type="button" className={styles.menuButton} aria-label="Открыть меню" aria-expanded={menuOpen} aria-controls="mobile-menu" onClick={() => { dialog.current?.showModal(); setMenuOpen(true); }}><Menu aria-hidden="true" size={22} /></button>
       </div>
     </header>

@@ -1,4 +1,5 @@
 'use client';
+import { ArrowUpRight } from 'lucide-react';
 import { useCatalog, CatalogNotice } from './live-catalog';
 import { ProductGrid } from './catalog-view';
 import { BouquetImage } from './bouquet-image';
@@ -38,9 +39,12 @@ export function ProductView({ slug }: { slug: string }) {
       <TitleRow title="Смотрите также" action={false} />
       <ProductGrid products={snapshot.bouquets.filter(b => b.id !== p.id).slice(0, 4)} selection />
     </section>
-    <div className={`sticky-order ${styles.stickyOrder}`}>
-      <span className="sticky-price">{formatPriceKzt(p.priceKzt)}</span>
-      <Pill href={buildBouquetWhatsAppLink(p)} external>Заказать в WhatsApp</Pill>
+    <div className={`sticky-order ${styles.stickyOrder}`} aria-label="Заказ букета">
+      <div className={styles.stickySummary}>
+        <span className={styles.stickyName}>{p.name}</span>
+        <span className="sticky-price">{formatPriceKzt(p.priceKzt)}</span>
+      </div>
+      <a className={styles.stickyWhatsApp} href={buildBouquetWhatsAppLink(p)} target="_blank" rel="noopener noreferrer">Заказать в WhatsApp <ArrowUpRight size={20} aria-hidden="true" /></a>
     </div>
   </>;
 }

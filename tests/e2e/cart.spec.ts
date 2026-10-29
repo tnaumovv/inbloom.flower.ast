@@ -76,6 +76,7 @@ test('same-name bouquets stay separate and quantity changes update the complete 
   await expectNoCheckout(dialog);
 
   await dialog.getByRole('button', { name: 'Закрыть корзину', exact: true }).click();
+  await expect(dialog).not.toBeVisible();
   const cards = page.locator('#catalog-results .product-card');
   const keyboardCard = cards.last();
   await expect(keyboardCard).toHaveAttribute('data-reveal', 'pending');
@@ -241,6 +242,9 @@ test('mobile product pages keep one primary WhatsApp CTA and a reachable cart wi
     expect(cartBounds.x).toBeGreaterThan(width / 2);
     expect(cartBounds.x + cartBounds.width).toBeLessThanOrEqual(width);
     expect(cartBounds.y).toBeGreaterThan(height / 2);
+    expect(Math.abs(cartBounds.height - stickyBounds.height)).toBeLessThanOrEqual(1);
+    expect(Math.abs(cartBounds.y - stickyBounds.y)).toBeLessThanOrEqual(1);
+    expect(cartBounds.x - (stickyBounds.x + stickyBounds.width)).toBeGreaterThanOrEqual(8);
     const separated = cartBounds.x + cartBounds.width <= stickyBounds.x
       || stickyBounds.x + stickyBounds.width <= cartBounds.x
       || cartBounds.y + cartBounds.height <= stickyBounds.y
