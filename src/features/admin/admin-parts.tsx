@@ -5,7 +5,7 @@ import { AdminError } from './errors';
 import styles from './admin.module.css';
 
 export function AdminHeader({ email, onLogout, busy }: { email?: string; onLogout?: () => void; busy?: boolean }) {
-  return <header className={styles.header}><a href="/admin" className={styles.brand} aria-label="In Bloom — управление каталогом"><img src="/images/logo.png" width={52} height={52} alt="In Bloom" /><span>IN BLOOM<small>Управление каталогом</small></span></a><div className={styles.headerActions}><a href="/" target="_blank" rel="noopener noreferrer" className={styles.siteLink}>На сайт <ArrowUpRight size={16} /></a>{onLogout && <Button variant="ghost" size="sm" className={styles.quietButton} onClick={onLogout} disabled={busy}>Выйти</Button>}</div>{email && <span className={styles.account}>{email}</span>}</header>;
+  return <header className={styles.header}><a href="/admin" className={styles.brand} aria-label="In Bloom — управление каталогом"><img src="/images/logo.webp" width={52} height={52} alt="In Bloom" /><span>IN BLOOM<small>Управление каталогом</small></span></a><div className={styles.headerActions}><a href="/" target="_blank" rel="noopener noreferrer" className={styles.siteLink}>На сайт <ArrowUpRight size={16} /></a>{onLogout && <Button variant="ghost" size="sm" className={styles.quietButton} onClick={onLogout} disabled={busy}>Выйти</Button>}</div>{email && <span className={styles.account}>{email}</span>}</header>;
 }
 export function AdminErrorMessage({ error, retry, focusRef }: { error: Error | null; retry?: () => void; focusRef?: React.Ref<HTMLDivElement> }) {
   if (!error) return null;

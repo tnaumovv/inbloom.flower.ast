@@ -3,12 +3,19 @@
   "useCase": "background-extraction",
   "prompt": "Use case: background-extraction. Asset type: transparent cutout for an interactive bouquet carousel. Input image is the EDIT_TARGET. Extract only the complete bouquet, preserving the original flower varieties, colours, count impression, stems, leaves and wrapping/ribbon or basket. Remove the person, hands, phone, table, wall, floor and all incidental scenery. Reconstruct only tiny occluded wrapping edges where necessary. The bouquet must be fully contained, centered, upright, with generous transparent margins. Photorealistic petals and paper texture, clean natural alpha edges, no frame, text, floor or cast background shadow. Genuinely transparent background. Keep this a source-faithful product cutout, no redesign or added flowers.",
   "assets": [
-    "cloud.png",
-    "white-bloom.png",
-    "soft-s.png",
-    "sophie-basket-s.png"
+    "cloud.webp",
+    "white-bloom.webp",
+    "soft-s.webp",
+    "sophie-basket-s.webp"
   ],
   "assetDirectory": "dist/assets",
   "source": "Public In Bloom catalogue imagery, inspected in this task on 2026-10-18",
-  "status": "Generated transparent cutouts for a local design/motion prototype; source-faithful appearance, not original unmodified product photography."
+  "status": "Generated transparent cutouts for a local design/motion prototype; source-faithful appearance, not original unmodified product photography.",
+  "optimization": {
+    "date": "2026-10-29",
+    "format": "WebP",
+    "quality": 80,
+    "alphaQuality": 100,
+    "note": "Existing generated cutouts re-encoded without cropping; original PNG versions remain in Git history."
+  }
 }

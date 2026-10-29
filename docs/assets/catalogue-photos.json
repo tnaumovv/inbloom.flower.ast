@@ -42,7 +42,7 @@
   ],
   "additionalExistingAsset": {
     "name": "Soft s",
-    "output": "public/images/bouquets/soft-s.png",
+    "output": "public/images/bouquets/soft-s.webp",
     "source": "prototype/assets-receipt.json"
   },
   "publication": "Confirm data and material permissions with the business owner before commercial launch."

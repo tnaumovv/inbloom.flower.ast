@@ -1,7 +1,7 @@
 {
   "mode": "Built-in ImageGen",
   "heroScene": {
-    "source": "public/images/bouquets/soft-s.png",
+    "source": "public/images/bouquets/soft-s.webp",
     "consumer": "src/features/landing/hero-scene.tsx",
     "method": "Reuse existing transparent cutout unchanged with CSS perspective, pointer parallax, floating motion, shadow and code-native falling petals.",
     "status": "Decorative layered image with a 3D effect, not a real-time 3D model or current inventory photograph. No new generated bitmap added."
@@ -11,25 +11,27 @@
     "output": "public/images/hero.png",
     "method": "Remove UI overlays; preserve sculptural bouquet, olive scene and light.",
     "status": "Decorative generated scene, not inventory photography.",
-    "sha256": "81499ac989059ed5a12d34fafd39ec2fd4f8c34e5e549c4a976e5752ff96f102"
+    "sha256": "81499ac989059ed5a12d34fafd39ec2fd4f8c34e5e549c4a976e5752ff96f102",
+    "retired": true,
+    "retiredReason": "Unused legacy scene removed on 2026-10-29; original remains in Git history."
   },
   "logo": {
     "source": "design/inbloom-concept-v1/brand-logo-original.jpg",
-    "output": "public/images/logo.png",
+    "output": "public/images/logo.webp",
     "method": "Background extraction; original coral lettering and flower retained.",
     "status": "Transparent derivative, visually compared with original.",
-    "sha256": "53c75ab3a4f3b36e681643032443a991982bbdfeca056816b500095af3b53a41"
+    "sha256": "9d79bccf37cbfc10bb8ce9920b223c8fb40c82bdd7a2b7207676c15c9f83b251"
   },
   "bouquets": {
     "source": "prototype/assets-receipt.json",
-    "outputDirectory": "public/images/bouquets",
+    "outputDirectory": "prototype/dist/assets",
     "files": [
-      "cloud.png",
-      "white-bloom.png",
-      "soft-s.png",
-      "sophie-basket-s.png"
+      "cloud.webp",
+      "white-bloom.webp",
+      "soft-s.webp",
+      "sophie-basket-s.webp"
     ],
-    "method": "Existing generated cutouts copied unchanged.",
+    "method": "Generated cutouts re-encoded to WebP. Only Soft s also remains in public/images/bouquets for the legacy hero component.",
     "status": "Demonstration product cutouts; stock and prices require owner confirmation before commercial publication."
   },
   "fonts": {
@@ -53,9 +55,13 @@
   },
   "contact": {
     "source": "design/inbloom-landing-v3/03-order-contact.png",
-    "output": "public/images/contact-flower.png",
+    "output": "public/images/contact-flower.webp",
     "method": "Built-in ImageGen extraction of flower, bud, leaves and cream envelope.",
     "status": "Decorative generated derivative with transparency; not a current-stock product photograph.",
-    "sha256": "eb16ef03b981e02763033a51ea43b55e7eb5b2e23db3120c9c2445d2977d7c57"
+    "sha256": "efe05d8290153204b2b98eab468b060fff97518d7560643606646af1dadcf9e9"
+  },
+  "optimization": {
+    "date": "2026-10-29",
+    "note": "Legacy PNG duplicates removed; current files use WebP. Historical source hashes refer to original generation where retained."
   }
 }
