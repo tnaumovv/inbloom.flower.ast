@@ -22,7 +22,7 @@ export function CustomSection() {
         <img className="bouquet-stack-right" src="/images/catalogue/pink-cloud.webp" alt="Букет Pink cloud" width={600} height={800} loading="lazy" />
         <img className="bouquet-stack-center" src="/images/catalogue/sophie-planter.webp" alt="Розовые розы в композиции In Bloom" width={600} height={800} loading="lazy" />
       </div>
-      <p>Расскажите о поводе, любимых цветах и бюджете. Состав и стоимость обсудим с флористом.</p>
+      <p>Расскажите о поводе, любимых цветах и бюджете.</p>
       <Pill href={buildWhatsAppLink(customBouquetMessage)} external>Собрать свой букет</Pill>
     </div>
   </section>;

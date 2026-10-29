@@ -3,8 +3,9 @@
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { useReducedMotion } from 'framer-motion';
-import { ArrowUpRight, Plus, ShoppingBag, ShoppingCart, Store, Truck, Trash2, X } from 'lucide-react';
+import { ArrowUpRight, Plus, ShoppingBag, ShoppingCart, Trash2, X } from 'lucide-react';
 import { NumberField } from '@/components/arc/number-field';
+import { RadioGroup } from '@/components/arc/radio-group';
 import { useCart } from './cart-provider';
 import { buildCartWhatsAppLink, receivingMethodLabels, type ReceivingMethod } from './model';
 import { useCatalog } from '@/features/catalog/live-catalog';
@@ -119,20 +120,18 @@ export function CartPanel() {
           </ul>
         </div>
         <div className={styles.panelFooter}>
-          <fieldset className={styles.receiving} aria-describedby="receiving-help">
-            <legend>Способ получения</legend>
-            <div className={styles.receivingOptions}>
-              {(['delivery', 'pickup'] as const).map(method => {
-                const Icon = method === 'delivery' ? Truck : Store;
-                return <label key={method} className={styles.receivingOption}>
-                  <input type="radio" name="receiving-method" value={method} checked={receivingMethod === method} onChange={() => setReceivingMethod(method)} />
-                  <Icon size={21} strokeWidth={1.6} aria-hidden="true" />
-                  <span>{receivingMethodLabels[method]}</span>
-                </label>;
-              })}
-            </div>
-            <p id="receiving-help" className={styles.receivingHelp}>{receivingMethod === 'delivery' ? 'Стоимость доставки уточним в WhatsApp.' : `Самовывоз: ${siteConfig.address}.`}</p>
-          </fieldset>
+          <div className={styles.receiving}>
+            <RadioGroup
+              label="Способ получения"
+              name="receiving-method"
+              value={receivingMethod}
+              onValueChange={value => { if (value === 'delivery' || value === 'pickup') setReceivingMethod(value); }}
+              options={[
+                { value: 'delivery', label: receivingMethodLabels.delivery, description: 'По Астане · стоимость доставки в WhatsApp' },
+                { value: 'pickup', label: receivingMethodLabels.pickup, description: siteConfig.address },
+              ]}
+            />
+          </div>
           <div className={styles.total}><span>{cart.unavailableCount ? 'Доступные букеты' : 'Итого за букеты'}</span><strong data-testid="cart-total">{snapshot.status === 'ok' ? formatPriceKzt(cart.totalKzt) : '—'}</strong></div>
           {checkout ? <a className={styles.checkout} href={checkout} target="_blank" rel="noopener noreferrer">Оформить в WhatsApp <ArrowUpRight size={20} aria-hidden="true" /></a> : <button className={styles.checkout} type="button" disabled>Оформить в WhatsApp</button>}
           <button type="button" className={styles.continue} onClick={cart.closeCart}>Продолжить выбор</button>

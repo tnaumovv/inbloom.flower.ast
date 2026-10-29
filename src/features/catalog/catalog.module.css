@@ -79,8 +79,8 @@
   .stickyOrder:global(.sticky-order) {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    gap: 12px;
-    padding: 14px 16px max(12px, env(safe-area-inset-bottom));
+    gap: 16px;
+    padding: 20px 16px max(16px, env(safe-area-inset-bottom));
     border: 1px solid var(--line);
     border-bottom: 0;
     border-radius: 24px 24px 0 0;
@@ -88,9 +88,9 @@
     box-shadow: 0 -8px 32px #3037220a;
   }
   .stickySummary { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-width: 0; }
-  .stickyName { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted); font-size: 14px; }
-  .stickyOrder :global(.sticky-price) { flex-shrink: 0; color: var(--green-text); font-size: 20px; font-weight: 500; line-height: 1.2; font-variant-numeric: tabular-nums; }
-  .stickyWhatsApp { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-width: 0; height: 52px; margin-right: 64px; padding: 0 18px; border-radius: 999px; background: var(--pink); color: var(--green-text); font-size: 14px; font-weight: 500; transition: background-color 180ms ease; }
+  .stickyName { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted); font-size: 16px; }
+  .stickyOrder :global(.sticky-price) { flex-shrink: 0; color: var(--green-text); font-size: 26px; font-weight: 500; line-height: 1.2; font-variant-numeric: tabular-nums; }
+  .stickyWhatsApp { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-width: 0; height: 64px; margin-right: 76px; padding: 0 16px; border-radius: 999px; background: var(--pink); color: var(--green-text); font-size: 16px; line-height: 1.25; font-weight: 500; transition: background-color 180ms ease; }
   .stickyWhatsApp:hover { background: #efd0d8; }
   .stickyWhatsApp > svg { flex-shrink: 0; }
 }

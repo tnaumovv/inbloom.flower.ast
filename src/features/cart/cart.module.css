@@ -77,16 +77,6 @@
 .total { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
 .total strong { font-size: 24px; font-weight: 500; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .receiving { min-width: 0; margin: 0 0 20px; padding: 0; border: 0; }
-.receiving legend { padding: 0; margin-bottom: 12px; font-size: 14px; }
-.receivingOptions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-.receivingOption { display: grid; grid-template-columns: 22px minmax(0, 1fr) 16px; align-items: center; gap: 9px; min-height: 58px; padding: 12px; border: 1px solid var(--line); border-radius: 14px; background: var(--white); color: var(--green-text); cursor: pointer; transition: background-color 180ms ease, border-color 180ms ease; }
-.receivingOption:has(input:checked) { background: var(--pink); border-color: #cf9eab; }
-.receivingOption:hover { border-color: var(--green); }
-.receivingOption:has(input:focus-visible) { outline: 3px solid var(--green); outline-offset: 3px; }
-.receivingOption input { grid-column: 3; grid-row: 1; width: 16px; height: 16px; margin: 0; accent-color: var(--green-text); cursor: pointer; }
-.receivingOption > svg { grid-column: 1; grid-row: 1; }
-.receivingOption > span { grid-column: 2; grid-row: 1; font-size: 14px; }
-.receivingHelp { margin-top: 10px; min-height: 20px; color: var(--muted); font-size: 12px; }
 .checkout { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; min-height: 52px; margin-top: 20px; padding: 14px 18px; border: 0; border-radius: 99px; background: var(--pink); color: var(--green-text); font-size: 15px; }
 .checkout:hover:not(:disabled) { background: #efd0d8; }
 .checkout:disabled { background: var(--gray); color: var(--muted); }
@@ -98,9 +88,10 @@
   .floating { width: 56px; height: 56px; min-height: 56px; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom)); padding: 0; }
   .floatingLabel { display: none; }
   .floating .count { position: absolute; right: -3px; top: -5px; }
-  :global(body:has(.sticky-order)) .floating { width: 52px; height: 52px; min-height: 52px; bottom: max(12px, env(safe-area-inset-bottom)); right: 16px; box-shadow: none; }
+  :global(body:has(.sticky-order)) .floating { width: 64px; height: 64px; min-height: 64px; bottom: max(16px, env(safe-area-inset-bottom)); right: 16px; box-shadow: none; }
+  :global(body:has(.sticky-order)) .floating > svg { width: 28px; height: 28px; }
   :global(body:has(.sticky-order)) .floating:hover { transform: none; }
-  :global(body:has(.sticky-order)) .floating .count { right: -3px; top: -5px; min-width: 21px; height: 21px; border: 2px solid var(--white); font-size: 11px; }
+  :global(body:has(.sticky-order)) .floating .count { right: -3px; top: -5px; min-width: 23px; height: 23px; border: 2px solid var(--white); font-size: 12px; }
   .panel { inset: auto 0 0; height: min(90dvh, 820px); width: 100%; border-radius: 24px 24px 0 0; }
   .panelHeader { padding: 22px 20px 18px; }
   .panelHeader h2 { font-size: 32px; }
@@ -112,9 +103,6 @@
   .total strong { font-size: 22px; }
   .total > span { font-size: 14px; }
   .receiving { margin-bottom: 16px; }
-  .receivingOption { grid-template-columns: 20px minmax(0, 1fr) 14px; gap: 6px; padding-inline: 9px; }
-  .receivingOption input { width: 14px; height: 14px; }
-  .receivingOption > span { font-size: 13px; }
   .addButton:not(.iconButton) { width: 100%; }
 }
 @media (max-height: 600px) {
@@ -123,11 +111,9 @@
   .panelHeader p { display: none; }
   .panelFooter { padding-block: 12px; }
   .receiving { margin-bottom: 12px; }
-  .receiving legend { margin-bottom: 8px; }
-  .receivingOption { min-height: 46px; padding-block: 8px; }
   .checkout { margin-top: 12px; }
 }
 @media (max-width: 360px) {
   .itemBottom:has(.quantity) .lineTotal { padding-block: 0; }
 }
-@media (prefers-reduced-motion: reduce) { .floating, .addButton, .receivingOption { transition: none; } .floating:hover { transform: none; } .panel::backdrop { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .floating, .addButton { transition: none; } .floating:hover { transform: none; } .panel::backdrop { animation: none; } }

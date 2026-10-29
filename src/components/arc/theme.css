@@ -11,6 +11,8 @@
   --border-strong: var(--line);
   --accent-strong: var(--green);
   --accent-subtle: var(--pink);
+  --control-on: var(--green);
+  --control-glyph: var(--white);
   --warning: #875825;
   --danger: #a13939;
   --shadow-floating: 0 18px 44px #3037221a, 0 3px 10px #3037220a;

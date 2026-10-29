@@ -45,6 +45,5 @@ export function useCatalog() {
 export function CatalogNotice() {
   const { snapshot, retry } = useCatalog();
   if (snapshot.status === 'unavailable') return <div className="catalog-notice" role="status"><p>Не удалось обновить каталог. Попробуйте ещё раз или уточните букеты и цены у флориста.</p><button className="pill outline" onClick={retry}>Попробовать снова</button>{' '}<a className="pill" href={buildWhatsAppLink()} target="_blank" rel="noopener noreferrer">Написать флористу</a></div>;
-  if (snapshot.source === 'preview') return <p className="preview-note">Предварительный каталог. Наличие и цены уточните у флориста.</p>;
   return null;
 }
