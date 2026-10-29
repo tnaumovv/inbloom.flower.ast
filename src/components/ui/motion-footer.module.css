@@ -11,7 +11,7 @@
 .action{display:inline-block;margin-top:32px;max-width:100%}
 .links{position:relative;z-index:1;padding-top:32px;border-top:1px solid var(--line)}
 .bottom{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:40px;font-size:13px;color:var(--muted)}
-.backTop{display:grid;place-items:center;width:48px;height:48px;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--green-text);flex-shrink:0}
+.backTop{display:grid;place-items:center;width:48px;height:48px;margin-right:192px;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--green-text);flex-shrink:0}
 .backTop:hover{background:var(--pink)}
 .wordmark{position:absolute;bottom:-.18em;left:50%;translate:-50% 0;z-index:0;pointer-events:none;white-space:nowrap;color:var(--pink);opacity:.4;font:400 clamp(140px,25vw,440px)/1 var(--display);letter-spacing:-.06em}
 @keyframes footer-marquee{to{transform:translateX(-50%)}}
@@ -33,6 +33,7 @@
  .bottom{margin-top:0}
 }
 @media(max-width:700px){
+ .backTop{margin-right:72px}
  .frame{margin-top:64px}
  .footer{min-height:0;padding-top:110px;padding-bottom:28px}
  .invitation{padding:28px 20px 48px}

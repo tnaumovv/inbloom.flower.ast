@@ -10,6 +10,6 @@
 .menuButton{display:none;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid var(--line);border-radius:50%;background:white;color:var(--green-text)}
 .spacer{height:112px}
 @media(max-width:1050px){.inner{gap:12px}.nav{display:none}.menuButton{display:flex}}
-@media(max-width:700px){.header.header{top:12px;width:calc(100% - 32px)}.inner{height:68px;padding-inline:16px;gap:10px}.compact .inner{height:60px}.inner :global(.brand){width:80px}.spacer{height:96px}}
+@media(max-width:700px){.header.header{top:12px;width:calc(100% - 32px);background:#fffffff5;backdrop-filter:none;-webkit-backdrop-filter:none}.inner{height:68px;padding-inline:16px;gap:10px}.compact .inner{height:60px}.inner :global(.brand){width:80px}.spacer{height:96px}}
 @media(max-width:350px){.inner{padding-inline:12px;gap:8px}.inner :global(.brand){width:70px}}
 @media(prefers-reduced-motion:reduce){.header.header,.inner{transition:none}}

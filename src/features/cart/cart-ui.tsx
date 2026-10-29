@@ -30,6 +30,8 @@ export function CartPanel() {
   const { snapshot, retry } = useCatalog();
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
+  const scrollArea = useRef<HTMLDivElement>(null);
+  const swipeStart = useRef<{ x: number; y: number } | null>(null);
   const interruptedTransform = useRef<string | null>(null);
   const [receivingMethod, setReceivingMethod] = useState<ReceivingMethod>('delivery');
   const reducedMotion = useReducedMotion();
@@ -69,11 +71,27 @@ export function CartPanel() {
       {cart.totalQuantity > 0 && <span className={styles.count} aria-hidden="true">{cart.totalQuantity}</span>}
     </button>
     <p className="sr-only" aria-live="polite" aria-atomic="true">{cart.ready && `В корзине товаров: ${cart.totalQuantity}`}</p>
-    <dialog ref={dialog} id="shopping-cart" className={styles.panel} aria-labelledby="cart-title" onClose={() => { cart.closeCart(); trigger.current?.focus({ preventScroll: true }); }} onCancel={event => { event.preventDefault(); cart.closeCart(); }} onClick={event => {
+    <dialog ref={dialog} id="shopping-cart" className={styles.panel} aria-labelledby="cart-title" onTouchStart={event => {
+      swipeStart.current = null;
+      if (!cart.isOpen || !window.matchMedia('(max-width: 700px)').matches || event.touches.length !== 1) return;
+      const target = event.target;
+      if (!(target instanceof Element) || target.closest('button,a,input,label,select,textarea')) return;
+      // Scroll an existing list back to its top before a second downward swipe dismisses the sheet.
+      if (scrollArea.current?.contains(target) && scrollArea.current.scrollTop > 0) return;
+      swipeStart.current = { x: event.touches[0].clientX, y: event.touches[0].clientY };
+    }} onTouchCancel={() => { swipeStart.current = null; }} onTouchEnd={event => {
+      const start = swipeStart.current;
+      swipeStart.current = null;
+      const end = event.changedTouches[0];
+      if (!start || !end) return;
+      const down = end.clientY - start.y;
+      if (down > 72 && Math.abs(end.clientX - start.x) < down * .65) cart.closeCart();
+    }} onClose={() => { cart.closeCart(); trigger.current?.focus({ preventScroll: true }); }} onCancel={event => { event.preventDefault(); cart.closeCart(); }} onClick={event => {
       if (event.target !== event.currentTarget) return;
       const bounds = event.currentTarget.getBoundingClientRect();
       if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) cart.closeCart();
     }}>
+      <div className={styles.grabHandle} aria-hidden="true"><span /></div>
       <div className={styles.panelHeader}>
         <div><h2 id="cart-title" className="display">Корзина</h2><p>{cart.items.length ? 'Ваш выбор для особого момента' : 'Соберите свой цветочный заказ'}</p></div>
         <button autoFocus type="button" className={styles.close} aria-label="Закрыть корзину" onClick={cart.closeCart}><X size={22} aria-hidden="true" /></button>
@@ -84,7 +102,7 @@ export function CartPanel() {
         <p>Добавьте букеты, которые вам понравились.</p>
         <Link className={styles.checkout} href="/catalog" onClick={cart.closeCart}>Выбрать букет <ArrowUpRight size={18} aria-hidden="true" /></Link>
       </div> : <>
-        <div className={styles.scrollArea}>
+        <div ref={scrollArea} className={styles.scrollArea} data-testid="cart-scroll-area">
           {snapshot.status !== 'ok' ? <div className={styles.notice} role="status"><p>Не удалось обновить цены. Проверьте каталог перед оформлением.</p><button type="button" onClick={retry}>Обновить каталог</button></div> : cart.unavailableCount > 0 && <p className={styles.notice} role="status">Некоторые букеты сняты с витрины. Удалите их, чтобы оформить остальные.</p>}
           <ul className={styles.items}>
             {cart.lines.map(({ id, quantity, bouquet }) => {
@@ -118,8 +136,6 @@ export function CartPanel() {
               </li>;
             })}
           </ul>
-        </div>
-        <div className={styles.panelFooter}>
           <div className={styles.receiving}>
             <RadioGroup
               label="Способ получения"
@@ -132,6 +148,8 @@ export function CartPanel() {
               ]}
             />
           </div>
+        </div>
+        <div className={styles.panelFooter}>
           <div className={styles.total}><span>{cart.unavailableCount ? 'Доступные букеты' : 'Итого за букеты'}</span><strong data-testid="cart-total">{snapshot.status === 'ok' ? formatPriceKzt(cart.totalKzt) : '—'}</strong></div>
           {checkout ? <a className={styles.checkout} href={checkout} target="_blank" rel="noopener noreferrer">Оформить в WhatsApp <ArrowUpRight size={20} aria-hidden="true" /></a> : <button className={styles.checkout} type="button" disabled>Оформить в WhatsApp</button>}
           <button type="button" className={styles.continue} onClick={cart.closeCart}>Продолжить выбор</button>

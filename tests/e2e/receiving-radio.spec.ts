@@ -10,6 +10,7 @@ test('receiving radio group slides between stacked rows and preserves the WhatsA
   const cart = page.getByRole('dialog', { name: 'Корзина', exact: true });
   await expect(cart).toHaveCSS('transform', 'matrix(1, 0, 0, 1, 0, 0)');
   const receiving = cart.getByRole('group', { name: 'Способ получения', exact: true });
+  await receiving.scrollIntoViewIfNeeded();
   const delivery = receiving.getByRole('radio', { name: 'Доставка', exact: true });
   const pickup = receiving.getByRole('radio', { name: 'Самовывоз', exact: true });
   const highlight = receiving.locator(':scope > div > span[aria-hidden="true"]');
@@ -34,6 +35,7 @@ test('receiving radio group slides between stacked rows and preserves the WhatsA
   }).toBeLessThan(1);
 
   await page.setViewportSize({ width: 320, height: 640 });
+  await receiving.scrollIntoViewIfNeeded();
   await expect(receiving).toBeInViewport({ ratio: 1 });
   await expect(cart.getByRole('link', { name: 'Оформить в WhatsApp' })).toBeInViewport({ ratio: 1 });
   await expect.poll(async () => {

@@ -3,8 +3,6 @@
 import { useEffect, useRef, type ReactNode } from 'react';
 import { usePathname } from 'next/navigation';
 import { ArrowUp, Asterisk } from 'lucide-react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import styles from './motion-footer.module.css';
 
 /** Adapted from the supplied CinematicFooter: real In Bloom content and tokens. */
@@ -15,56 +13,38 @@ export function CinematicFooter({ children, action }: { children: ReactNode; act
   useEffect(() => {
     const element = root.current;
     if (!element) return;
-    gsap.registerPlugin(ScrollTrigger);
-    const media = gsap.matchMedia();
-    media.add('(prefers-reduced-motion: no-preference)', () => {
-      gsap.fromTo(element.querySelector('[data-footer-wordmark]'), {
-        y: () => window.innerHeight * 0.1, scale: 0.86, opacity: 0.05,
-      }, {
-        y: 0, scale: 1, opacity: 0.4, ease: 'none',
-        scrollTrigger: { trigger: element, start: 'top 80%', end: 'bottom bottom', scrub: 1, invalidateOnRefresh: true },
-      });
-      // Tie the reveal to scroll progress so it also reverses when scrolling up.
-      gsap.fromTo(element.querySelectorAll('[data-footer-reveal]'), {
-        y: 48, opacity: 0.2,
-      }, {
-        y: 0, opacity: 1, stagger: 0.15, ease: 'power2.out',
-        scrollTrigger: { trigger: element, start: 'top 65%', end: 'bottom bottom', scrub: 1, invalidateOnRefresh: true },
-      });
-    }, element);
-    media.add('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)', () => {
-      const cleanups = [...element.querySelectorAll<HTMLElement>('[data-magnetic]')].map(target => {
-        const xTo = gsap.quickTo(target, 'x', { duration: 0.35, ease: 'power2.out' });
-        const yTo = gsap.quickTo(target, 'y', { duration: 0.35, ease: 'power2.out' });
-        const move = (event: PointerEvent) => {
-          const rect = target.getBoundingClientRect();
-          xTo(gsap.utils.clamp(-8, 8, (event.clientX - rect.left - rect.width / 2) * 0.12));
-          yTo(gsap.utils.clamp(-6, 6, (event.clientY - rect.top - rect.height / 2) * 0.12));
-        };
-        const reset = () => { xTo(0); yTo(0); };
-        target.addEventListener('pointermove', move);
-        target.addEventListener('pointerleave', reset);
-        target.addEventListener('focusin', reset);
-        return () => {
-          target.removeEventListener('pointermove', move);
-          target.removeEventListener('pointerleave', reset);
-          target.removeEventListener('focusin', reset);
-        };
-      });
-      return () => cleanups.forEach(cleanup => cleanup());
-    }, element);
+    const desktop = window.matchMedia('(min-width: 701px) and (prefers-reduced-motion: no-preference)');
+    let disposed = false;
+    let nearby = false;
+    let loading = false;
+    let release: (() => void) | undefined;
+    const prepareMotion = async () => {
+      if (disposed || loading || release || !desktop.matches) return;
+      loading = true;
+      try {
+        const { mountFooterMotion } = await import('./footer-motion');
+        if (!disposed && desktop.matches) release = mountFooterMotion(element);
+      } catch { /* Footer links remain usable if the optional animation chunk fails. */ }
+      finally { loading = false; }
+    };
+    const preference = () => {
+      if (!desktop.matches) { release?.(); release = undefined; }
+      else if (nearby) void prepareMotion();
+    };
     const observer = new IntersectionObserver(([entry]) => {
-      element.dataset.inView = String(entry.isIntersecting);
-    });
+      nearby = entry.isIntersecting;
+      element.dataset.inView = String(nearby);
+      if (nearby) void prepareMotion();
+    }, { rootMargin: '200px' });
     const visibility = () => { element.dataset.hidden = String(document.hidden); };
     visibility();
     observer.observe(element);
+    desktop.addEventListener('change', preference);
     document.addEventListener('visibilitychange', visibility);
-    const resize = new ResizeObserver(() => ScrollTrigger.refresh());
-    const content = document.querySelector('.route-content');
-    if (content) resize.observe(content);
     return () => {
-      media.revert(); observer.disconnect(); resize.disconnect();
+      disposed = true;
+      release?.(); observer.disconnect();
+      desktop.removeEventListener('change', preference);
       document.removeEventListener('visibilitychange', visibility);
     };
   }, [pathname]);

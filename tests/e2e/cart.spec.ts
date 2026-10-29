@@ -254,6 +254,7 @@ test('mobile product pages keep one primary WhatsApp CTA and a reachable cart wi
     await page.locator('.detail-copy').getByRole('button', { name: 'Добавить Pink cloud в корзину', exact: true }).click();
     const dialog = await openCart(page);
     const receiving = dialog.getByRole('group', { name: 'Способ получения', exact: true });
+    await receiving.scrollIntoViewIfNeeded();
     await expect(receiving).toBeInViewport({ ratio: 1 });
     await receiving.getByText('Самовывоз', { exact: true }).click();
     await expect(receiving.getByRole('radio', { name: 'Самовывоз', exact: true })).toBeChecked();

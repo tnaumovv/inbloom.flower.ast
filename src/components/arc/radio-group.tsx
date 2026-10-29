@@ -3,7 +3,7 @@
 // Adapted from UIArc. Copyright (c) 2026 Elia Kuratli. MIT; see LICENSE.
 
 import { useEffect, useId, useLayoutEffect, useRef } from "react";
-import { animate, motion, useReducedMotion } from "framer-motion";
+import { animate, useReducedMotion } from "framer-motion";
 import { motionTokens } from "./motion-tokens";
 import styles from "./radio-group.module.css";
 export interface RadioGroupProps { label: string; options: { value: string; label: string; description?: string }[]; value: string; onValueChange: (value: string) => void; name?: string }
@@ -22,7 +22,7 @@ function place(highlight: HTMLElement | null, row: HTMLElement | null | undefine
   animate(highlight, target, { duration: 0 });
 }
 
-/** One highlight travels to the chosen row while the new dot springs in and the old one shrinks away, so a change reads as a single physical move. Arrow keys take the same path. Rows and text never resize. */
+/** One highlight travels to the chosen row. Native radio semantics and arrow-key behavior remain intact. */
 export function RadioGroup({ label, options, value, onValueChange, name }: RadioGroupProps) {
   const id = useId();
   const reduced = useReducedMotion();
@@ -48,7 +48,6 @@ export function RadioGroup({ label, options, value, onValueChange, name }: Radio
     <span ref={highlightRef} className={styles.highlight} aria-hidden="true" />
     {options.map((option, index) => { const checked = value === option.value; return <label className={styles.option} key={option.value} ref={node => { rows.current[index] = node; }}>
       <input type="radio" name={name ?? id} value={option.value} aria-labelledby={`${id}-${index}-label`} aria-describedby={option.description ? `${id}-${index}-description` : undefined} checked={checked} onChange={() => onValueChange(option.value)}/>
-      <span className={styles.mark} aria-hidden="true"><motion.span className={styles.dot} initial={false} animate={checked ? { scale: 1, opacity: 1 } : { scale: .4, opacity: 0 }} transition={reduced ? { duration: 0 } : { ...motionTokens.spring.snappy, opacity: { duration: checked ? motionTokens.duration.fast : motionTokens.duration.instant } }}/></span>
       <span><strong id={`${id}-${index}-label`}>{option.label}</strong>{option.description && <small id={`${id}-${index}-description`}>{option.description}</small>}</span>
     </label>; })}
   </div></fieldset>;
