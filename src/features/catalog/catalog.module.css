@@ -1,0 +1,52 @@
+.toolbar {
+  padding: 24px;
+  gap: 16px;
+  border-radius: 16px;
+  background: var(--gray);
+}
+
+.toolbar .search { min-width: 220px; }
+.searchInput { position: relative; display: block; }
+.searchInput > svg {
+  position: absolute;
+  top: 50%;
+  left: 17px;
+  transform: translateY(-50%);
+  color: var(--muted);
+  pointer-events: none;
+}
+.searchInput input { padding-left: 45px; }
+.toolbar input::placeholder { color: var(--muted); opacity: 1; }
+.toolbar input, .toolbar select { caret-color: var(--green); }
+.meta { padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+.meta > span { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.meta .activeChip { color: white; background: var(--green); }
+.reset {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.reset:hover { text-decoration: underline; text-underline-offset: 4px; }
+.filterDot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.card .productInfo { min-height: 72px; gap: 6px; }
+.productInfo :global(.price) { color: var(--green-text); font-variant-numeric: tabular-nums; }
+
+@media (max-width: 700px) {
+  .toolbar { padding: 18px 14px; gap: 12px; margin-inline: -4px; }
+  .toolbar .search { min-width: 0; }
+  .toolbar :global(.filter-trigger) { background: white; padding-inline: 12px; }
+  .toolbar select { font-size: 14px; padding-inline: 12px; }
+  .meta { gap: 12px; padding-bottom: 16px; }
+  .meta > span { padding-top: 10px; }
+  .card .productInfo { min-height: 76px; justify-content: flex-start; }
+}
+
+.detailCode { margin-top: 12px; font-size: 13px; color: var(--muted); overflow-wrap: anywhere; }

@@ -1,8 +1,8 @@
 'use client';
 
+import Link from 'next/link';
 import { Container } from '@/components/ui/container';
 import { Icon } from '@/components/ui/icon';
-import { siteConfig } from '@/config/site';
 import { BouquetCard } from './bouquet-card';
 import { formatPriceKzt } from './format-price';
 import { useBouquetCarousel } from './use-bouquet-carousel';
@@ -23,6 +23,6 @@ export function Showcase({ bouquets }: { bouquets: readonly Bouquet[] }) {
       <div className={styles.track}>{bouquets.map((bouquet, index) => <div key={bouquet.id} className={styles.slide} data-bouquet-card data-bouquet-index={index}><BouquetCard bouquet={bouquet}/></div>)}</div>
     </div>
     <p className="sr-only" role="status" aria-live={playing ? 'off' : 'polite'} aria-atomic="true">{selected && `${selectedIndex + 1} из ${bouquets.length}. ${selected.name}, ${formatPriceKzt(selected.priceKzt)}.`}</p>
-    <a data-reveal className={styles.catalogueLink} href={siteConfig.catalogueUrl} target="_blank" rel="noopener noreferrer">Больше букетов <Icon name="arrow-up-right"/></a>
+    <Link data-reveal className={styles.catalogueLink} href="/catalog">Больше букетов <Icon name="arrow-up-right"/></Link>
   </section>;
 }

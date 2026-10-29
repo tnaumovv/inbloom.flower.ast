@@ -17,7 +17,6 @@ export const siteConfig = {
     { days: 'Вс', time: '09:00–22:00' },
   ],
   paymentMethods: 'В магазине — наличные, карта, QR, перевод или оплата через банк.',
-  catalogueUrl: 'https://app.florax.kz/ru/in_bloom/bouquets',
   reviewsUrl: 'https://2gis.kz/astana/firm/70000001105801781/tab/reviews',
   mapUrl: 'https://2gis.kz/astana/firm/70000001105801781',
   mapEmbedUrl: `https://widgets.2gis.com/widget?type=firmsonmap&options=${encodeURIComponent(JSON.stringify(mapWidgetOptions))}`,

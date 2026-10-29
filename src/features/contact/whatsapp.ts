@@ -9,6 +9,7 @@ export function buildWhatsAppLink(message: string = generalEnquiryMessage): stri
   return `https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(message)}`;
 }
 
-export function buildBouquetWhatsAppLink(bouquet: Pick<Bouquet, 'name' | 'priceKzt'>): string {
-  return buildWhatsAppLink(`Здравствуйте! Хочу заказать букет «${bouquet.name}» (${formatPriceKzt(bouquet.priceKzt)}). Подскажите, пожалуйста, наличие и варианты доставки.`);
+export function buildBouquetWhatsAppLink(bouquet: Pick<Bouquet, 'name' | 'priceKzt'> & Partial<Pick<Bouquet, 'id'>>): string {
+  const productCode = bouquet.id ? ` Артикул: ${bouquet.id}.` : '';
+  return buildWhatsAppLink(`Здравствуйте! Хочу заказать букет «${bouquet.name}» (${formatPriceKzt(bouquet.priceKzt)}).${productCode} Подскажите, пожалуйста, наличие и варианты доставки.`);
 }

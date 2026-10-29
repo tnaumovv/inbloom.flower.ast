@@ -5,6 +5,7 @@ test('storefront pages and legacy redirects render current content', async ({ pa
     await page.goto(route);
     await expect(page.locator('main')).toBeVisible();
     await expect(page.locator('main h1:visible')).toHaveCount(1);
+    await expect(page.locator('a[href*="florax.kz"]')).toHaveCount(0);
     expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false);
     const target = ({ '/about': '/#studio', '/delivery': '/#delivery', '/contacts': '/#contacts' } as Record<string, string>)[route];
     if (target) {
@@ -17,13 +18,13 @@ test('storefront pages and legacy redirects render current content', async ({ pa
 test('search, price sorting and empty reset operate on the same catalogue', async ({ page }) => {
   await page.goto('/catalog');
   await page.getByRole('combobox', { name: 'Сортировка' }).selectOption('asc');
-  await expect(page.locator('#catalog-results .product-name').first()).toHaveText('Кашпо Софи С');
+  await expect(page.locator('#catalog-results .product-card').first()).toHaveAttribute('data-bouquet-id', 'bag-291807');
   await page.getByRole('searchbox').fill('Pink');
-  await expect(page.locator('#catalog-results .product-card')).toHaveCount(2);
+  await expect(page.locator('#catalog-results .product-card')).toHaveCount(3);
   await page.getByRole('searchbox').fill('несуществующий букет');
   await expect(page.getByRole('heading', { name: 'Ничего не найдено' })).toBeVisible();
   await page.getByRole('button', { name: 'Сбросить фильтры', exact: true }).click();
-  await expect(page.locator('#catalog-results .product-card')).toHaveCount(5);
+  await expect(page.locator('#catalog-results .product-card')).toHaveCount(24);
 });
 
 test('mobile menu restores focus and budget sheet applies', async ({ page }) => {
@@ -37,7 +38,29 @@ test('mobile menu restores focus and budget sheet applies', async ({ page }) => 
   await page.getByRole('button', { name: 'Фильтры', exact: true }).click();
   await page.getByRole('button', { name: '12 000–16 000 ₸', exact: true }).click();
   await page.getByRole('button', { name: 'Показать букеты', exact: true }).click();
-  await expect(page.locator('#catalog-results .product-card')).toHaveCount(4);
+  await expect(page.locator('#catalog-results .product-card')).toHaveCount(6);
+});
+
+test('same-name bouquets retain separate detail pages and identifiable order messages', async ({ page }) => {
+  await page.goto('/catalog');
+  const ids = ['bag-303869', 'bag-301723'];
+  const orderLinks: string[] = [];
+  for (const id of ids) {
+    const card = page.locator(`#catalog-results [data-bouquet-id="${id}"]`);
+    await expect(card.locator('.product-name')).toHaveText('Bag');
+    await expect(card.locator('.price')).toHaveText(/7\s000\s₸/);
+    await expect(card.locator('.product-name')).toHaveAttribute('href', `/catalog/${id}`);
+    const href = await card.getByRole('link', { name: 'Заказать', exact: true }).getAttribute('href');
+    orderLinks.push(href!);
+    expect(new URL(href!).searchParams.get('text')).toContain(`Артикул: ${id}.`);
+  }
+  expect(orderLinks[0]).not.toBe(orderLinks[1]);
+  await page.locator('[data-bouquet-id="bag-303869"] .product-name').click();
+  await expect(page).toHaveURL(/\/catalog\/bag-303869$/);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Bag');
+  await expect(page.getByRole('heading', { name: 'Состав букета', exact: true })).toBeVisible();
+  await expect(page.locator('.detail-photo img')).toHaveAttribute('src', '/images/catalogue/bag-303869.webp');
+  await expect(page.locator('a[href*="florax.kz"]')).toHaveCount(0);
 });
 
 test('polling refreshes price and prepared WhatsApp message without reload', async ({ page, request }) => {
@@ -65,7 +88,7 @@ test('server content and order links remain available without JavaScript', async
   const context = await browser.newContext({ baseURL, javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
   const page = await context.newPage();
   await page.goto('/catalog');
-  await expect(page.locator('#catalog-results .product-card')).toHaveCount(5);
+  await expect(page.locator('#catalog-results .product-card')).toHaveCount(24);
   await expect(page.getByText('Разделы сайта', { exact: true })).toBeVisible();
   await context.close();
 });

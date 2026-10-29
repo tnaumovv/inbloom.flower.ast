@@ -30,7 +30,7 @@ test('footer presents the source contacts and correct external destinations', as
   const options = JSON.parse(embed.searchParams.get('options')!);
   expect(options.org).toBe('70000001105801781');
   expect(options.pos).toMatchObject({ lat: 51.164454, lon: 71.414802 });
-  await expect(page.getByRole('link', { name: 'Больше букетов', exact: false })).toHaveAttribute('href', 'https://app.florax.kz/ru/in_bloom/bouquets');
+  await expect(page.locator('a[href*="florax.kz"]')).toHaveCount(0);
   const external = page.locator('a[target="_blank"]');
   for (const link of await external.all()) {
     const rel = await link.getAttribute('rel');

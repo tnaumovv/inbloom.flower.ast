@@ -13,7 +13,7 @@ export function createCatalogLoader({ env, fetcher = fetch, now = Date.now }: Lo
     const id = config.GOOGLE_SHEET_ID?.trim();
     const apiKey = config.GOOGLE_SHEETS_API_KEY?.trim();
     const range = config.GOOGLE_SHEET_RANGE?.trim() || "'Каталог'!A1:I1001";
-    if (!id && !apiKey) return { bouquets: previewBouquets, source: 'preview', status: 'ok', revision: 'preview-2026-10-28' };
+    if (!id && !apiKey) return { bouquets: previewBouquets, source: 'preview', status: 'ok', revision: 'preview-2026-10-29-full-catalogue' };
     const unavailable: CatalogSnapshot = { bouquets: [], source: 'sheets', status: 'unavailable', revision: 'unavailable' };
     if (!id || !apiKey || !/^[\w-]+$/.test(id)) return unavailable;
     const key = createHash('sha256').update(id + range + apiKey).digest('hex');

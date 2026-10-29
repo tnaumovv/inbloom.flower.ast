@@ -1,0 +1,1242 @@
+{
+  "catalogue": "https://app.florax.kz/ru/in_bloom/bouquets",
+  "accessedAt": "2026-10-29T14:55:33.173590+00:00",
+  "count": 23,
+  "currency": "KZT",
+  "method": "Server-rendered public page, serialized React Server Component bouquets prop; matching client BouquetsGrid renders the full array with map, no pagination or secondary fetch. Each public HTML image confirms the CDN URL.",
+  "pagination": {
+    "present": false,
+    "pages": 1,
+    "serverPayloadCount": 23,
+    "renderedImageCount": 23
+  },
+  "notes": [
+    "Names and sale prices are copied exactly from the public catalogue. Repeated names refer to separate bouquets and retain numeric source IDs.",
+    "Source supplies no bouquet description or subcategory. Composition lists are public product-detail data. Descriptions/categories should be derived explicitly, not presented as copied source text.",
+    "Stock is a snapshot only; no live inventory integration. Internal pricing, employee details and inventory metadata are excluded."
+  ],
+  "products": [
+    {
+      "sourceId": 303869,
+      "sourceName": "Bag",
+      "name": "Bag",
+      "slug": "bag-303869",
+      "priceKzt": 7000,
+      "currency": "KZT",
+      "imageSource": "https://d350l8y0jbi3s6.cloudfront.net/default-bucket/imgs/1793270723317-ltctveqraid.webp",
+      "image": "/images/catalogue/bag-303869.webp",
+      "output": "public/images/catalogue/bag-303869.webp",
+      "description": null,
+      "sourceCategory": "Букеты",
+      "composition": [
+        {
+          "name": "Эустома микс новая",
+          "quantity": 8
+        },
+        {
+          "name": "Эвкалипт биг лиф",
+          "quantity": 1
+        }
+      ],
+      "sourcePosition": 1,
+      "sha256": "ce7f2717c5c91d3d4c694342ac17f58fa35ffdf45ac76672f9cd4c8d1c500cd4",
+      "bytes": 37350,
+      "mimeType": "image/webp",
+      "width": 600,
+      "height": 800,
+      "existingSiteId": null,
+      "matchesExistingImage": false,
+      "sourceSha256": "9435f6ea57aeed6d8d324afe77b11a7a116d1ab3686e66bdbdfbf405ad606d55",
+      "sourceBytes": 767166,
+      "sourceMimeType": "image/png",
+      "optimization": {
+        "format": "webp",
+        "quality": 85,
+        "maxWidth": 1200,
+        "resized": false
+      }
+    },
+    {
+      "sourceId": 303639,
+      "sourceName": "Soft dopamine",
+      "name": "Soft dopamine",
+      "slug": "soft-dopamine-303639",
+      "priceKzt": 18600,
+      "currency": "KZT",
+      "imageSource": "https://d350l8y0jbi3s6.cloudfront.net/default-bucket/imgs/1793259613336-4bwl4ga9qm.webp",
+      "image": "/images/catalogue/soft-dopamine-303639.webp",
+      "output": "public/images/catalogue/soft-dopamine-303639.webp",
+      "description": null,
+      "sourceCategory": "Букеты",
+      "composition": [
+        {
+          "name": "Роза пинк охара",
+          "quantity": 3
+        },
+        {
+          "name": "Зеленая кустовая роза",
+          "quantity": 2
+        },
+        {
+          "name": "Сангрихем",
+          "quantity": 2
+        },
+        {
+          "name": "Кустовая желтая",
+          "quantity": 2
+        },
+        {
+          "name": "Кустовая Салинеро",
+          "quantity": 2
+        },
+        {
+          "name": "Роза butter cup",
+          "quantity": 4
+        },
+        {
+          "name": "Гортензия Джамбо",
+          "quantity": 1
+        }
+      ],
+      "sourcePosition": 2,
+      "sha256": "eb0371cc215289a8272ef206810c21e3287807a9cc270818d550a72673f21b2e",
+      "bytes": 78752,
+      "mimeType": "image/webp",
+      "width": 600,
+      "height": 800,
+      "existingSiteId": null,
+      "matchesExistingImage": false,
+      "sourceSha256": "21d480c0520a112a1aaf6d448b2c5d33985385cb6059566008ce249c62c38ad7",
+      "sourceBytes": 965047,
+      "sourceMimeType": "image/png",
+      "optimization": {
+        "format": "webp",
+        "quality": 85,
+        "maxWidth": 1200,
+        "resized": false
+      }
+    },
+    {
+      "sourceId": 301768,
+      "sourceName": "Sophie bag",
+      "name": "Sophie bag",
+      "slug": "sophie-bag-301768",
+      "priceKzt": 7000,
+      "currency": "KZT",
+      "imageSource": "https://d350l8y0jbi3s6.cloudfront.net/default-bucket/imgs/1793112622789-xmw2580nb0j.webp",
+      "image": "/images/catalogue/sophie-bag-301768.webp",
+      "output": "public/images/catalogue/sophie-bag-301768.webp",
+      "description": null,
+      "sourceCategory": "Букеты",
+      "composition": [
+        {
+          "name": "Софи",
+          "quantity": 1
+        },
+        {
+          "name": "Кустовая Салинеро",
+          "quantity": 3
+        },
+        {
+          "name": "Роза мандала",
+          "quantity": 2
+        },
+        {
+          "name": "Эвкалипт биг лиф",
+          "quantity": 1
+        }
+      ],
+      "sourcePosition": 3,
+      "sha256": "50263a0063aa17b7670e766b0db39fa0e213acdb34a618bb3ae3c4b7d08f8c11",
+      "bytes": 43662,
+      "mimeType": "image/webp",
+      "width": 600,
+      "height": 800,
+      "existingSiteId": null,
+      "matchesExistingImage": false,
+      "sourceSha256": "8f06c03da5fa35896555f69594b0aa8ba68c2b9de2167d68f38404ca7e311141",
+      "sourceBytes": 785756,
+      "sourceMimeType": "image/png",
+      "optimization": {
+        "format": "webp",
+        "quality": 85,
+        "maxWidth": 1200,
+        "resized": false
+      }
+    },
+    {
+      "sourceId": 301723,
+      "sourceName": "Bag",
+      "name": "Bag",
+      "slug": "bag-301723",
+      "priceKzt": 7000,
+      "currency": "KZT",
+      "imageSource": "https://d350l8y0jbi3s6.cloudfront.net/default-bucket/imgs/1793110766541-3q7ymsjlw6f.webp",
+      "image": "/images/catalogue/bag-301723.webp",
+      "output": "public/images/catalogue/bag-301723.webp",
+      "description": null,
+      "sourceCategory": "Букеты",
+      "composition": [
+        {
+          "name": "Зеленая кустовая роза",
+          "quantity": 1
+        },
+        {
+          "name": "Хризантема",
+          "quantity": 1
+        },
+        {
+          "name": "Эвкалипт биг лиф",
+          "quantity": 1
+        },
+        {
+          "name": "Кустовая Салинеро",
+          "quantity": 2
+        },
+        {
+          "name": "Хризантема бигуди",
+          "quantity": 1
+        },
+        {
+          "name": "Хризантема зеленая",
+          "quantity": 1
+        },
+        {
+          "name": "Рускус",
+          "quantity": 1
+        },
+        {
+          "name": "Роза Прауд",
+          "quantity": 2
+        }
+      ],
+      "sourcePosition": 4,
+      "sha256": "c4ef9ae31d48c97e7873db26bd0f28a416f6d066f0db0990f1c75d805a7f9974",
+      "bytes": 39308,
+      "mimeType": "image/webp",
+      "width": 450,
+      "height": 800,
+      "existingSiteId": null,
+      "matchesExistingImage": false,
+      "sourceSha256": "5ceb82858a7cee9023b560fa7b02414b50f62e5242ee6e84471f15ce26c2b57c",
+      "sourceBytes": 593282,
+      "sourceMimeType": "image/png",
+      "optimization": {
+        "format": "webp",
+        "quality": 85,
+        "maxWidth": 1200,
+        "resized": false
+      }
+    },
+    {
+      "sourceId": 301618,
+      "sourceName": "Mono Sophie",
+      "name": "Mono Sophie",
+      "slug": "mono-sophie-301618",
+      "priceKzt": 15800,
+      "currency": "KZT",
+      "imageSource": "https://d350l8y0jbi3s6.cloudfront.net/default-bucket/imgs/1793107041763-qgkexwfq887.webp",
+      "image": "/images/catalogue/mono-sophie.webp",
+      "output": "public/images/catalogue/mono-sophie.webp",
+      "description": null,
+      "sourceCategory": "Букеты",
+      "composition": [
+        {
+          "name": "Софи",
+          "quantity": 11
+        }
+      ],
+      "sourcePosition": 5,
+      "sha256": "8a3d47754d79fa4fbe34819e1735cf0a3c1e73db63ae2afacb26c6892a11e35e",
+      "bytes": 830595,
+      "mimeType": "image/png",
+      "width": 450,
+      "height": 800,
+      "existingSiteId": "mono-sophie",
+      "matchesExistingImage": true
+    },
+    {
+      "sourceId": 301617,
+      "sourceName": "Pink cloud",
+      "name": "Pink cloud",
+      "slug": "pink-cloud-301617",
+      "priceKzt": 15700,
+      "currency": "KZT",
+      "imageSource": "https://d350l8y0jbi3s6.cloudfront.net/default-bucket/imgs/1793110714486-iqc93e8siu.webp",
+      "image": "/images/catalogue/pink-cloud.webp",
+      "output": "public/images/catalogue/pink-cloud.webp",
+      "description": null,
+      "sourceCategory": "Букеты",
+      "composition": [
+        {
+          "name": "Гвоздика микс",
+          "quantity": 3
+        },
+        {
+          "name": "Эустома микс новая",
+          "quantity": 2
+        },
+        {
+          "name": "Кустовая бэби хамелеон",
+          "quantity": 3
+        },
+        {
+          "name": "Кустовая Салинеро",
+          "quantity": 2
+        },
+        {
+          "name": "Эвкалипт биг лиф",
+          "quantity": 1
+        },
+        {
+          "name": "Роза пинк охара",
+          "quantity": 4
+        }
+      ],
+      "sourcePosition": 6,
+      "sha256": "e91f9d06d2e69e5e97502e758be80ea603db43441e50b95d24a98c42ff7c890e",
+      "bytes": 983168,
+      "mimeType": "image/png",
+      "width": 600,
+      "height": 800,
+      "existingSiteId": "pink-cloud",
+      "matchesExistingImage": true
+    },
+    {
+      "sourceId": 301375,
+      "sourceName": "Sunny",
+      "name": "Sunny",
+      "slug": "sunny-301375",
+      "priceKzt": 28000,
+      "currency": "KZT",
+      "imageSource": "https://d350l8y0jbi3s6.cloudfront.net/default-bucket/imgs/1793095393812-5tlotib7yv3.webp",
+      "image": "/images/catalogue/sunny-301375.webp",
+      "output": "public/images/catalogue/sunny-301375.webp",
+      "description": null,
+      "sourceCategory": "Букеты",
+      "composition": [
+        {
+          "name": "Гиперикум",
+          "quantity": 1
+        },
+        {
+          "name": "Зеленая кустовая роза",
+          "quantity": 3
+        },
+        {
+          "name": "Гвоздика микс",
+          "quantity": 3
+        },
+        {
+          "name": "Кустовая желтая",
+          "quantity": 3
+        },
+        {
+          "name": "Момоки желтые",
+          "quantity": 3
+        },
+        {
+          "name": "Онцидиум",
+          "quantity": 3
+        },
+        {
+          "name": "Хризантема зеленая",
+          "quantity": 4
+        },
+        {
+          "name": "Солидаго",
+          "quantity": 3
+        },
+        {
+          "name": "Подсолнух",
+          "quantity": 1
+        }
+      ],
+      "sourcePosition": 7,
+      "sha256": "639240325ddf395db2b41ffd980f464592058949a9e59ea9eacf937175b7a14d",
+      "bytes": 75472,
+      "mimeType": "image/webp",
+      "width": 450,
+      "height": 800,
+      "existingSiteId": null,
+      "matchesExistingImage": false,
+      "sourceSha256": "8f34114b16d5bf6840862fd2f20ba132bf6e0e3388afd0122f36b24eec24ae21",
+      "sourceBytes": 712470,
+      "sourceMimeType": "image/png",
+      "optimization": {
+        "format": "webp",
+        "quality": 85,
+        "maxWidth": 1200,
+        "resized": false
+      }
+    },
+    {
+      "sourceId": 301291,
+      "sourceName": "Soft pink",
+      "name": "Soft pink",
+      "slug": "soft-pink-301291",
+      "priceKzt": 13200,
+      "currency": "KZT",
+      "imageSource": "https://d350l8y0jbi3s6.cloudfront.net/default-bucket/imgs/1793100045988-5wpqvv85knn.webp",
+      "image": "/images/catalogue/soft-pink.webp",
+      "output": "public/images/catalogue/soft-pink.webp",
+      "description": null,
+      "sourceCategory": "Букеты",
+      "composition": [
+        {
+          "name": "Хризантема виена",
+          "quantity": 1
+        },
+        {
+          "name": "Гвоздика микс",
+          "quantity": 2
+        },
+        {
+          "name": "Эустома микс новая",
+          "quantity": 3
+        },
+        {
+          "name": "Хризантема",
+          "quantity": 2
+        },
+        {
+          "name": "Кустовая бэби хамелеон",
+          "quantity": 1
+        },
+        {
+          "name": "Альстромерия розовая",
+          "quantity": 1
+        }
+      ],
+      "sourcePosition": 8,
+      "sha256": "c75e09d66c51dbec1b7a49f5551374b43f30b8cd1aca873e98bee6964449234a",
+      "bytes": 952878,
+      "mimeType": "image/png",
+      "width": 600,
+      "height": 800,
+      "existingSiteId": "soft-pink",
+      "matchesExistingImage": true
+    },
+    {
+      "sourceId": 301134,
+      "sourceName": "Dopamine",
+      "name": "Dopamine",
+      "slug": "dopamine-301134",
+      "priceKzt": 21600,
+      "currency": "KZT",
+      "imageSource": "https://d350l8y0jbi3s6.cloudfront.net/default-bucket/imgs/1793079030709-vxvqtqmxbxr.webp",
+      "image": "/images/catalogue/dopamine-301134.webp",
+      "output": "public/images/catalogue/dopamine-301134.webp",
+      "description": null,
+      "sourceCategory": "Букеты",
+      "composition": [
+        {
+          "name": "Твидия голубая",
+          "quantity": 2
+        },
+        {
+          "name": "Подсолнух",
+          "quantity": 1
+        },
+        {
+          "name": "Гортензия Джамбо",
+          "quantity": 1
+        },
+        {
+          "name": "Хризантема бигуди",
+          "quantity": 1
+        },
+        {
+          "name": "Гвоздика микс",
+          "quantity": 3
+        },
+        {
+          "name": "Эустома микс новая",
+          "quantity": 4
+        },
+        {
+          "name": "Роза Уайт охара",
+          "quantity": 3
+        },
+        {
+          "name": "Хризантема",
+          "quantity": 2
+        },
+        {
+          "name": "Альстромерия розовая",
+          "quantity": 1
+        }
+      ],
+      "sourcePosition": 9,
+      "sha256": "3361c882738edb5a5e8659095040ec7f6d92bd32c22ec04a0d108430c55be1b0",
+      "bytes": 72962,
+      "mimeType": "image/webp",
+      "width": 600,
+      "height": 800,
+      "existingSiteId": null,
+      "matchesExistingImage": false,
+      "sourceSha256": "28436f57590c34db3e6e39a78a503a5d5591955328cfa8df0fe4eefb4cecd3e6",
+      "sourceBytes": 925787,
+      "sourceMimeType": "image/png",
+      "optimization": {
+        "format": "webp",
+        "quality": 85,
+        "maxWidth": 1200,
+        "resized": false
+      }
+    },
+    {
+      "sourceId": 301130,
+      "sourceName": "Dopamine",
+      "name": "Dopamine",
+      "slug": "dopamine-301130",
+      "priceKzt": 11000,
+      "currency": "KZT",
+      "imageSource": "https://d350l8y0jbi3s6.cloudfront.net/default-bucket/imgs/1793078956170-f7ix3ccguy.webp",
+      "image": "/images/catalogue/dopamine-301130.webp",
+      "output": "public/images/catalogue/dopamine-301130.webp",
+      "description": null,
+      "sourceCategory": "Букеты",
+      "composition": [
+        {
+          "name": "Софи",
+          "quantity": 1
+        },
+        {
+          "name": "Гвоздика микс",
+          "quantity": 2
+        },
+        {
+          "name": "Кустовая желтая",
+          "quantity": 1
+        },
+        {
+          "name": "Хризантема",
+          "quantity": 2
+        },
+        {
+          "name": "Хризантема зеленая",
+          "quantity": 1
+        },
+        {
+          "name": "Солидаго",
+          "quantity": 1
+        },
+        {
+          "name": "Роза Эсперанс",
+          "quantity": 1
+        }
+      ],
+      "sourcePosition": 10,
+      "sha256": "6f28e873ba3c27dfea8d104f797d9addc82961d9edf228f5555b785b3cb13b77",
+      "bytes": 51282,
+      "mimeType": "image/webp",
+      "width": 450,
+      "height": 800,
+      "existingSiteId": null,
+      "matchesExistingImage": false,
+      "sourceSha256": "5dd2d02f982ef32dd505b119ac7095f0219fe41cdba2bd5f44329f14580d98cb",
+      "sourceBytes": 652912,
+      "sourceMimeType": "image/png",
+      "optimization": {
+        "format": "webp",
+        "quality": 85,
+        "maxWidth": 1200,
+        "resized": false
+      }
+    },
+    {
+      "sourceId": 296211,
+      "sourceName": "Soft basket",
+      "name": "Soft basket",
+      "slug": "soft-basket-296211",
+      "priceKzt": 15000,
+      "currency": "KZT",
+      "imageSource": "https://d350l8y0jbi3s6.cloudfront.net/default-bucket/imgs/1792764046397-e9dflia7p3n.webp",
+      "image": "/images/catalogue/soft-basket-296211.webp",
+      "output": "public/images/catalogue/soft-basket-296211.webp",
+      "description": null,
+      "sourceCategory": "Букеты",
+      "composition": [
+        {
+          "name": "Эустома микс новая",
+          "quantity": 1
+        },
+        {
+          "name": "Эвкалипт биг лиф",
+          "quantity": 2
+        },
+        {
+          "name": "Ранункулюс розовый",
+          "quantity": 6
+        },
+        {
+          "name": "Кустовая Салинеро",
+          "quantity": 3
+        },
+        {
+          "name": "Хризантема",
+          "quantity": 2
+        },
+        {
+          "name": "Роза Прауд",
+          "quantity": 3
+        }
+      ],
+      "sourcePosition": 11,
+      "sha256": "6d8cce4b3426d69f80ebea2cf768813f8e6ca34230fedd9e0ee42844b1e5a8e2",
+      "bytes": 54980,
+      "mimeType": "image/webp",
+      "width": 600,
+      "height": 800,
+      "existingSiteId": null,
+      "matchesExistingImage": false,
+      "sourceSha256": "21e3c0d1ce04403442ed3259a6a81e0bced3731293c1a0c6e73cbeb2efb5614f",
+      "sourceBytes": 826014,
+      "sourceMimeType": "image/png",
+      "optimization": {
+        "format": "webp",
+        "quality": 85,
+        "maxWidth": 1200,
+        "resized": false
+      }
+    },
+    {
+      "sourceId": 296189,
+      "sourceName": "Bag",
+      "name": "Bag",
+      "slug": "bag-296189",
+      "priceKzt": 7000,
+      "currency": "KZT",
+      "imageSource": "https://d350l8y0jbi3s6.cloudfront.net/default-bucket/imgs/1792755803585-ivlq5lcj3q.webp",
+      "image": "/images/catalogue/bag-296189.webp",
+      "output": "public/images/catalogue/bag-296189.webp",
+      "description": null,
+      "sourceCategory": "Букеты",
+      "composition": [
+        {
+          "name": "Эустома микс новая",
+          "quantity": 3
+        },
+        {
+          "name": "Гвоздика микс",
+          "quantity": 1
+        },
+        {
+          "name": "Хризантема",
+          "quantity": 1
+        },
+        {
+          "name": "Эвкалипт биг лиф",
+          "quantity": 1
+        },
+        {
+          "name": "Барбатус",
+          "quantity": 1
+        }
+      ],
+      "sourcePosition": 12,
+      "sha256": "ebb841316d8a65b8a0aead04b6976428e298ed4dde48e0264c72476caa56e4eb",
+      "bytes": 36526,
+      "mimeType": "image/webp",
+      "width": 600,
+      "height": 800,
+      "existingSiteId": null,
+      "matchesExistingImage": false,
+      "sourceSha256": "eead216cae25846951548f8722036992ea3060156e360c460aae18908f4163f9",
+      "sourceBytes": 764853,
+      "sourceMimeType": "image/png",
+      "optimization": {
+        "format": "webp",
+        "quality": 85,
+        "maxWidth": 1200,
+        "resized": false
+      }
+    },
+    {
+      "sourceId": 294966,
+      "sourceName": "Pink bomb",
+      "name": "Pink bomb",
+      "slug": "pink-bomb-294966",
+      "priceKzt": 27400,
+      "currency": "KZT",
+      "imageSource": "https://d350l8y0jbi3s6.cloudfront.net/default-bucket/imgs/1792670785691-ww97hjmh0g.webp",
+      "image": "/images/catalogue/pink-bomb-294966.webp",
+      "output": "public/images/catalogue/pink-bomb-294966.webp",
+      "description": null,
+      "sourceCategory": "Букеты",
+      "composition": [
+        {
+          "name": "Сангрихем",
+          "quantity": 4
+        },
+        {
+          "name": "Гвоздика микс",
+          "quantity": 5
+        },
+        {
+          "name": "Эустома микс новая",
+          "quantity": 5
+        },
+        {
+          "name": "Роза Прауд",
+          "quantity": 3
+        },
+        {
+          "name": "Розы Кэнделайт",
+          "quantity": 2
+        },
+        {
+          "name": "Роза пинк экспрешн",
+          "quantity": 4
+        }
+      ],
+      "sourcePosition": 13,
+      "sha256": "c5455e35ac88bd23def69115ae6f7378688fa22358b50771eec6b06d221c9c86",
+      "bytes": 100392,
+      "mimeType": "image/webp",
+      "width": 600,
+      "height": 800,
+      "existingSiteId": null,
+      "matchesExistingImage": false,
+      "sourceSha256": "c6a8f62548df23c08056c808027ae82260877c8f7731dd52ea317510d962d93a",
+      "sourceBytes": 979560,
+      "sourceMimeType": "image/png",
+      "optimization": {
+        "format": "webp",
+        "quality": 85,
+        "maxWidth": 1200,
+        "resized": false
+      }
+    },
+    {
+      "sourceId": 294825,
+      "sourceName": "Autumn M",
+      "name": "Autumn M",
+      "slug": "autumn-m-294825",
+      "priceKzt": 21300,
+      "currency": "KZT",
+      "imageSource": "https://d350l8y0jbi3s6.cloudfront.net/default-bucket/imgs/1793094090312-h9pj299x8q.webp",
+      "image": "/images/catalogue/autumn-m-294825.webp",
+      "output": "public/images/catalogue/autumn-m-294825.webp",
+      "description": null,
+      "sourceCategory": "Букеты",
+      "composition": [
+        {
+          "name": "Зеленая кустовая роза",
+          "quantity": 2
+        },
+        {
+          "name": "Листья дуба",
+          "quantity": 2
+        },
+        {
+          "name": "Гвоздика микс",
+          "quantity": 4
+        },
+        {
+          "name": "Эустома микс новая",
+          "quantity": 1
+        },
+        {
+          "name": "Хризантема виена",
+          "quantity": 3
+        },
+        {
+          "name": "Момока зеленая",
+          "quantity": 3
+        },
+        {
+          "name": "Хризантема",
+          "quantity": 3
+        }
+      ],
+      "sourcePosition": 14,
+      "sha256": "c6ba88d0330bf867bc5fc96eab8cddd4ee1aae82eb8a9c1248f4709efbe63f12",
+      "bytes": 94814,
+      "mimeType": "image/webp",
+      "width": 600,
+      "height": 800,
+      "existingSiteId": null,
+      "matchesExistingImage": false,
+      "sourceSha256": "a3e3554e27280bac72e00f6ee52ca8190b016fbd44dcce041e4c150e49859dab",
+      "sourceBytes": 955293,
+      "sourceMimeType": "image/png",
+      "optimization": {
+        "format": "webp",
+        "quality": 85,
+        "maxWidth": 1200,
+        "resized": false
+      }
+    },
+    {
+      "sourceId": 293604,
+      "sourceName": "Dopamine XXl",
+      "name": "Dopamine XXl",
+      "slug": "dopamine-xxl-293604",
+      "priceKzt": 28000,
+      "currency": "KZT",
+      "imageSource": "https://d350l8y0jbi3s6.cloudfront.net/default-bucket/imgs/1793093108896-zqwgtisxhqo.webp",
+      "image": "/images/catalogue/dopamine-xxl-293604.webp",
+      "output": "public/images/catalogue/dopamine-xxl-293604.webp",
+      "description": null,
+      "sourceCategory": "Букеты",
+      "composition": [
+        {
+          "name": "Гортензия Джамбо",
+          "quantity": 1
+        },
+        {
+          "name": "Зеленая кустовая роза",
+          "quantity": 2
+        },
+        {
+          "name": "Хризантема фабьене",
+          "quantity": 2
+        },
+        {
+          "name": "Гвоздика микс",
+          "quantity": 3
+        },
+        {
+          "name": "Роза Эсперанс",
+          "quantity": 2
+        },
+        {
+          "name": "Роза Кэтрин",
+          "quantity": 1
+        },
+        {
+          "name": "Роза Прауд",
+          "quantity": 1
+        },
+        {
+          "name": "Барбатус",
+          "quantity": 2
+        },
+        {
+          "name": "Хризантема",
+          "quantity": 2
+        },
+        {
+          "name": "Солидаго",
+          "quantity": 2
+        },
+        {
+          "name": "Эустома микс новая",
+          "quantity": 4
+        },
+        {
+          "name": "Альстромерия розовая",
+          "quantity": 2
+        },
+        {
+          "name": "Софи",
+          "quantity": 2
+        },
+        {
+          "name": "Кустовая Джульетта",
+          "quantity": 2
+        },
+        {
+          "name": "Кустовая Салинеро",
+          "quantity": 2
+        }
+      ],
+      "sourcePosition": 15,
+      "sha256": "d374188d4bccfdb30429b5a4a40cff605f96b2905b7beead6c5a07780f5805cf",
+      "bytes": 99600,
+      "mimeType": "image/webp",
+      "width": 600,
+      "height": 800,
+      "existingSiteId": null,
+      "matchesExistingImage": false,
+      "sourceSha256": "386eb2a55cec57614962ffba4ce4244d2de8392a2205e24c9eb5b50b3e7e39d9",
+      "sourceBytes": 958063,
+      "sourceMimeType": "image/png",
+      "optimization": {
+        "format": "webp",
+        "quality": 85,
+        "maxWidth": 1200,
+        "resized": false
+      }
+    },
+    {
+      "sourceId": 293277,
+      "sourceName": "Mono",
+      "name": "Mono",
+      "slug": "mono-293277",
+      "priceKzt": 25600,
+      "currency": "KZT",
+      "imageSource": "https://d350l8y0jbi3s6.cloudfront.net/default-bucket/imgs/1793072393034-50mqh2odi5o.webp",
+      "image": "/images/catalogue/mono-293277.webp",
+      "output": "public/images/catalogue/mono-293277.webp",
+      "description": null,
+      "sourceCategory": "Букеты",
+      "composition": [
+        {
+          "name": "Кустовая Джульетта",
+          "quantity": 19
+        },
+        {
+          "name": "Эвкалипт биг лиф",
+          "quantity": 2
+        }
+      ],
+      "sourcePosition": 16,
+      "sha256": "6ea4cd2b1b13915c6aa9fa42e70f0a7bfe0218bc5ccf1aa36c9f2a48cd52ecea",
+      "bytes": 63164,
+      "mimeType": "image/webp",
+      "width": 450,
+      "height": 800,
+      "existingSiteId": null,
+      "matchesExistingImage": false,
+      "sourceSha256": "17b08729b177884602ec45162152772ed2bd2286351826e4a9b8597176364123",
+      "sourceBytes": 715706,
+      "sourceMimeType": "image/png",
+      "optimization": {
+        "format": "webp",
+        "quality": 85,
+        "maxWidth": 1200,
+        "resized": false
+      }
+    },
+    {
+      "sourceId": 293243,
+      "sourceName": "Dopamine",
+      "name": "Dopamine",
+      "slug": "dopamine-293243",
+      "priceKzt": 12000,
+      "currency": "KZT",
+      "imageSource": "https://d350l8y0jbi3s6.cloudfront.net/default-bucket/imgs/1793010381637-ss46yyxr8d.webp",
+      "image": "/images/catalogue/dopamine-293243.webp",
+      "output": "public/images/catalogue/dopamine-293243.webp",
+      "description": null,
+      "sourceCategory": "Букеты",
+      "composition": [
+        {
+          "name": "Эустома микс новая",
+          "quantity": 3
+        },
+        {
+          "name": "Твидия голубая",
+          "quantity": 3
+        },
+        {
+          "name": "Хризантема зеленая",
+          "quantity": 2
+        },
+        {
+          "name": "Роза Эсперанс",
+          "quantity": 2
+        },
+        {
+          "name": "Гортензия Джамбо",
+          "quantity": 1
+        }
+      ],
+      "sourcePosition": 17,
+      "sha256": "7a676a5c7ac405674554f8abc2e62e301d21908d9dc880692d6f82c1f1b461a2",
+      "bytes": 68176,
+      "mimeType": "image/webp",
+      "width": 450,
+      "height": 800,
+      "existingSiteId": null,
+      "matchesExistingImage": false,
+      "sourceSha256": "f8665d6847b0afd29d96d08dc094569c4dfbf6b402effc4af301cacc14170a8e",
+      "sourceBytes": 679293,
+      "sourceMimeType": "image/png",
+      "optimization": {
+        "format": "webp",
+        "quality": 85,
+        "maxWidth": 1200,
+        "resized": false
+      }
+    },
+    {
+      "sourceId": 293140,
+      "sourceName": "Кашпо Софи С",
+      "name": "Кашпо Софи С",
+      "slug": "sophie-planter-s-293140",
+      "priceKzt": 12100,
+      "currency": "KZT",
+      "imageSource": "https://d350l8y0jbi3s6.cloudfront.net/default-bucket/imgs/1793101117325-4v5ebs20via.webp",
+      "image": "/images/catalogue/sophie-planter.webp",
+      "output": "public/images/catalogue/sophie-planter.webp",
+      "description": null,
+      "sourceCategory": "Букеты",
+      "composition": [
+        {
+          "name": "Софи",
+          "quantity": 6
+        },
+        {
+          "name": "Эвкалипт биг лиф",
+          "quantity": 1
+        }
+      ],
+      "sourcePosition": 18,
+      "sha256": "bce0e7e12d890a48a15e0ce88e44fca926e6924c0ab0c1e7258df0cf0ad3a171",
+      "bytes": 985052,
+      "mimeType": "image/png",
+      "width": 600,
+      "height": 800,
+      "existingSiteId": "sophie-planter",
+      "matchesExistingImage": true
+    },
+    {
+      "sourceId": 292495,
+      "sourceName": "Lisianthus basket",
+      "name": "Lisianthus basket",
+      "slug": "lisianthus-basket-292495",
+      "priceKzt": 11000,
+      "currency": "KZT",
+      "imageSource": "https://d350l8y0jbi3s6.cloudfront.net/default-bucket/imgs/1792488828770-uo5rhfb5v2s.webp",
+      "image": "/images/catalogue/lisianthus-basket-292495.webp",
+      "output": "public/images/catalogue/lisianthus-basket-292495.webp",
+      "description": null,
+      "sourceCategory": "Букеты",
+      "composition": [
+        {
+          "name": "Эустома микс новая",
+          "quantity": 11
+        },
+        {
+          "name": "Эвкалипт биг лиф",
+          "quantity": 1
+        }
+      ],
+      "sourcePosition": 19,
+      "sha256": "b55f642699d2ffa2ec80fdb1f14091e1fc7cfd3e84a65107347c6d4a01d15423",
+      "bytes": 67526,
+      "mimeType": "image/webp",
+      "width": 450,
+      "height": 800,
+      "existingSiteId": null,
+      "matchesExistingImage": false,
+      "sourceSha256": "e471210d29c7c1b8f2fe972a8fecc9be685375fffd4bbff9ed8cfa821647ac6c",
+      "sourceBytes": 657400,
+      "sourceMimeType": "image/png",
+      "optimization": {
+        "format": "webp",
+        "quality": 85,
+        "maxWidth": 1200,
+        "resized": false
+      }
+    },
+    {
+      "sourceId": 292422,
+      "sourceName": "Mono",
+      "name": "Mono",
+      "slug": "mono-292422",
+      "priceKzt": 30000,
+      "currency": "KZT",
+      "imageSource": "https://d350l8y0jbi3s6.cloudfront.net/default-bucket/imgs/1793094065020-jtnrq54qv8o.webp",
+      "image": "/images/catalogue/mono-292422.webp",
+      "output": "public/images/catalogue/mono-292422.webp",
+      "description": null,
+      "sourceCategory": "Букеты",
+      "composition": [
+        {
+          "name": "Кустовая бэби хамелеон",
+          "quantity": 22
+        }
+      ],
+      "sourcePosition": 20,
+      "sha256": "6d21dd0ad036e0432d4f3d613c04334bc0d2ad99cade330e1c899b6ef9dcf346",
+      "bytes": 82538,
+      "mimeType": "image/webp",
+      "width": 600,
+      "height": 800,
+      "existingSiteId": null,
+      "matchesExistingImage": false,
+      "sourceSha256": "47617533018a7379dc5441b13fb9557fdeed60ed465ec975baf59230ce2fc956",
+      "sourceBytes": 956077,
+      "sourceMimeType": "image/png",
+      "optimization": {
+        "format": "webp",
+        "quality": 85,
+        "maxWidth": 1200,
+        "resized": false
+      }
+    },
+    {
+      "sourceId": 291807,
+      "sourceName": "Bag",
+      "name": "Bag",
+      "slug": "bag-291807",
+      "priceKzt": 5500,
+      "currency": "KZT",
+      "imageSource": "https://d350l8y0jbi3s6.cloudfront.net/default-bucket/imgs/1792416450455-sr7p8yxz36n.webp",
+      "image": "/images/catalogue/bag-291807.webp",
+      "output": "public/images/catalogue/bag-291807.webp",
+      "description": null,
+      "sourceCategory": "Букеты",
+      "composition": [
+        {
+          "name": "Краспедия",
+          "quantity": 7
+        },
+        {
+          "name": "Гвоздика микс",
+          "quantity": 1
+        },
+        {
+          "name": "Кустовая Джульетта",
+          "quantity": 1
+        },
+        {
+          "name": "Момока белая",
+          "quantity": 2
+        }
+      ],
+      "sourcePosition": 21,
+      "sha256": "f9dcd12e20081b4b861d74d524dee437ba0fb36f27905636ed1a7d37372af491",
+      "bytes": 73330,
+      "mimeType": "image/webp",
+      "width": 600,
+      "height": 800,
+      "existingSiteId": null,
+      "matchesExistingImage": false,
+      "sourceSha256": "6cb7c4cbf6206dc4b5a6553117d197d4bc2a4e9c9105f9e413dd02c9d1116894",
+      "sourceBytes": 870702,
+      "sourceMimeType": "image/png",
+      "optimization": {
+        "format": "webp",
+        "quality": 85,
+        "maxWidth": 1200,
+        "resized": false
+      }
+    },
+    {
+      "sourceId": 290285,
+      "sourceName": "Green bloom",
+      "name": "Green bloom",
+      "slug": "green-bloom-290285",
+      "priceKzt": 28000,
+      "currency": "KZT",
+      "imageSource": "https://d350l8y0jbi3s6.cloudfront.net/default-bucket/imgs/1792332800658-pxmwjoz56e.webp",
+      "image": "/images/catalogue/green-bloom-290285.webp",
+      "output": "public/images/catalogue/green-bloom-290285.webp",
+      "description": null,
+      "sourceCategory": "Букеты",
+      "composition": [
+        {
+          "name": "Краспедия",
+          "quantity": 5
+        },
+        {
+          "name": "Гвоздика микс",
+          "quantity": 6
+        },
+        {
+          "name": "Эустома микс новая",
+          "quantity": 2
+        },
+        {
+          "name": "Хризантема зеленая",
+          "quantity": 5
+        },
+        {
+          "name": "Солидаго",
+          "quantity": 3
+        },
+        {
+          "name": "Кустовая Салинеро",
+          "quantity": 6
+        },
+        {
+          "name": "Розы Кэнделайт",
+          "quantity": 4
+        },
+        {
+          "name": "Гортензия Джамбо",
+          "quantity": 1
+        }
+      ],
+      "sourcePosition": 22,
+      "sha256": "710594fbf5cd93ff7b986acad39604300e65fb9bef8c9dd29ec6c1e64919b101",
+      "bytes": 106808,
+      "mimeType": "image/webp",
+      "width": 600,
+      "height": 800,
+      "existingSiteId": null,
+      "matchesExistingImage": false,
+      "sourceSha256": "eba12349f6eff7ae8420701c82d9b9edb365882c730c67747f86bf16b0981282",
+      "sourceBytes": 955654,
+      "sourceMimeType": "image/png",
+      "optimization": {
+        "format": "webp",
+        "quality": 85,
+        "maxWidth": 1200,
+        "resized": false
+      }
+    },
+    {
+      "sourceId": 284736,
+      "sourceName": "Flower box",
+      "name": "Flower box",
+      "slug": "flower-box-284736",
+      "priceKzt": 10400,
+      "currency": "KZT",
+      "imageSource": "https://d350l8y0jbi3s6.cloudfront.net/default-bucket/imgs/1791893206898-jqy85eioshs.webp",
+      "image": "/images/catalogue/flower-box-284736.webp",
+      "output": "public/images/catalogue/flower-box-284736.webp",
+      "description": null,
+      "sourceCategory": "Букеты",
+      "composition": [
+        {
+          "name": "Эустома микс новая",
+          "quantity": 3
+        },
+        {
+          "name": "Хризантема",
+          "quantity": 1
+        },
+        {
+          "name": "Подсолнух",
+          "quantity": 1
+        },
+        {
+          "name": "Роза Эсперанс",
+          "quantity": 2
+        }
+      ],
+      "sourcePosition": 23,
+      "sha256": "846dafaf40987ce7f29fafd9bfc6caf5c0c90554859c249e9a6470b32f968fec",
+      "bytes": 46248,
+      "mimeType": "image/webp",
+      "width": 450,
+      "height": 800,
+      "existingSiteId": null,
+      "matchesExistingImage": false,
+      "sourceSha256": "7549df5a61cb3098126f0592c835b2e072f8c08ac979474c2148f7caa7a7ccd8",
+      "sourceBytes": 638476,
+      "sourceMimeType": "image/png",
+      "optimization": {
+        "format": "webp",
+        "quality": 85,
+        "maxWidth": 1200,
+        "resized": false
+      }
+    }
+  ],
+  "downloadSummary": {
+    "cataloguePhotos": 23,
+    "reusedExistingPhotos": 4,
+    "newPhotos": 19,
+    "newPhotoBytes": 1292890,
+    "omissions": [],
+    "newOriginalPhotoBytes": 15359511,
+    "optimization": "19 new images encoded as WebP quality 85; original dimensions retained; full decode verified. Four existing images unchanged."
+  },
+  "identityVerification": {
+    "uniqueSourceIds": 23,
+    "uniqueSourceIdNamePairs": 23,
+    "repeatedNames": {
+      "Bag": 4,
+      "Dopamine": 3,
+      "Mono": 2
+    }
+  }
+}
