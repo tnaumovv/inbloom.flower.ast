@@ -1,14 +1,14 @@
 import { describe, expect, it } from 'vitest';
 import { generateKeyPair, SignJWT } from 'jose';
 import { createAdminSession, readAdminSession, createLoginNonce, readLoginNonce, verifyGoogleCredential } from '@/features/admin/auth';
-import { getAdminSetupIssues } from '@/features/admin/config';
+import { getAdminConfig, getAdminSetupIssues } from '@/features/admin/config';
 import { assertSameOrigin } from '@/features/admin/http';
 
 const env = {
   NODE_ENV: 'test', SITE_URL: 'https://inbloom.example',
   ADMIN_GOOGLE_CLIENT_ID: 'test.apps.googleusercontent.com', ADMIN_EMAILS: 'owner@gmail.com',
   ADMIN_SESSION_SECRET: 'test-secret-with-at-least-thirty-two-characters',
-  GOOGLE_SHEET_ID: 'test-sheet', GOOGLE_SERVICE_ACCOUNT_EMAIL: 'test@example.iam.gserviceaccount.com',
+  GOOGLE_SHEET_ID: 'test-sheet', GOOGLE_SHEETS_API_KEY: 'test-public-read-key', GOOGLE_SERVICE_ACCOUNT_EMAIL: 'test@example.iam.gserviceaccount.com',
   GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY: 'test-private-key',
   CLOUDINARY_CLOUD_NAME: 'test-cloud', CLOUDINARY_API_KEY: '123', CLOUDINARY_API_SECRET: 'test-cloud-secret',
   CLOUDINARY_UPLOAD_PRESET: 'catalog-signed',
@@ -19,6 +19,21 @@ describe('admin boundary', () => {
     expect(getAdminSetupIssues({})).toContain('Вход через Google');
     expect(getAdminSetupIssues(env)).toEqual([]);
     expect(getAdminSetupIssues({ ...env, ADMIN_SESSION_SECRET: 'short' })).toContain('Защита входа');
+  });
+  it.each([undefined, '', '   '])('disables admin access without a public catalog key (%s)', apiKey => {
+    const incomplete = { ...env, GOOGLE_SHEETS_API_KEY: apiKey };
+    expect(getAdminSetupIssues(incomplete)).toContain('Чтение каталога из Google Таблицы');
+    expect(() => getAdminConfig(incomplete)).toThrow();
+  });
+  it.each([undefined, '', '   ', 'sheet/id'])('disables admin access with an invalid public sheet id (%s)', sheetId => {
+    const incomplete = { ...env, GOOGLE_SHEET_ID: sheetId };
+    expect(getAdminSetupIssues(incomplete)).toContain('Чтение каталога из Google Таблицы');
+    expect(() => getAdminConfig(incomplete)).toThrow();
+  });
+  it('uses the same trimmed sheet id and range as the public catalog', () => {
+    const configured = { ...env, GOOGLE_SHEET_ID: ' test-sheet ', GOOGLE_SHEETS_API_KEY: ' test-key ', GOOGLE_SHEET_RANGE: " 'Каталог'!A1:I1001 " };
+    expect(getAdminSetupIssues(configured)).toEqual([]);
+    expect(getAdminConfig(configured)).toMatchObject({ sheetId: 'test-sheet', range: "'Каталог'!A1:I1001" });
   });
   it('accepts only signed, unexpired sessions and checks current allowlist', async () => {
     const now = Date.now();

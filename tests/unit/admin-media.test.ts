@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { createUploadTicket, validateImageFile, verifyImageReceipt, verifyUploadResult } from '@/features/admin/media';
 import { signAdminToken } from '@/features/admin/auth';
 
-const env = { SITE_URL: 'https://inbloom.example', ADMIN_GOOGLE_CLIENT_ID: 'test', ADMIN_EMAILS: 'owner@gmail.com', ADMIN_SESSION_SECRET: 'test-secret-with-at-least-thirty-two-characters', GOOGLE_SHEET_ID: 'test', GOOGLE_SERVICE_ACCOUNT_EMAIL: 'test@example.com', GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY: 'test', CLOUDINARY_CLOUD_NAME: 'test-cloud', CLOUDINARY_API_KEY: '123', CLOUDINARY_API_SECRET: 'cloud-secret', CLOUDINARY_UPLOAD_PRESET: 'signed' };
+const env = { SITE_URL: 'https://inbloom.example', ADMIN_GOOGLE_CLIENT_ID: 'test', ADMIN_EMAILS: 'owner@gmail.com', ADMIN_SESSION_SECRET: 'test-secret-with-at-least-thirty-two-characters', GOOGLE_SHEET_ID: 'test', GOOGLE_SHEETS_API_KEY: 'test-public-read-key', GOOGLE_SERVICE_ACCOUNT_EMAIL: 'test@example.com', GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY: 'test', CLOUDINARY_CLOUD_NAME: 'test-cloud', CLOUDINARY_API_KEY: '123', CLOUDINARY_API_SECRET: 'cloud-secret', CLOUDINARY_UPLOAD_PRESET: 'signed' };
 const session = { email: 'owner@gmail.com', sub: '123', sid: 'session-1' };
 describe('protected photo uploads', () => {
   it('allows supported phone photos within 10 MB and rejects unsafe formats and sizes', () => {
