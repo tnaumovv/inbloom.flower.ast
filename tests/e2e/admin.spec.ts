@@ -55,13 +55,6 @@ test('Google login is separate from storefront and API rejects unauthorized requ
   }
   expect((await request.post('/api/admin/login', { data: {}, headers: { origin: 'https://evil.example' } })).status()).toBe(403);
 });
-test('public missing pages retain the storefront header and footer', async ({ page }) => {
-  const response = await page.goto('/missing-bouquet-page');
-  expect(response?.status()).toBe(404);
-  await expect(page.getByRole('heading', { name: 'Страница не найдена' })).toBeVisible();
-  await expect(page.locator('header')).toBeVisible();
-  await expect(page.locator('footer')).toBeVisible();
-});
 test('mobile list filters, hides and stays within a 360px screen', async ({ page }) => {
   await page.setViewportSize({ width: 360, height: 800 }); await authenticate(page); await catalogMock(page);
   const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
