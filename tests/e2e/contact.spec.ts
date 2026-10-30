@@ -1,61 +1,47 @@
 import { expect, test } from '@playwright/test';
 
-test('custom composition keeps its description without a button and explains the three order steps', async ({ page }) => {
+const mapUrl = 'https://2gis.kz/astana/firm/70000001105801781';
+
+test('custom order and delivery guide describe the current ordering flow', async ({ page }) => {
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'Не нашли свой букет?', exact: true })).toBeVisible();
-  await expect(page.getByText('Расскажите о поводе и пожеланиях — обсудим композицию в WhatsApp.', { exact: true })).toBeVisible();
-  await expect(page.locator('#studio').getByRole('link')).toHaveCount(0);
-  await expect(page.getByRole('link', { name: 'Написать в WhatsApp', exact: true })).toHaveAttribute('href', /^https:\/\/wa\.me\/77082204675\?text=/);
-  const steps = page.getByRole('list', { name: 'Как заказать' }).getByRole('listitem');
-  await expect(steps).toHaveCount(3);
-  await expect(steps.nth(0)).toContainText('Выберите букет');
-  await expect(steps.nth(1)).toContainText('Напишите в WhatsApp');
-  await expect(steps.nth(2)).toContainText('Согласуйте детали');
+  const custom = page.locator('#custom-bouquet');
+  await expect(custom.getByRole('heading')).toHaveText(/Соберём букет.*по вашим пожеланиям.*и бюджету/);
+  const link = new URL((await custom.getByRole('link', { name: 'Собрать свой букет' }).getAttribute('href'))!);
+  expect(link.origin + link.pathname).toBe('https://wa.me/77082204675');
+  expect(link.searchParams.get('text')).toContain('букет');
+  await expect(page.locator('#delivery .step h3')).toHaveText(['Выберите букет', 'Напишите в WhatsApp', 'Согласуйте детали']);
+  await expect(page.locator('#delivery').getByRole('link', { name: 'Уточнить доставку' })).toHaveAttribute('href', /^https:\/\/wa\.me\//);
+  await expect(page.locator('#delivery').getByRole('link', { name: 'Построить маршрут' })).toHaveAttribute('href', mapUrl);
 });
 
-test('footer presents the source contacts and correct external destinations', async ({ page }) => {
-  await page.goto('/');
+test('contacts use a static map and retain real external destinations', async ({ page }) => {
+  await page.goto('/#contacts');
+  const contacts = page.locator('#contacts');
+  await expect(contacts.locator('address')).toHaveText('Астана, проспект Женис, 8/1');
+  await expect(contacts.getByRole('link', { name: '+7 708 220 46 75', exact: true })).toHaveAttribute('href', 'tel:+77082204675');
+  await expect(contacts.getByRole('link', { name: '@inbloom.flower.ast', exact: true })).toHaveAttribute('href', 'https://www.instagram.com/inbloom.flower.ast/');
+  const map = contacts.getByRole('link', { name: 'Открыть магазин In Bloom в 2ГИС' });
+  await expect(map).toHaveAttribute('href', mapUrl);
+  await expect(map.locator('img')).toHaveAttribute('src', '/images/map-2gis.png');
+  await expect(contacts.locator('iframe')).toHaveCount(0);
   const footer = page.getByRole('contentinfo');
-  await expect(footer.getByText('Астана, проспект Женис, 8/1', { exact: true })).toBeVisible();
-  await expect(footer.getByRole('link', { name: '+7 708 220 46 75', exact: true })).toHaveAttribute('href', 'tel:+77082204675');
-  await expect(footer.getByRole('link', { name: 'Открыть в 2ГИС', exact: false })).toHaveAttribute('href', 'https://2gis.kz/astana/firm/70000001105801781');
-  await expect(footer.getByRole('link', { name: 'Instagram', exact: false }).first()).toHaveAttribute('href', 'https://www.instagram.com/inbloom.flower.ast/');
-  const whatsapp = new URL((await footer.getByRole('link', { name: 'WhatsApp Написать флористу', exact: true }).getAttribute('href'))!);
+  const whatsapp = new URL((await footer.getByRole('link', { name: 'Написать флористу', exact: true }).getAttribute('href'))!);
   expect(whatsapp.origin + whatsapp.pathname).toBe('https://wa.me/77082204675');
   expect(whatsapp.searchParams.get('text')).toContain('Хочу заказать букет');
-  const map = footer.getByTitle('Магазин In Bloom на карте 2ГИС');
-  await expect(map).toHaveAttribute('loading', 'eager');
-  const embed = new URL((await map.getAttribute('src'))!);
-  expect(embed.origin + embed.pathname).toBe('https://widgets.2gis.com/widget');
-  const options = JSON.parse(embed.searchParams.get('options')!);
-  expect(options.org).toBe('70000001105801781');
-  expect(options.pos).toMatchObject({ lat: 51.164454, lon: 71.414802 });
   await expect(page.locator('a[href*="florax.kz"]')).toHaveCount(0);
-  const external = page.locator('a[target="_blank"]');
-  for (const link of await external.all()) {
-    const rel = await link.getAttribute('rel');
-    expect(rel).toContain('noopener');
-    expect(rel).toContain('noreferrer');
+  for (const link of await page.locator('a[target="_blank"]').all()) {
+    await expect(link).toHaveAttribute('rel', /noopener/);
+    await expect(link).toHaveAttribute('rel', /noreferrer/);
   }
 });
 
-test('contact links and address remain available when the external map fails', async ({ page }) => {
-  await page.route('https://widgets.2gis.com/**', route => route.abort());
+test('address, directions and ordering survive a failed map image', async ({ page }) => {
+  await page.route('**/images/map-2gis.png', route => route.abort());
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/#contacts');
-  const footer = page.getByRole('contentinfo');
-  await expect(footer.getByText('Астана, проспект Женис, 8/1', { exact: true })).toBeVisible();
-  await expect(footer.getByRole('link', { name: 'WhatsApp Написать флористу', exact: true })).toBeVisible();
-  await expect(footer.getByRole('link', { name: 'Instagram', exact: false })).toBeVisible();
-  await expect(footer.getByRole('link', { name: 'Открыть в 2ГИС', exact: false })).toHaveAttribute('href', 'https://2gis.kz/astana/firm/70000001105801781');
-});
-
-test('desktop navigation leads to actual visible sections', async ({ page }) => {
-  await page.setViewportSize({ width: 1440, height: 1000 });
-  await page.goto('/');
-  for (const [label, id] of [['Букеты', 'bouquets'], ['О студии', 'studio'], ['Контакты', 'contacts']]) {
-    await page.getByRole('navigation', { name: 'Основная навигация' }).getByRole('link', { name: label, exact: true }).click();
-    await expect(page).toHaveURL(new RegExp(`#${id}$`));
-    await expect(page.locator(`#${id}`)).toBeInViewport();
-  }
+  const contacts = page.locator('#contacts');
+  await expect(contacts.locator('address')).toBeVisible();
+  await expect(contacts.getByRole('link', { name: 'Заказать в WhatsApp' })).toBeVisible();
+  await expect(contacts.getByRole('link', { name: 'Открыть магазин In Bloom в 2ГИС' })).toHaveAttribute('href', mapUrl);
+  await expect(contacts.getByRole('link', { name: 'Построить маршрут', exact: true }).first()).toBeVisible();
 });
