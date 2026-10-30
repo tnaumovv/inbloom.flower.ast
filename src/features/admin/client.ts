@@ -1,11 +1,13 @@
 import { AdminError } from './errors';
 
 export async function adminFetch<T>(url: string, body?: unknown, signal?: AbortSignal): Promise<T> {
+  const timeout = new AbortController();
+  const timer = setTimeout(() => timeout.abort(new DOMException('Request timed out', 'TimeoutError')), 30_000);
   try {
     const response = await fetch(url, {
       method: body === undefined ? 'GET' : 'POST', credentials: 'same-origin', cache: 'no-store',
       ...(body === undefined ? {} : { headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }),
-      signal: signal || AbortSignal.timeout(30000),
+      signal: signal ? AbortSignal.any([signal, timeout.signal]) : timeout.signal,
     });
     const result = await response.json();
     if (!response.ok) throw new AdminError(response.status, result.message || 'Не удалось выполнить действие. Попробуйте снова.', result.fields);
@@ -13,6 +15,8 @@ export async function adminFetch<T>(url: string, body?: unknown, signal?: AbortS
   } catch (error) {
     if (error instanceof AdminError) throw error;
     throw new AdminError(502, 'Не удалось связаться с сайтом. Проверьте интернет и попробуйте ещё раз.');
+  } finally {
+    clearTimeout(timer);
   }
 }
 export type UploadedCandidate = { ticket: string; result: Record<string, unknown> };
