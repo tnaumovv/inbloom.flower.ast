@@ -37,6 +37,17 @@ export function Header() {
   const highlighted = hovered || current;
 
   useEffect(() => {
+    // Keep the native dialog in sync with the menu button's CSS breakpoint.
+    const mobile = window.matchMedia('(max-width: 1050px)');
+    const closeOnDesktop = () => {
+      if (!mobile.matches) dialog.current?.close();
+    };
+    closeOnDesktop();
+    mobile.addEventListener('change', closeOnDesktop);
+    return () => mobile.removeEventListener('change', closeOnDesktop);
+  }, []);
+
+  useEffect(() => {
     // EduBright's compact header / scroll tracking, adapted to storefront routes.
     let frame = 0;
     const update = () => {
