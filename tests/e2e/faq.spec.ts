@@ -1,5 +1,4 @@
 import { expect, test } from '@playwright/test';
-import { mkdir } from 'node:fs/promises';
 
 test('FAQ supports single disclosure, collapse and keyboard navigation', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
@@ -30,8 +29,6 @@ test('FAQ supports single disclosure, collapse and keyboard navigation', async (
     root.scrollIntoView({ block: 'start', behavior: 'instant' });
   });
   await page.locator('#faq-title').click();
-  await mkdir('.frontend-workbench/inbloom-runtime', { recursive: true });
-  await page.screenshot({ path: '.frontend-workbench/inbloom-runtime/faq-desktop.png' });
 });
 
 test('FAQ gives the verified schedule, payment methods and pickup address', async ({ page }) => {
@@ -58,11 +55,10 @@ test('FAQ works on mobile with reduced motion and remains within the viewport', 
   expect(await answer.evaluate(el => getComputedStyle(el).animationName)).toBe('none');
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
   await page.locator('#faq').evaluate(el => el.scrollIntoView({ block: 'start', behavior: 'instant' }));
-  await page.screenshot({ path: '.frontend-workbench/inbloom-runtime/faq-mobile.png' });
 });
 
-test('all FAQ answers remain available without JavaScript', async ({ browser }) => {
-  const context = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
+test('all FAQ answers remain available without JavaScript', async ({ browser, baseURL }) => {
+  const context = await browser.newContext({ baseURL, javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
   const page = await context.newPage();
   await page.goto('/#faq');
   const faq = page.locator('#faq');
