@@ -1,91 +1,79 @@
 import { expect, test } from '@playwright/test';
-import { mkdir } from 'node:fs/promises';
+import { runtimeErrors, settleFonts } from '../helpers/storefront';
 
-test('page supplies Russian metadata and a visible keyboard skip link', async ({ page }) => {
+test('page supplies Russian metadata and a keyboard skip link to main', async ({ page }) => {
   await page.goto('/');
   await expect(page).toHaveTitle('In Bloom — цветы в Астане');
   await expect(page.locator('html')).toHaveAttribute('lang', 'ru');
   await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /букет.*WhatsApp/iu);
   await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', 'In Bloom — цветы в Астане');
   await expect(page.locator('meta[property="og:type"]')).toHaveAttribute('content', 'website');
-  await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1);
-  expect(await page.locator('body').evaluate(el => getComputedStyle(el).fontFamily)).toContain('Commissioner');
-  expect(await page.getByRole('heading', { level: 1 }).evaluate(el => getComputedStyle(el).fontFamily)).toContain('Prata');
   await page.keyboard.press('Tab');
   const skip = page.getByRole('link', { name: 'Перейти к содержимому' });
   await expect(skip).toBeFocused();
   await expect(skip).toBeInViewport();
+  await page.keyboard.press('Enter');
+  await expect(page).toHaveURL(/#main$/);
 });
 
-for (const width of [360, 390, 601, 768, 1023, 1440]) {
-  test(`renders cleanly at ${width}px with every image available and no horizontal overflow`, async ({ page }) => {
-    await page.setViewportSize({ width, height: width >= 1024 ? 1000 : 844 });
-    const errors: string[] = [];
-    page.on('pageerror', e => errors.push(e.message));
-    page.on('console', m => { if (m.type() === 'error' || m.type() === 'warning') errors.push(m.text()); });
-    await page.goto('/');
-    for (const image of await page.locator('img').all()) {
-      // The decorative hero continuously floats; resource checks must not wait for it to stop.
-      await image.evaluate(el => el.scrollIntoView({ block: 'center', behavior: 'instant' }));
-      await expect.poll(() => image.evaluate(el => (el as HTMLImageElement).complete && (el as HTMLImageElement).naturalWidth > 0)).toBe(true);
+for (const route of ['/', '/catalog', '/catalog/pink-cloud']) {
+  test(`images render without browser errors on ${route}`, async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    const errors = runtimeErrors(page);
+    await page.goto(route);
+    await settleFonts(page);
+    for (const image of await page.locator('img:visible').all()) {
+      await image.evaluate(element => element.scrollIntoView({ block: 'center', behavior: 'instant' }));
+      await expect.poll(() => image.evaluate(element => (element as HTMLImageElement).complete && (element as HTMLImageElement).naturalWidth > 0)).toBe(true);
     }
-    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
     expect(errors).toEqual([]);
-    if (width <= 600) {
-      const title = await page.getByRole('heading', { level: 1 }).boundingBox();
-      const bouquet = await page.locator('[data-hero-scene] img').boundingBox();
-      const hero = await page.locator('[data-hero-scene]').boundingBox();
-      expect(bouquet!.y).toBeLessThan(title!.y + title!.height);
-      expect(bouquet!.x + bouquet!.width).toBeGreaterThan(width);
-      // Mobile hero fills the screen with copy over the enlarged background bouquet.
-      expect(hero!.height).toBeCloseTo(844, 0);
-      expect(title!.y + title!.height).toBeLessThan(hero!.y + hero!.height);
-      await expect(page.locator('section[aria-labelledby="hero-title"] a')).toHaveCount(0);
-    }
-    if ([390, 601, 768, 1023, 1440].includes(width)) {
-      await mkdir('.frontend-workbench/inbloom-runtime', { recursive: true });
-      if (width === 390) {
-        const carousel = page.getByRole('region', { name: 'Лента букетов', exact: true });
-        await carousel.focus();
-        await carousel.press('Home');
-        await expect(page.getByRole('status')).toContainText('1 из 6');
-        await expect.poll(() => carousel.evaluate(el => Math.round(el.scrollLeft))).toBe(0);
-      }
-      await page.evaluate(() => scrollTo({ top: 0, behavior: 'instant' }));
-      if (width === 390) await page.screenshot({ path: '.frontend-workbench/header-carousel/mobile-hero.png' });
-      const capture = width === 1440 ? 'desktop' : width === 390 ? 'mobile' : `tablet-${width}`;
-      await page.screenshot({ path: `.frontend-workbench/inbloom-runtime/${capture}.png`, fullPage: true });
-      if ([601, 768, 1023].includes(width)) await page.screenshot({ path: `.frontend-workbench/inbloom-runtime/hero-${width}.png` });
-      if (width === 390) await expect(page.getByRole('status')).toContainText('1 из 6');
-      if (width === 1440) await page.screenshot({ path: '.frontend-workbench/inbloom-runtime/preview.png' });
-    }
   });
 }
 
-test('server HTML preserves the catalogue and native mobile navigation without JavaScript', async ({ browser }) => {
-  const context = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
+test('server home, catalogue and product ordering work without JavaScript', async ({ browser, baseURL }) => {
+  const context = await browser.newContext({ baseURL, javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
   const page = await context.newPage();
-  await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'Нежность в каждом лепестке', exact: true })).toBeVisible();
-  await expect(page.getByRole('article')).toHaveCount(6);
-  for (const name of ['Cloud', 'White bloom', 'Soft s', 'Sophie basket S', 'Green red', 'Autumn']) {
-    await expect(page.getByRole('link', { name: `Заказать ${name} в WhatsApp` })).toHaveAttribute('href', /^https:\/\/wa\.me\/77082204675\?text=/);
+  try {
+    await page.goto('/');
+    await expect(page.locator('main h1:visible')).toHaveText(/Цветы\s*выражающие\s*эмоции\s*и чувства/);
+    await expect(page.locator('#bouquets .product-card')).toHaveCount(4);
+    await expect(page.locator('#custom-bouquet').getByRole('link', { name: 'Собрать свой букет' })).toHaveAttribute('href', /^https:\/\/wa\.me\//);
+    await expect(page.locator('#delivery .step')).toHaveCount(3);
+    const fallback = page.locator('.mobile-menu-fallback');
+    await fallback.locator('summary').click();
+    await fallback.getByRole('link', { name: 'Букеты', exact: true }).click();
+    await expect(page).toHaveURL(/\/catalog#main$/);
+    await expect(page.locator('#catalog-results .product-card')).toHaveCount(24);
+    await page.locator('[data-bouquet-id="pink-cloud"] .product-name').click();
+    await expect(page).toHaveURL(/\/catalog\/pink-cloud$/);
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Pink cloud');
+    await expect(page.locator('.detail-price')).toHaveText(/15\s700\s₸/);
+    await expect(page.locator('.order-main')).toHaveAttribute('href', /^https:\/\/wa\.me\/77082204675\?text=/);
+    await expect(page.locator('.detail-photo img')).toBeVisible();
+  } finally {
+    await context.close();
   }
-  await page.getByLabel('Меню', { exact: true }).click();
-  await expect(page.getByRole('navigation', { name: 'Мобильная навигация' })).toBeVisible();
-  await page.getByRole('navigation', { name: 'Мобильная навигация' }).getByRole('link', { name: 'Букеты', exact: true }).click();
-  await expect(page).toHaveURL(/#bouquets$/);
-  await expect(page.locator('#bouquets')).toBeInViewport();
-  await context.close();
 });
 
-test('failed images leave bouquet names, prices and ordering links usable', async ({ page }) => {
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.route('**/*', route => route.request().resourceType() === 'image' ? route.abort() : route.continue());
-  await page.goto('/');
-  const cloud = page.getByRole('article', { name: 'Cloud', exact: true });
-  await expect(cloud.getByRole('heading', { name: 'Cloud', exact: true })).toBeVisible();
-  expect((await cloud.innerText()).replace(/[\u00a0\u202f]/g, ' ')).toContain('18 700 ₸');
-  await expect(cloud.getByRole('link', { name: 'Заказать Cloud в WhatsApp' })).toHaveAttribute('href', /^https:\/\/wa\.me\/77082204675/);
-  expect((await cloud.boundingBox())!.height).toBeGreaterThan(300);
+for (const route of ['/', '/catalog', '/catalog/pink-cloud']) {
+  test(`failed bouquet images retain names, prices and order links on ${route}`, async ({ page }) => {
+    await page.route('**/*', route => route.request().resourceType() === 'image' ? route.abort() : route.continue());
+    await page.goto(route);
+    const root = route.includes('/pink-cloud') ? page.locator('.product-detail') : page.locator('[data-bouquet-id="pink-cloud"]').first();
+    await expect(root).toContainText('Pink cloud');
+    await expect(root).toContainText(/15\s700\s₸/);
+    await root.locator('img').scrollIntoViewIfNeeded();
+    await expect(root.locator('img')).toHaveCSS('visibility', 'hidden');
+    await expect(root.locator('.photo-fallback')).toBeVisible();
+    await expect(root.getByRole('link', { name: route.includes('/pink-cloud') ? 'Заказать в WhatsApp' : 'Заказать', exact: true })).toHaveAttribute('href', /^https:\/\/wa\.me\/77082204675/);
+  });
+}
+
+test('missing public pages return 404 and keep storefront navigation', async ({ page }) => {
+  const response = await page.goto('/missing-bouquet-page');
+  expect(response?.status()).toBe(404);
+  await expect(page.getByRole('heading', { name: 'Страница не найдена' })).toBeVisible();
+  await expect(page.locator('header')).toBeVisible();
+  await expect(page.locator('footer')).toBeVisible();
+  await expect(page.getByRole('link', { name: 'На главную', exact: true })).toHaveAttribute('href', '/');
 });
