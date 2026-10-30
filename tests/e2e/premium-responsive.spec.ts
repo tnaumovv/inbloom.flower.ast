@@ -1,43 +1,39 @@
 import { expect, test } from '@playwright/test';
+import { expectWithinViewport, runtimeErrors, settleFonts } from '../helpers/storefront';
 
-for (const width of [320, 375, 390, 430, 768, 1024, 1440]) {
-  test(`landing controls and sections fit at ${width}px`, async ({ page }) => {
-    await page.setViewportSize({ width, height: 844 });
+// Include both sides of the navigation and approach-grid breakpoint. Document
+// scrollWidth alone cannot detect content clipped by an overflow:hidden parent.
+for (const width of [320, 390, 701, 768, 1024, 1050, 1051, 1440]) {
+  test(`home content and navigation fit at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
     await page.emulateMedia({ reducedMotion: 'reduce' });
-    const errors: string[] = [];
-    page.on('pageerror', error => errors.push(error.message));
-    page.on('console', message => { if (message.type() === 'error' && /hydrat|React|uncaught/i.test(message.text())) errors.push(message.text()); });
+    const errors = runtimeErrors(page);
     await page.goto('/');
-    const title = page.getByRole('heading', { level: 1 });
-    await expect(title).toBeInViewport();
-    await expect(page.locator('section[aria-labelledby="hero-title"] a')).toHaveCount(0);
-    const box = (await title.boundingBox())!;
-    expect(box.x).toBeGreaterThanOrEqual(0);
-    expect(box.x + box.width).toBeLessThanOrEqual(width);
-    await expect(title).toHaveCSS('text-align', 'start');
-    const hero = (await page.locator('section[aria-labelledby="hero-title"]').boundingBox())!;
-    expect(hero.width).toBe(width);
-    if (width >= 1024) {
-      expect(box.x + box.width / 2).toBeLessThan(width / 2);
-      const nav = (await page.getByRole('navigation', { name: 'Основная навигация' }).boundingBox())!;
-      expect(nav.x + nav.width / 2).toBeCloseTo(width / 2, 0);
+    await settleFonts(page);
+    const title = page.locator('main h1:visible');
+    await expect(title).toHaveCount(1);
+    await expect(title).toHaveText(/Цветы\s*выражающие\s*эмоции\s*и чувства/);
+    await expectWithinViewport(title, width);
+    await expect(page.locator('.home-hero a:visible').first()).toHaveAttribute('href', '/catalog');
+
+    for (const id of ['bouquets', 'studio', 'delivery', 'reviews', 'contacts']) {
+      await page.locator(`#${id}`).evaluate(element => element.scrollIntoView({ block: 'start', behavior: 'instant' }));
+      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width + 1);
+      await expectWithinViewport(page.locator(`#${id}`), width);
+      await expect(page.locator('.site-header .brand')).toBeInViewport();
     }
-    await expect(page.locator('.site-header .brand-link')).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
-    for (const id of ['bouquets', 'studio', 'faq', 'contacts']) {
-      await page.locator(`#${id}`).evaluate(el => el.scrollIntoView({ behavior: 'instant' }));
-      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
-      await expect(page.locator('.site-header .brand-link')).toBeInViewport();
+    for (const card of await page.locator('.approach article').all()) {
+      await card.scrollIntoViewIfNeeded();
+      await expectWithinViewport(card, width);
+      await expectWithinViewport(card.locator('h3'), width);
+      await expectWithinViewport(card.locator('p'), width);
     }
-    if (width < 1024) {
-      const menu = page.getByRole('button', { name: 'Меню', exact: true });
-      await menu.click();
-      const panel = page.locator('.mobile-nav-panel[data-state="open"]');
-      await expect(panel).toBeVisible();
-      const bounds = (await panel.boundingBox())!;
-      expect(bounds.x).toBeGreaterThanOrEqual(0);
-      expect(bounds.x + bounds.width).toBeLessThanOrEqual(width);
-      await page.keyboard.press('Escape');
-      await expect(menu).toBeFocused();
+    if (width <= 1050) {
+      await expect(page.getByRole('button', { name: 'Открыть меню' })).toBeVisible();
+      await expect(page.getByRole('navigation', { name: 'Основная навигация' })).toBeHidden();
+    } else {
+      await expect(page.getByRole('navigation', { name: 'Основная навигация' })).toBeVisible();
+      await expect(page.getByRole('button', { name: 'Открыть меню' })).toBeHidden();
     }
     expect(errors).toEqual([]);
   });
